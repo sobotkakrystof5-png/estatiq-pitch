@@ -7,9 +7,12 @@ describe('aritmetika S5', () => {
     const pricePercent = (s5Math.monthlyPrice / rentVolume) * 100;
     const managementFees = s5Math.managementRate.map((rate) => rate * s5Math.selfManagedRent);
 
-    expect(rentVolume).toBe(4_500_000);
-    expect(pricePercent).toBeCloseTo(0.11, 2);
-    expect(managementFees).toEqual([2_000, 2_400]);
+    expect(rentVolume).toBe(5_997_000);
+    expect(pricePercent).toBeCloseTo(0.083, 3);
+    expect(managementFees[0]).toBeCloseTo(1_999, 5);
+    expect(managementFees[1]).toBeCloseTo(2_398.8, 5);
+    expect(s5.screen.b2bVolumeMain.value).toBe('6,0');
+    expect(s5.screen.b2cFee.value).toBe('1 999–2 399 Kč');
     expect(s5.screen.b2bRatio.value).toBe('0,1 %');
   });
 });

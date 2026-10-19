@@ -6,7 +6,7 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Projekt:** prezentace EstatIQ pro elevator pitch Green Light; aktuální uživatelem zadaný rozpočet je 3:55. Původní podklad uváděl 3:00 + 7 minut otázek, povolený limit čeká na potvrzení.
 - **Fáze:** hlavní pitch má devět realizovaných slajdů včetně modelu kreditů a odlišení. Před vystoupením zbývá doplnit skutečné screenshoty, ověřit otevřené údaje a udělat generálku nahlas.
 - **Stack:** Vite + React 19 + TS + Tailwind v4 + Motion, single-file build (AGENTS.md).
-- **Co existuje:** engine v `src/deck/`; S1–S9 a Z1–Z7 jsou realizované; veškerý obsah je v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Aktuální single-file build má 799,58 kB. PDF export má 47 stran a 16 finálních stavů. Typecheck, lint, `check:content`, build a vybrané e2e kontroly prošly; 16 varování zůstává kvůli známým placeholderům.
+- **Co existuje:** engine v `src/deck/`; S1–S9 a Z1–Z7 jsou realizované; veškerý obsah je v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Aktuální single-file build má 799,58 kB. PDF export má 54 stran a 16 finálních stavů. Typecheck, lint, `check:content`, build a vybrané e2e kontroly prošly; 16 varování zůstává kvůli známým placeholderům.
 
 ## Klíčová rozhodnutí
 - **2026-10-19:** Je to aplikace pro promítání, ne web. Reason: pitch se promítá, nikdo ji neprochází.
@@ -34,25 +34,27 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **2026-10-19:** Smyčka v S2 je konečná: v tabulce přibude 5 řádků po 4 s (~20 s), pak je klid. Nekonečný posun tabulky by S3 nedokázal navázat bez skoku.
 - **2026-10-19:** Bublina v S2 je „Nájem pošlu příští týden.“ místo „Dobrý den, nájem pošlu příští týden.“ z BRIEF. Reason: 6 slov porušuje limit 5 slov z CLAUDE.md §4.2, který má přednost.
 - **2026-10-19:** `check:content` počítá číslo s nezlomitelnou mezerou mezi číslicemi („15 000,00“) jako jedno slovo. Řádky výpisu kontroluje jako jeden prvek na řádek, pole odděluje „·“.
-- **2026-10-19:** S5 odvozuje objem nájmů (300 × 15 000 Kč), relativní cenu (4 990 / objem, zaokrouhleno na 0,1 %) a aktuální modelovou sazbu 10–12 % z čísel v obsahu; aritmetiku hlídá unit test.
+- **2026-10-19:** S5 odvozuje objem nájmů (300 × 19 990 Kč), relativní cenu (4 990 / objem, zaokrouhleno na 0,1 %) a aktuální modelovou sazbu 10–12 % z čísel v obsahu; aritmetiku hlídá unit test.
 - **2026-10-19:** S4 highlighty jsou zapsané v procentech v obsahu. Souřadnice jsou pracovní, dokud nebudou dodané skutečné screenshoty.
 - **2026-10-19:** S6 přepínač `showMarketStat` je v obsahu výchozím stavem vypnutý, protože údaj 34 500 zatím nemá ověřený zdroj.
 - **2026-10-19:** Jediný tvrdý střih je S6 → S7. S7 vpřed vstoupí do černé okamžitě, návrat ze S8 zůstává prolnutím. Linky S7 mají stopu `--fg` na 18 % a tok `--mint`, šířku 1,5 px a cyklus 2,4 s přes `strokeDashoffset`.
 - **2026-10-19:** Původní S8 zobrazoval „Přidej. Pronajmi. Vydělávej.“ s logem EstatIQ; po přidání kreditního slajdu je tento závěr na S9. Žádost Green Light zůstává v předchozím kroku závěrečného slajdu.
 - **2026-10-19:** Předchozí zadání rozšířilo hlavní pitch bez přidání slajdů; následné zadání výslovně přidalo devátý slajd. S3 ukazuje čtyři slovní značky (Banka, Excel, WhatsApp, Smlouvy); generické ikony zůstávají zakázané. S4 má tři screenshoty skutečného MVP: platby, přehled nemovitosti vlastníka a nájemnický portál.
-- **2026-10-19:** S5 používá model nájmu 20 000 Kč a sazbu 10–12 % jen jako částku k ověření; z aritmetiky vychází 2 000–2 400 Kč. Cena EstatIQ od 199 Kč/měsíc je určena pro vlastníka, který si správu zajišťuje sám; nejde o ekvivalent kompletní správy.
-- **2026-10-19:** S6 popisuje cílový tok smlouvy → správy → energií → daňových podkladů. Daňová část znamená evidenci a export podkladů, ne změnu daňových pravidel ani automatické podání.
+- **2026-10-19:** S5 používá nájem 19 990 Kč a sazbu 10–12 % jen jako částku k ověření; z aritmetiky vychází 1 999–2 399 Kč. Cena EstatIQ 199 Kč/měsíc platí pro vlastníka do 5 bytů; nejde o ekvivalent kompletní správy.
+- **2026-10-19:** S6 je roadmapa po fázích Dnes / Další / Později (původně tok smlouvy → správy → energií → daňových podkladů). Daňová část znamená evidenci a export podkladů, ne změnu daňových pravidel ani automatické podání.
 - **2026-10-19:** S7 je vize: AI, dobrovolně sdílená historie nájemníka, služby, kauce a platby. Kredity mají vlastní S8. O přijetí nájemníka rozhoduje pronajímatel; zprostředkování služeb a plateb čeká na právní a obchodní ověření.
 - **2026-10-19:** Model kreditů 1 000 Kč = 1 000 kreditů, 5 kreditů za návrh smlouvy a 600 kreditů za řemeslnickou zakázku je pouze příklad k diskusi, ne ceník ani připravená peněženka. Záložní S7 kauce neprezentuje průběžné automatické započtení během nájmu.
-- **2026-10-19:** Kryštof výslovně rozšířil hlavní pitch na devět slajdů a cíl mezi 3 a 4 minutami. S8 zobrazuje model 1 000 kreditů, odečet 600 a 5 a zůstatek 395; celých 600 kreditů za práci řemeslníka se neprezentuje jako výnos EstatIQ. Příjmy tvoří hypotetické předplatné, placené AI funkce, provize a označená doporučení. S9 nese žádost a závěrečný slogan.
+- **2026-10-19:** Kryštof výslovně rozšířil hlavní pitch na devět slajdů a cíl mezi 3 a 4 minutami. S8 zobrazuje model 1 000 kreditů, odečet 600 a 5 a zůstatek 395; celých 600 kreditů za práci řemeslníka se neprezentuje jako výnos EstatIQ. Příjmy (od 2026-10-19 večer přepsáno): affiliate marketing, personalizovaná reklama, poplatky za zprostředkování, AI kredity, provize z každé transakce; předplatné z výčtu zmizelo. S9 nese žádost a závěrečný slogan.
 - **2026-10-19:** Konkurence už zvládá víc než evidenci: Repilot uvádí bankovní párování, upomínky, energie i peněženku s kurzem 1 kredit = 1 Kč; eviduje.cz smlouvy, platby, nájemnický portál a daňový přehled. Naše plánované odlišení je přenositelná dobrá historie nájemníka a návaznost závady či spotřeby na konkrétní službu. Je to hypotéza k pilotům, ne prokázaná nadřazenost.
 
 ## Otevřené otázky
 Čeká se na Kryštofa. Do té doby zůstává v obsahu `[doplnit: …]`.
+- **Integrace (S6, S7):** s kým se EstatIQ integruje (banky, dodavatelé energií, účetní software, jiné služby) a jak se údaje berou? Dokud to není jasné, S6 píše jen „Integrace služeb.“ a S7 u výdajů integraci netvrdí.
+- **S7 integrace výdajů:** s kým se přehled výdajů (voda, plyn, elektřina) integruje a jak se údaje berou (dodavatelé, měřidla, import faktur)? Dokud to není jasné, slajd integraci netvrdí.
 - ~~**Tag u odhalení (slajd 3)**~~ — vyřešeno 2026-10-19: „Pronájem, který se řídí sám.“ (volba Kryštofa; pravdivé jen s bankovním párováním, viz níže).
 - **Bankovní párování** (import výpisu GPC/ABO a párování podle VS): stihne se před pitchem? Na tom závisí pravdivost slajdů 2, 3, 4 a tvrzení o MVP na 9.
 - **Časování:** devět hlavních slajdů má rozpočet 3:55. Aktuálních 422 slov znamená přibližně 3:03 čisté řeči při 138 slovech/min; kliky a zadané pauzy mají prostor do 3:55. Zkouška se stopkami zatím neproběhla. Potvrdit, zda Green Light povoluje až čtyři minuty; původní brief uváděl 3:00.
-- **S4 screenshoty:** dodat tři skutečné snímky z MVP: přehled plateb, přehled nemovitosti v portálu vlastníka a portál nájemníka. Souřadnice highlightů jsou pracovní, dokud snímky nepřijdou.
+- **S4 screenshoty:** dodat čtyři skutečné snímky z MVP: přehled plateb, přehled nemovitosti v portálu vlastníka, portál nájemníka a dashboard pronajímatele a obrazovky Spotřeba, Databáze, Finance, Funkce a Integrace. Upřesnit, co ty tři ukazují a zda existují v MVP (databáze řemeslníků je podle S7 vize, nesmí vypadat jako hotový produkt). Upřesnit, co dashboard pronajímatele ukazuje a jak se liší od kroku „Přehled nemovitosti“; věta v poznámkách je zatím obecná. Souřadnice highlightů jsou pracovní, dokud snímky nepřijdou.
 - **S5 sazba správy:** ověřit, zda lze pro konkrétní srovnávací příklad použít 10–12 %. Neříkat, že jde o typický tržní průměr, dokud nebude zdroj.
 - **Daňové podklady:** potvrdit s účetním, jaké příjmy, výdaje, faktury a export lze slíbit v produktu a zda má jít o souhrn či export pro konkrétní účetní software.
 - **Ověřený nájemník:** vymezit právní základ a rozsah ověření, souhlas s dokládáním příjmu a způsob, jak nájemník sdílí historii plateb.
@@ -84,6 +86,60 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Kredity jako hotová peněženka.** Model 1:1 a poplatky 600/5 jsou jen příklady do diskuse, dokud nebude ověřena právní struktura.
 
 ## Changelog
+
+### 2026-10-19 — S5: nájem 19 990 Kč a 199 Kč do 5 bytů
+- **Co:** Na S5 je nájem jedné jednotky 19 990 Kč na obou stranách: správce 300 bytů hlídá 6,0 mil. Kč nájmů (cena 4 990 Kč zůstává, podíl ≈ 0,08 %, na slajdu „0,1 %“), model správy 10–12 % dává 1 999–2 399 Kč. Cena pro vlastníka je „199 Kč/měs.“ s popiskem „Pro vlastníka do 5 bytů“ (dřív „od 199 Kč“ pro vlastníka, který spravuje sám). Přepsány poznámky, BRIEF §S5 a test aritmetiky.
+- **Proč:** na pokyn Kryštofa; výklad potvrzen dotazem (19 990 Kč = nájem jednoho bytu, 199 Kč = cena do 5 bytů).
+- **Dopad:** cena pro správce nad 5 bytů zůstává 4 990 Kč pro 300 bytů, pásma mezi 5 a 300 byty nejsou určená. Konflikt se záložním Z2 (pásma ≈ 5 663 Kč) a se S8 (předplatné ve výčtu příjmů chybí) trvá. Rozdíl 199 Kč vs. 1 999–2 399 Kč se na slajdu schválně nepodává jako „desetkrát levněji“: správa je širší služba než EstatIQ (BRIEF §S5).
+- **Soubory:** `src/content/slides.ts`, `src/content/s5-math.test.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
+### 2026-10-19 — S4: krok Integrace
+- **Co:** Na S4 přibyl úplně poslední krok „Integrace.“ s placeholderem screenshotu za „Funkce.“. S4 má 9 kroků, shrnutí je krok 9. V poznámkách je `[doplnit: s kým se EstatIQ integruje]`.
+- **Proč:** na pokyn Kryštofa.
+- **Dopad:** S4 má 9 obrazovek v rozpočtu 30 s, tedy asi 3 s na krok; časování ověřit stopkami nebo kroky sloučit. Souvisí s otevřenou otázkou integrace výdajů v S7. PDF má 54 stran.
+- **Soubory:** `src/content/slides.ts`, `src/slides/S04Product.tsx`, `e2e/deck.ts`, `e2e/engine.spec.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
+### 2026-10-19 — S6: roadmapa po fázích
+- **Co:** S6 se z osy „Smlouvy → Správa → Energie → Daně“ přestavělo na tři sloupce Dnes / Další / Později s hesly (celkem 12). Později obsahuje ověřeného nájemníka, integrace služeb, AI funkce, řemeslníky a kauci s platbami. Počet kroků zůstal 3 (krok 3 rozsvítí všechny sloupce). Poznámky přepsány, BRIEF §S6 také.
+- **Proč:** na pokyn Kryštofa: S6 má ukázat všechno, co je v plánu, včetně ověření nájemníka a integrací.
+- **Dopad:** S6 a S7 se částečně překrývají (ověřený nájemník, AI, řemeslníci, kauce a platby). Pro S7 jsem nic neměnil; zvážit zkrácení S7, ať se neříká totéž dvakrát. Integrace se nejmenují, v poznámkách je `[doplnit: které služby a jak se údaje berou]` (nový placeholder, `check:content` hlásí 24 varování). Zařazení funkcí do fází vychází z Z4 a S7, pořadí nebylo s nikým potvrzeno. Časování S6 (20 s) není ověřené stopkami.
+- **Soubory:** `src/content/slides.ts`, `src/slides/S06Scale.tsx`, `docs/BRIEF.md`, `memory/memory.md`
+
+### 2026-10-19 — S8: nový výčet příjmů
+- **Co:** Pravá kolonka „Příjmy EstatIQ“ na S8 má pět položek: Affiliate marketing, Personalizovaná reklama, Poplatky za zprostředkování, AI kredity, Provize z každé transakce. Přepsány poznámky S8 a BRIEF §S8. Položky mají lokální velikost 60 px (88px `text-word` se pěti delšími hesly nevejde).
+- **Proč:** na pokyn uživatele.
+- **Dopad:** záložní Z1 „Obchodní model“ stále uvádí Předplatné / Kredity / Provize / Doporučení a nesedí s S8. S5 má cenu od 199 Kč/měsíc, což je s vypuštěným předplatným v rozporu. Reklama a affiliate musí být na produktu označené jako reklama.
+- **Soubory:** `src/content/slides.ts`, `src/slides/S08Credits.tsx`, `docs/BRIEF.md`
+
+### 2026-10-19 — S4: krok Funkce
+- **Co:** Na S4 přibyl poslední krok „Funkce.“ s placeholderem screenshotu za „Finance.“. S4 má 8 kroků, shrnutí je krok 8. V poznámkách je `[doplnit: které funkce se ukazují]`.
+- **Proč:** na pokyn Kryštofa.
+- **Dopad:** S4 má 8 obrazovek v rozpočtu 30 s, tedy asi 3,5 s na krok; časování je třeba ověřit stopkami. PDF má 53 stran.
+- **Soubory:** `src/content/slides.ts`, `src/slides/S04Product.tsx`, `e2e/deck.ts`, `e2e/engine.spec.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
+### 2026-10-19 — S7: konkrétní přehled výdajů
+- **Co:** Pod „Přehled výdajů.“ přibyl popisek „Voda, plyn, elektřina.“ (proud a elektřina jsou jedna položka). Poznámky mají `[doplnit: integrace, s kým a jak se údaje berou]`.
+- **Proč:** na pokyn Kryštofa, aby bylo jasné, co přehled obsahuje.
+- **Dopad:** izolované (S7, bez nového kroku). Integrace je v Otevřených otázkách; do doplnění se na slajdu netvrdí.
+- **Soubory:** `src/content/slides.ts`, `src/slides/S07Vision.tsx`, `docs/BRIEF.md`, `memory/memory.md`
+
+### 2026-10-19 — S4: Spotřeba, Databáze, Finance
+- **Co:** Na S4 přibyly za „Pronajímatel.“ kroky „Spotřeba.“, „Databáze.“ a „Finance.“ s placeholdery screenshotů. S4 má 7 kroků, shrnutí je krok 7. Poznámky mají u nových kroků `[doplnit]`, protože není známý jejich obsah.
+- **Proč:** na pokyn Kryštofa.
+- **Dopad:** S4 je nyní 7 obrazovek v rozpočtu 30 s, tedy asi 4 s na krok; hrozí nestíhání. Databáze je podle S7 vize, ne MVP. PDF má 52 stran.
+- **Soubory:** `src/content/slides.ts`, `src/slides/S04Product.tsx`, `e2e/deck.ts`, `e2e/engine.spec.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
+### 2026-10-19 — S7: AI funkce, výdaje, řemeslníci
+- **Co:** Na S7 se „AI pro pronájem.“ přejmenovalo na „AI funkce.“ a „Energie a řemeslníci.“ se rozdělilo na dvě větve: „Přehled výdajů.“ (voda, plyn, elektřina, energie jen v poznámkách) a „Řemeslníci v okolí.“ (databáze řemeslníků). Větev řemeslníků je dole uprostřed s přímou linkou do loga. S7 má 6 kroků místo 5, závěrečná věta je krok 6.
+- **Proč:** na pokyn Kryštofa.
+- **Dopad:** mluvený text S7 je mírně delší (rozpočet 30 s). Databáze řemeslníků a přehled výdajů jsou vize, ne MVP; databázi je potřeba vzít odněkud (vlastní sběr, partneři) a rozhodnout později. PDF má 49 stran. Seznam utilit na slajdu není, drží se limit hesel.
+- **Soubory:** `src/content/slides.ts`, `src/slides/S07Vision.tsx`, `e2e/deck.ts`, `e2e/engine.spec.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
+### 2026-10-19 — S4: dashboard pronajímatele
+- **Co:** Na S4 přibyl čtvrtý krok „Pronajímatel.“ za „Nájemník.“ s placeholderem screenshotu dashboardu; shrnutí „Každý svůj přehled.“ je teď krok 4. Do poznámek přibyla jedna věta bez konkrétních údajů o obsahu dashboardu.
+- **Proč:** na pokyn Kryštofa.
+- **Dopad:** S4 má 4 kroky místo 3, mluvený text je o jednu větu delší (rozpočet S4 je 30 s). Vyjasnit rozdíl od kroku „Přehled nemovitosti“ (Otevřené otázky). PDF export má 48 stran (dřív 47); e2e S4→S5 a tisk upraveny.
+- **Soubory:** `src/content/slides.ts`, `src/slides/S04Product.tsx`, `e2e/deck.ts`, `e2e/engine.spec.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
 
 ### 2026-10-19 — Kreditní model a konkurence v hlavním pitchi
 - **Co:** Přibyl devátý hlavní slajd. S8 ukazuje modelové dobití 1 000 kreditů, opravu za 600, AI návrh smlouvy za 5 a zůstatek 395; pak odhalí možné příjmy a plánované odlišení vůči trhu. Původní závěr přešel na S9. S7 nově výslovně mluví o ověření, přenosné historii, řemeslnících a evidenci kauce. Záložní Z3 obsahuje věcné srovnání s Repilotem a eviduje.cz.

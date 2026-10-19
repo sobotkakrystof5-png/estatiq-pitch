@@ -70,7 +70,7 @@ test('okno přednášejícího se z file:// synchronizuje v obou směrech', asyn
 test('tiskový pohled vykreslí všechny kroky bez animací', async ({ page }) => {
   await page.context().setOffline(true);
   await page.goto(`${url}?print`);
-  await expect(page.locator('[data-print-page]')).toHaveCount(47);
+  await expect(page.locator('[data-print-page]')).toHaveCount(54);
   await expect(page.locator('[data-print-page]').first()).toHaveAttribute('data-step', '0');
   await expect(page.locator('[data-print-page]').last()).toHaveAttribute('data-slide', 'z7');
 });

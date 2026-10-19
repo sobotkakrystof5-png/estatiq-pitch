@@ -6,7 +6,7 @@ import { s8, text } from '../content/slides';
 import type { SlideProps } from '../deck/types';
 
 const { screen } = s8;
-const revenue = [screen.subscription, screen.aiRevenue, screen.commission, screen.recommendations];
+const revenue = [screen.affiliate, screen.ads, screen.brokerage, screen.aiCredits, screen.commission];
 const edge = [screen.edgeHistory, screen.edgeRepair, screen.edgeEnergy];
 
 export function S08Credits({ step }: SlideProps) {
@@ -71,9 +71,9 @@ export function S08Credits({ step }: SlideProps) {
           transition={stepReveal}
         >
           <p className="text-label text-muted">{text(screen.revenueLabel)}</p>
-          <div className="mt-16 flex flex-col gap-12">
+          <div className="mt-12 flex flex-col gap-9">
             {revenue.map((item, index) => (
-              <Word key={index} state={step >= 3 ? 'lit' : 'hidden'} className="text-word">
+              <Word key={index} state={step >= 3 ? 'lit' : 'hidden'} className="text-[60px] font-medium leading-[1.05] tracking-[-0.03em] text-balance">
                 {text(item)}
               </Word>
             ))}

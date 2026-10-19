@@ -68,7 +68,7 @@ test('jeden klik se normálně animuje (≤ 400 ms)', async ({ page }) => {
 });
 
 test('klik uprostřed přechodu okamžitě ukáže cílový stav', async ({ page }) => {
-  await open(page, '#/4/3');
+  await open(page, '#/4/9');
   await page.waitForTimeout(500);
   await page.keyboard.press('ArrowRight');
   await page.waitForTimeout(200);
@@ -80,7 +80,7 @@ test('klik uprostřed přechodu okamžitě ukáže cílový stav', async ({ page
 });
 
 test('klik po 350 ms: rozběhnutý přechod se dokončí okamžitě', async ({ page }) => {
-  await open(page, '#/4/3');
+  await open(page, '#/4/9');
   await page.waitForTimeout(500);
   await page.keyboard.press('ArrowRight');
   await page.waitForTimeout(350);
@@ -164,12 +164,12 @@ test('S6 → S7 je okamžitý střih do černé', async ({ page }) => {
 test('S7 tok běží přes strokeDashoffset a S9 závěr neblokuje zpětný krok', async ({
   page,
 }) => {
-  await open(page, '#/7/4');
+  await open(page, '#/7/5');
   await page.waitForTimeout(900);
   const flows = top(page).locator('svg path.stroke-mint');
-  await expect(flows).toHaveCount(4);
+  await expect(flows).toHaveCount(5);
   const tracks = top(page).locator('svg path.stroke-fg');
-  await expect(tracks).toHaveCount(4);
+  await expect(tracks).toHaveCount(5);
   const trackStyle = await tracks.first().evaluate((path) => ({
     stroke: getComputedStyle(path).stroke,
     opacity: getComputedStyle(path).opacity,

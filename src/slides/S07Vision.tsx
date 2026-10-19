@@ -1,4 +1,4 @@
-// S7 · Ještě jedna věc · černá. AI, ověření, služby, kauce a platby míří do stejného systému.
+// S7 · Ještě jedna věc · černá. AI funkce, ověření, výdaje, řemeslníci, kauce a platby míří do stejného systému.
 import { motion } from 'motion/react';
 import { FlowLine, Logo, Word } from '../design/primitives';
 import { stepReveal } from '../motion/presets';
@@ -6,7 +6,7 @@ import { s7, text } from '../content/slides';
 import type { SlideProps } from '../deck/types';
 
 export function S07Vision({ step, mode }: SlideProps) {
-  const settled = step >= 5;
+  const settled = step >= 6;
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-black text-fg">
@@ -31,8 +31,9 @@ export function S07Vision({ step, mode }: SlideProps) {
         >
           <FlowLine d="M 535 205 C 665 215 725 390 830 478" active={step >= 1} mode={mode} />
           <FlowLine d="M 1390 205 C 1260 220 1205 390 1090 478" active={step >= 2} mode={mode} />
-          <FlowLine d="M 1345 840 C 1240 810 1185 660 1085 603" active={step >= 3} mode={mode} />
-          <FlowLine d="M 540 840 C 680 800 742 655 830 603" active={step >= 4} mode={mode} />
+          <FlowLine d="M 1385 835 C 1270 805 1195 660 1095 603" active={step >= 3} mode={mode} />
+          <FlowLine d="M 960 765 L 960 603" active={step >= 4} mode={mode} />
+          <FlowLine d="M 540 840 C 680 800 742 655 830 603" active={step >= 5} mode={mode} />
         </svg>
 
         <motion.div
@@ -56,22 +57,33 @@ export function S07Vision({ step, mode }: SlideProps) {
           </Word>
         </motion.div>
         <motion.div
-          className="absolute left-[1190px] top-[790px] w-[650px]"
+          className="absolute left-[1400px] top-[790px] w-[400px]"
           initial={false}
           animate={{ opacity: step >= 3 ? 1 : 0 }}
           transition={stepReveal}
         >
           <Word state={step >= 3 ? 'lit' : 'hidden'} className="max-w-full text-balance text-word">
-            {text(s7.screen.services)}
+            {text(s7.screen.expenses)}
           </Word>
+          <p className="mt-5 text-label text-muted">{text(s7.screen.expensesDetail)}</p>
         </motion.div>
         <motion.div
-          className="absolute left-[120px] top-[790px] w-[540px]"
+          className="absolute left-[730px] top-[790px] w-[460px] text-center"
           initial={false}
           animate={{ opacity: step >= 4 ? 1 : 0 }}
           transition={stepReveal}
         >
           <Word state={step >= 4 ? 'lit' : 'hidden'} className="max-w-full text-balance text-word">
+            {text(s7.screen.tradesmen)}
+          </Word>
+        </motion.div>
+        <motion.div
+          className="absolute left-[120px] top-[790px] w-[540px]"
+          initial={false}
+          animate={{ opacity: step >= 5 ? 1 : 0 }}
+          transition={stepReveal}
+        >
+          <Word state={step >= 5 ? 'lit' : 'hidden'} className="max-w-full text-balance text-word">
             {text(s7.screen.payments)}
           </Word>
         </motion.div>

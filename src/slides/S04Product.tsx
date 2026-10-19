@@ -1,4 +1,4 @@
-// S4 · Produkt · tma. Tři skutečné obrazovky MVP; do dodání zůstávají popsané placeholdery.
+// S4 · Produkt · tma. Devět skutečných obrazovek MVP; do dodání zůstávají popsané placeholdery.
 import { motion } from 'motion/react';
 import { LaptopFrame, Placeholder, StatementRow, Word } from '../design/primitives';
 import { pairing, spring, stepReveal } from '../motion/presets';
@@ -10,6 +10,12 @@ const shots = [
   { key: 'paymentShot', label: screen.paymentWord, alt: screen.paymentShot },
   { key: 'ownerShot', label: screen.ownerWord, alt: screen.ownerShot },
   { key: 'tenantShot', label: screen.tenantWord, alt: screen.tenantShot },
+  { key: 'landlordShot', label: screen.landlordWord, alt: screen.landlordShot },
+  { key: 'consumptionShot', label: screen.consumptionWord, alt: screen.consumptionShot },
+  { key: 'databaseShot', label: screen.databaseWord, alt: screen.databaseShot },
+  { key: 'financeShot', label: screen.financeWord, alt: screen.financeShot },
+  { key: 'featuresShot', label: screen.featuresWord, alt: screen.featuresShot },
+  { key: 'integrationsShot', label: screen.integrationsWord, alt: screen.integrationsShot },
 ] as const;
 const summaryStep = shots.length;
 

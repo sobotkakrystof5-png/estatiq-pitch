@@ -204,43 +204,46 @@ Formát: **Na plátně** (každý krok), **Pohyb**, **Poznámky** (mluvený text
 - **Tag:** „Pronájem, který se řídí sám.“ Platí jen po ověření skutečného bankovního párování.
 
 ### S4 · Produkt · tma · 1:00–1:30
-- **Kroky 0–2:** tři statické screenshoty skutečné aplikace v jednoduchém CSS rámu notebooku; žádné mockupy ani video. Vedle se vystřídají popisky **Platby.** → **Přehled nemovitosti.** → **Nájemník.**
+- **Kroky 0–8:** devět statických screenshoty skutečné aplikace v jednoduchém CSS rámu notebooku; žádné mockupy ani video. Vedle se vystřídají popisky **Platby.** → **Přehled nemovitosti.** → **Nájemník.** → **Pronajímatel.** → **Spotřeba.** → **Databáze.** → **Finance.** → **Funkce.** → **Integrace.**
   - Platby: zelená zaplaceno, žlutá čeká, červená po splatnosti; jedna platba zezelená.
   - Portál vlastníka: jeho nemovitosti, přehled plateb a související úkony.
   - Portál nájemníka: vlastní smlouva, platby a hlášení závady.
-- **Krok 3:** screenshoty zmizí; zůstane **Každý svůj přehled.**
+  - Spotřeba, Databáze, Finance, Funkce, Integrace: [doplnit: obsah těchto pěti obrazovek a zda existují v MVP; databáze řemeslníků je podle S7 zatím vize]
+  - Dashboard pronajímatele: nájmy, platby a úkoly na jednom místě. [doplnit: co přesně dashboard ukazuje]
+- **Krok 9:** screenshoty zmizí; zůstane **Každý svůj přehled.**
 - **Snímky:** jen skutečné MVP, fiktivní osobní data a realistická Ostrava. Chybějící snímky zůstávají placeholdery. Automatické stržení nájmu na S4 nepatří.
-- **Poznámky:** Banka se promění v přehled plateb: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel nahradí portál vlastníka s přehledem jeho nemovitostí a úkonů. [klik] WhatsApp nahradí portál pro smlouvu, platby a hlášení závad. Nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik]
+- **Poznámky:** Banka se promění v přehled plateb: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel nahradí portál vlastníka s přehledem jeho nemovitostí a úkonů. [klik] WhatsApp nahradí portál pro smlouvu, platby a hlášení závad. Nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik] Pronajímatel má vlastní dashboard: nájmy, platby a úkoly na jednom místě. [klik] Spotřeba: [doplnit]. [klik] Databáze: [doplnit]. [klik] Finance: [doplnit]. [klik] Funkce: [doplnit]. [klik] Integrace: [doplnit]. [klik]
 
 ### S5 · Proč platí · tma · 1:30–1:55
 - Rozdělená obrazovka bez dělicí čáry: B2B vlevo, modelový příklad vlastníka vpravo.
-- **Vlevo B2B:** správce · 300 bytů; při nájmu 15 000 Kč celkem 4,5 mil. Kč měsíčně. Klik odhalí 4 990 Kč za EstatIQ a následně 0,1 % objemu nájmů.
-- **Vpravo, krok 3:** model při nájmu 20 000 Kč; sazba 10–12 % dává aritmeticky 2 000–2 400 Kč měsíčně. Sazbu ověřit, neoznačovat za typický průměr.
-- **Krok 4:** objeví se od 199 Kč/měs. pro vlastníka, který si správu zajišťuje sám.
+- **Vlevo B2B:** správce · 300 bytů; při nájmu 19 990 Kč celkem 6,0 mil. Kč měsíčně. Klik odhalí 4 990 Kč za EstatIQ a následně 0,1 % objemu nájmů.
+- **Vpravo, krok 3:** model při stejném nájmu 19 990 Kč; sazba 10–12 % dává aritmeticky 1 999–2 399 Kč měsíčně. Sazbu ověřit, neoznačovat za typický průměr.
+- **Krok 4:** objeví se 199 Kč/měs. pro vlastníka do 5 bytů.
 - Správcovská firma poskytuje širší službu; nejde o totožné nabídky. Nepřeškrtávat cenu správy.
 - **Nedělat:** srovnání s Repilotem ani tvrzení o úspoře jako garantovaném výsledku.
-- **Poznámky:** Správce 300 bytů při nájmu 15 000 Kč hlídá 4,5 milionu měsíčně. [klik] EstatIQ stojí 4 990 Kč. [klik] To je asi 0,1 procenta. [pauza 2 s] [klik] Při nájmu 20 000 Kč dělá modelových 10 až 12 procent 2 000 až 2 400 Kč měsíčně. Sazbu ověříme; správa zahrnuje víc služeb. [klik] EstatIQ od 199 Kč měsíčně.
+- **Poznámky:** Správce 300 bytů při nájmu 19 990 Kč hlídá 6 milionů měsíčně. [klik] EstatIQ stojí 4 990 Kč. [klik] To je asi 0,1 procenta. [pauza 2 s] [klik] Při stejném nájmu dělá modelových 10 až 12 procent 1 999 až 2 399 Kč měsíčně. Sazbu ověříme; správa zahrnuje víc služeb. [klik] Vlastník do pěti bytů platí 199 Kč měsíčně.
   - *Otevřené: zkrácení kvůli času (memory.md).*
 
-### S6 · Od smlouvy po daně · tma · 1:55–2:15
-- **Kroky 0–3:** štítek „Postupné rozšíření.“ a na jedné ose se postupně rozsvěcí **Smlouvy. → Správa. → Energie. → Daně.** Pod každým slovem krátce: podpis a dokumenty; platby, zprávy a závady; spotřeba a dodavatelé; přehled příjmů a výdajů.
-- **Poznámky:** Rozšíření chceme ověřit v Ostravě. Po přijetí nájemníka se smlouva podepíše. [klik] Platby, zprávy, faktury a závady se vážou k nemovitosti. [klik] Energie i spotřeba mají své místo. [klik] Záznamy vytvoří přehled příjmů a výdajů pro přiznání. Je to evidence a export podkladů, ne automatické podání ani změna pravidel.
+### S6 · Roadmapa funkcí · tma · 1:55–2:15
+- **Kroky 0–3:** štítek „Postupné rozšíření.“ a tři sloupce na společné ose: **Dnes.** (Platby. Portál vlastníka. Portál nájemníka.), **Další.** (Smlouvy. Zprávy a závady. Energie. Daňové podklady.), **Později.** (Ověřený nájemník. Integrace služeb. AI funkce. Řemeslníci. Kauce a platby.). Krok 0 rozsvítí Dnes, krok 1 Další, krok 2 Později (předchozí sloupce ztlumené na 60 %), krok 3 rozsvítí všechny tři.
+- **Pravidla:** Dnes = skutečný stav MVP, zbytek je plán, ne hotový produkt. Integrace se na slajdu nejmenují (žádné konkrétní služby, dokud nejsou potvrzené). Daně jsou evidence a export podkladů. Ověření nájemníka je dobrovolné, o přijetí rozhoduje pronajímatel. Kauce a platby čekají na právní ověření. S7 zůstává emoční vrchol a funkce z „Později“ jen rozvádí.
+- **Poznámky:** Dnes je v aplikaci přehled plateb a portál vlastníka i nájemníka. [klik] Další krok: smlouvy a podpis, zprávy a závady, energie a daňové podklady. Daně jsou evidence a export podkladů, ne automatické podání. [klik] Později ověřený nájemník, který se ověřuje dobrovolně, o přijetí rozhoduje pronajímatel. Integrace s dalšími službami: [doplnit: které služby a jak se údaje berou]. K tomu AI funkce, řemeslníci a kauce s platbami po právním ověření. [klik] Všechno je jedna platforma. Pořadí ověříme v Ostravě.
 
 ### S7 · Ještě jedna věc · ČERNÁ · 2:15–2:45
 - **Krok 0:** čistá černá, uprostřed jen **A ještě jedna věc.** (80 px, `--fg`).
-- **Kroky 1–4:** postupně se objeví **AI pro pronájem.**, **Ověřený nájemník.**, **Energie a řemeslníci.**, **Kauce a platby.** Ke každému bodu vede linka do loga; linky se rozbíhají postupně a pak tečou.
-- **Krok 5:** všechno klesne na 15 % a doprostřed přijde věta **Platební vrstva nájemního bydlení.** Slovo „Platební“ je v `--mint`.
+- **Kroky 1–5:** postupně se objeví **AI funkce.**, **Ověřený nájemník.**, **Přehled výdajů.** s popiskem **Voda, plyn, elektřina.** (proud = elektřina, jedna položka; integrace v poznámkách, [doplnit: s kým a jak]), **Řemeslníci v okolí.** (databáze řemeslníků), **Kauce a platby.** Ke každému bodu vede linka do loga; linky se rozbíhají postupně a pak tečou.
+- **Krok 6:** všechno klesne na 15 % a doprostřed přijde věta **Platební vrstva nájemního bydlení.** Slovo „Platební“ je v `--mint`.
 - **Pravidla:** jde o vizi, ne současné MVP. AI návrhy smluv kontroluje člověk. Ověření a sdílení historie volí nájemník; o přijetí rozhoduje pronajímatel. Kauce je evidence a podklad k rozhodnutí vlastníka, ne automatické stržení během nájmu. Automatické platby a tok peněz dodavatelům vyžadují právní a partnerské ověření.
-- **Poznámky:** A ještě jedna věc. [pauza 2 s] [klik] AI může připravit návrh smlouvy ke kontrole a vysvětlit spotřebu. [klik] Nájemník se může dobrovolně ověřit v registrech, doložit příjem a při stěhování ukázat historii: 12 měsíců, vše včas. O přijetí rozhoduje pronajímatel. [klik] Při závadě si v aplikaci objedná řemeslníka z okolí; u energií dostane srovnání. [klik] Kauci budeme evidovat a hlídat upomínky; o dalším kroku rozhodne vlastník. [klik] Platební a datová vrstva nájemního bydlení.
+- **Poznámky:** A ještě jedna věc. [pauza 2 s] [klik] AI funkce: návrh smlouvy ke kontrole a vysvětlení spotřeby. [klik] Nájemník se může dobrovolně ověřit v registrech, doložit příjem a při stěhování ukázat historii: 12 měsíců, vše včas. O přijetí rozhoduje pronajímatel. [klik] Přehled výdajů: voda, plyn a elektřina na jednom místě, [doplnit: integrace, s kým a jak se údaje berou]; u energií srovnání. [klik] Databáze řemeslníků z okolí; při závadě si v aplikaci objedná toho, kdo je nablízku. [klik] Kauci budeme evidovat a hlídat upomínky; o dalším kroku rozhodne vlastník. [klik] Platební a datová vrstva nájemního bydlení.
 
 ### S8 · Kredity, příjmy a odlišení · tma · 2:45–3:35
 - **Krok 0:** modelový účetní tok, bez skutečné peněženky: 1 000 Kč se mění na 1 000 kreditů, pod tím „1 kredit = 1 Kč“. Štítek **Model, ne ceník.**
 - **Krok 1:** přiletí řádek **Oprava bytu −600 kreditů**, zůstatek se změní na 400 kreditů.
 - **Krok 2:** přiletí řádek **AI návrh smlouvy −5 kreditů**, zůstatek 395 kreditů. Částka za řemeslníka není automaticky tržba EstatIQ; výnos platformy by tvořila smluvní provize.
-- **Krok 3:** vpravo nastoupí čtyři zdroje možných příjmů: **Předplatné. AI funkce. Provize. Doporučení.** Doporučení dodavatelů musí být jasně označená.
+- **Krok 3:** vpravo nastoupí pět zdrojů možných příjmů: **Affiliate marketing. Personalizovaná reklama. Poplatky za zprostředkování. AI kredity. Provize z každé transakce.** Reklama a affiliate doporučení musí být jasně označená.
 - **Krok 4:** účetní tok se stáhne a objeví se poctivé srovnání: trh už nabízí platby, smlouvy, portály i kredity. Naší plánovanou sázkou je přenositelná historie nájemníka a návaznost závady na opravu či spotřeby na nabídku.
 - **Pravidla:** 1 000 / 600 / 5 kreditů je pracovní příklad, ne schválený ceník. Zprostředkování oprav a přijímání kreditu pro třetí strany vyžaduje ověřený platební model, případně partnera. Neprezentovat konkurenční odlišení jako ověřený výsledek.
-- **Poznámky:** Tohle je model, ne dnešní ceník. Tisíc korun dá tisíc kreditů. [klik] Oprava za šest set kreditů nechá čtyři sta. Celých šest set není náš výnos: řemeslník má cenu práce, EstatIQ by mělo smluvní provizi. [klik] Návrh smlouvy za pět kreditů nechá tři sta devadesát pět. [klik] Vydělávat chceme z předplatného, AI funkcí, provizí a označených doporučení energií. [klik] Repilot už používá kredity; eviduje.cz má platby, smlouvy i portál. Naší sázkou je přenosná historie nájemníka a cesta od závady k opravě nebo od spotřeby k nabídce. Ověříme ji v pilotech.
+- **Poznámky:** Tohle je model, ne dnešní ceník. Tisíc korun dá tisíc kreditů. [klik] Oprava za šest set kreditů nechá čtyři sta. Celých šest set není náš výnos: řemeslník má cenu práce, EstatIQ by mělo smluvní provizi. [klik] Návrh smlouvy za pět kreditů nechá tři sta devadesát pět. [klik] Vydělávat chceme pěti způsoby: affiliate marketing, personalizovaná reklama, poplatky za zprostředkování služby, AI kredity a provize z každé transakce. Reklama i doporučení budou jasně označené. [klik] Repilot už používá kredity; eviduje.cz má platby, smlouvy i portál. Naší sázkou je přenosná historie nájemníka a cesta od závady k opravě nebo od spotřeby k nabídce. Ověříme ji v pilotech.
 - **Podklady ke konkurenci:** [Repilot](https://www.repilot.cz/) popisuje bankovní párování, upomínky a spotřebu; [jeho ceník](https://www.repilot.cz/cenik) uvádí peněženku a kurz 1 kredit = 1 Kč. [eviduje.cz](https://www.eviduje.cz/features) uvádí smlouvy, portál nájemníka a přehled pro daně. Proto nejsou samotné kredity ani základní evidence věrohodnou výhodou.
 
 ### S9 · Co chci · tma · 3:35–3:55
@@ -269,7 +272,7 @@ Stejný design, ale smí mít víc obsahu (nejvýš jedna jednoduchá tabulka ne
 | Fotka Kryštofa 4:5, min. 1200×1500 | `public/assets/photos/krystof.jpg` | chybí |
 | Logo EstatIQ SVG | `public/assets/logos/estatiq.svg` | chybí, případně vygenerovat (fáze 3) |
 | Alteno, Vizeon, světlé SVG | `public/assets/logos/` | chybí |
-| Screenshoty: platby, portál vlastníka, portál nájemníka (2880×1800) | `public/assets/screens/` | chybí |
+| Screenshoty: platby, portál vlastníka, portál nájemníka, dashboard pronajímatele, spotřeba, databáze, finance, funkce, integrace (2880×1800) | `public/assets/screens/` | chybí |
 | Vlastní fotky: vodoměr, šanon, faktury | `public/assets/photos/` | chybí |
 
 **Placeholder** je rámeček ve finálním poměru stran s tenkou přerušovanou linkou `--muted` a popisem, co do něj patří (např. „Foto Kryštof, 4:5, min. 1200 × 1500 px“). Nikdy se do něj nedává stock fotka ani AI obrázek.

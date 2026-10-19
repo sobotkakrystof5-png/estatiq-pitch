@@ -1,38 +1,50 @@
-// S6 · Pronájem od smlouvy po daně · tma. Čtyři části jednoho životního cyklu.
+// S6 · Roadmapa funkcí · tma. Tři fáze: dnes, další krok, později. Krok 3 rozsvítí všechny.
 import { Word } from '../design/primitives';
+import type { WordState } from '../design/primitives/Word';
 import { s6, text } from '../content/slides';
 import type { SlideProps } from '../deck/types';
 
-const stages = [
-  { label: s6.screen.contract, detail: s6.screen.contractDetail },
-  { label: s6.screen.dailyManagement, detail: s6.screen.managementDetail },
-  { label: s6.screen.maintenance, detail: s6.screen.energyDetail },
-  { label: s6.screen.taxes, detail: s6.screen.taxDetail },
+const { screen } = s6;
+const phases = [
+  { label: screen.nowLabel, items: [screen.now1, screen.now2, screen.now3] },
+  { label: screen.nextLabel, items: [screen.next1, screen.next2, screen.next3, screen.next4] },
+  {
+    label: screen.laterLabel,
+    items: [screen.later1, screen.later2, screen.later3, screen.later4, screen.later5],
+  },
 ] as const;
-const positions = [160, 565, 1010, 1480] as const;
+const left = [120, 700, 1280] as const;
+
+function phaseState(index: number, step: number): WordState {
+  if (step >= 3) return 'lit';
+  if (index > step) return 'hidden';
+  return index === step ? 'lit' : 'dim';
+}
 
 export function S06Scale({ step }: SlideProps) {
-  const activeIndex = Math.min(step, stages.length - 1);
-
   return (
     <div className="absolute inset-0 text-fg">
-      <p className="absolute left-edge top-[150px] text-label text-muted">{text(s6.screen.eyebrow)}</p>
-      <div className="absolute left-[160px] right-[160px] h-px bg-line" style={{ top: 532 }} />
-      {stages.map(({ label, detail }, index) => {
-        const state = index < activeIndex ? 'dim' : index === activeIndex ? 'lit' : 'hidden';
+      <p className="absolute left-edge top-[130px] text-label text-muted">{text(screen.eyebrow)}</p>
+      <div className="absolute left-[120px] right-[120px] top-[385px] h-px bg-line" />
+      {phases.map(({ label, items }, index) => {
+        const state = phaseState(index, step);
         return (
-          <div key={index} className="absolute top-[532px]" style={{ left: positions[index] }}>
+          <div key={index} className="absolute top-0 w-[520px]" style={{ left: left[index] }}>
             <div
-              className={`size-4 -translate-y-1/2 rounded-full ${index === activeIndex ? 'bg-mint' : 'bg-line'}`}
+              className={`absolute left-0 top-[385px] size-4 -translate-y-1/2 rounded-full ${state === 'lit' ? 'bg-mint' : 'bg-line'}`}
             />
-            <div className="absolute left-[-20px] top-[-140px] w-[380px]">
-              <Word state={state} dimTo={0.6} className="text-word">
-                {text(label)}
-              </Word>
-              <Word state={state} dimTo={0.6} className="mt-3 text-label text-muted">
-                {text(detail)}
-              </Word>
-            </div>
+            <Word state={state} dimTo={0.6} className="absolute left-0 top-[225px] text-word">
+              {text(label)}
+            </Word>
+            <ul className="absolute left-0 top-[440px] flex flex-col gap-5">
+              {items.map((item, i) => (
+                <li key={i}>
+                  <Word state={state} dimTo={0.6} className="text-[48px] leading-tight">
+                    {text(item)}
+                  </Word>
+                </li>
+              ))}
+            </ul>
           </div>
         );
       })}
