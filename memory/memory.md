@@ -87,6 +87,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-19 — Push na GitHub a deploy na Vercel
+- **Co:** Commit `78f1566` na `main` v `sobotkakrystof5-png/estatiq-pitch`. Produkční deploy projektu `estatiq-pitch` (`vercel deploy --prod`, běžný build, ne `build:release`) na https://estatiq-pitch.vercel.app. `.vercel` je v `.gitignore`.
+- **Proč:** na pokyn uživatele.
+- **Dopad:** veřejná URL obsahuje placeholdery (25 varování `check:content`). Před ostrým použitím je nutný `build:release`. Alias `estatiq-pitch-sobotkakrystof5-pngs-projects.vercel.app` vrací 302 (ochrana nasazení), veřejný je jen `estatiq-pitch.vercel.app`.
+- **Soubory:** `.gitignore`, `memory/memory.md`
+
 ### 2026-10-19 — S5: nájem 19 990 Kč a 199 Kč do 5 bytů
 - **Co:** Na S5 je nájem jedné jednotky 19 990 Kč na obou stranách: správce 300 bytů hlídá 6,0 mil. Kč nájmů (cena 4 990 Kč zůstává, podíl ≈ 0,08 %, na slajdu „0,1 %“), model správy 10–12 % dává 1 999–2 399 Kč. Cena pro vlastníka je „199 Kč/měs.“ s popiskem „Pro vlastníka do 5 bytů“ (dřív „od 199 Kč“ pro vlastníka, který spravuje sám). Přepsány poznámky, BRIEF §S5 a test aritmetiky.
 - **Proč:** na pokyn Kryštofa; výklad potvrzen dotazem (19 990 Kč = nájem jednoho bytu, 199 Kč = cena do 5 bytů).
