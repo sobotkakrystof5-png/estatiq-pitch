@@ -1,54 +1,41 @@
-// S6 · Škálovatelnost · tma. Rozsah se zvětšuje po jedné zastávce.
-import { motion } from 'motion/react';
+// S6 · Pronájem od smlouvy po daně · tma. Čtyři části jednoho životního cyklu.
 import { Word } from '../design/primitives';
-import { stepReveal } from '../motion/presets';
-import { s6, s6Config, text } from '../content/slides';
+import { s6, text } from '../content/slides';
 import type { SlideProps } from '../deck/types';
 
-const places = [s6.screen.czechia, s6.screen.slovakia, s6.screen.centralEurope] as const;
+const stages = [
+  { label: s6.screen.contract, detail: s6.screen.contractDetail },
+  { label: s6.screen.dailyManagement, detail: s6.screen.managementDetail },
+  { label: s6.screen.maintenance, detail: s6.screen.energyDetail },
+  { label: s6.screen.taxes, detail: s6.screen.taxDetail },
+] as const;
+const positions = [160, 565, 1010, 1480] as const;
 
 export function S06Scale({ step }: SlideProps) {
+  const activeIndex = Math.min(step, stages.length - 1);
+
   return (
     <div className="absolute inset-0 text-fg">
-      <div className="absolute right-edge left-edge flex items-center justify-between" style={{ top: 486 }}>
-        {places.map((place, index) => {
-          const activeIndex = Math.min(step, places.length - 1);
-          const state = index < activeIndex ? 'dim' : index === activeIndex ? 'lit' : 'hidden';
-          return (
-            <Word
-              key={index}
-              state={state}
-              dimTo={0.6}
-              className="text-word"
-            >
-              {text(place)}
-            </Word>
-          );
-        })}
-      </div>
-
-      {s6Config.showMarketStat && (
-        <motion.p
-          data-testid="s6-market-stat"
-          className="absolute text-label text-muted"
-          style={{ left: 120, top: 620 }}
-          initial={false}
-          animate={{ opacity: step >= 0 ? 1 : 0 }}
-          transition={stepReveal}
-        >
-          {text(s6.screen.marketStat)}
-        </motion.p>
-      )}
-
-      <motion.div
-        data-testid="s6-extension"
-        aria-hidden
-        className="absolute h-[2px] w-[240px] origin-left bg-line"
-        style={{ left: 1800, top: 532 }}
-        initial={false}
-        animate={{ scaleX: step >= 3 ? 1 : 0 }}
-        transition={stepReveal}
-      />
+      <p className="absolute left-edge top-[150px] text-label text-muted">{text(s6.screen.eyebrow)}</p>
+      <div className="absolute left-[160px] right-[160px] h-px bg-line" style={{ top: 532 }} />
+      {stages.map(({ label, detail }, index) => {
+        const state = index < activeIndex ? 'dim' : index === activeIndex ? 'lit' : 'hidden';
+        return (
+          <div key={index} className="absolute top-[532px]" style={{ left: positions[index] }}>
+            <div
+              className={`size-4 -translate-y-1/2 rounded-full ${index === activeIndex ? 'bg-mint' : 'bg-line'}`}
+            />
+            <div className="absolute left-[-20px] top-[-140px] w-[380px]">
+              <Word state={state} dimTo={0.6} className="text-word">
+                {text(label)}
+              </Word>
+              <Word state={state} dimTo={0.6} className="mt-3 text-label text-muted">
+                {text(detail)}
+              </Word>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

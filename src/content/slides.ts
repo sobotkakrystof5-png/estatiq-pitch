@@ -72,7 +72,7 @@ export const s1 = {
   },
   rows: { bridge: statement.slice(0, 5) },
   notes: cs(
-    'Dobrý den, jmenuji se Kryštof Sobotka, je mi patnáct a [doplnit: škola a ročník]. Pod značkami Alteno a Vizeon stavím firmám weby a automatizace, mám za sebou přes 15 projektů. A u realitek a pronajímatelů vidím pořád dokola jednu věc. [pauza 2 s] Ruční přepisování.',
+    'Jmenuji se Kryštof Sobotka. Je mi patnáct a [doplnit: škola a ročník]. Pod značkami Alteno a Vizeon stavím firmám weby a automatizace. U pronajímatelů vidím stejný problém. [pauza 2 s] Ruční přepisování.',
   ),
 } satisfies SlideContent;
 
@@ -102,7 +102,7 @@ export const s2 = {
   },
   rows: { statement, later: statementLater },
   notes: cs(
-    'Když firmám automatizuji faktury, pořád narážím na stejný vzorec: člověk ručně přepisuje data z jednoho místa do druhého. Pak jsem se ponořil do nemovitostí. Knihy, podcasty a hlavně dvanáct hovorů s realitkami a správci. A děje se tam totéž, jen ve větším měřítku. Správce otevře výpis z banky a přepisuje ho do Excelu, řádek po řádku. Nájemníci píšou na WhatsApp. Smlouvy leží v šanonu. [pauza 2 s] Každý měsíc. Jen aby zjistil, kdo mu dluží.',
+    'Když firmám automatizuji faktury, člověk často ručně přepisuje data mezi nástroji. V pronájmech je stejný problém. Správce porovnává výpis z banky s Excelem. Nájemníci píšou na WhatsApp, smlouvy a faktury leží v šanonu. [pauza 2 s] U správce s 300 byty jde modelově o 300 platebních řádků každý měsíc. A nakonec musí zjistit: kdo mu dluží?',
   ),
 } satisfies SlideContent;
 
@@ -110,15 +110,16 @@ export const s3 = {
   id: 's3',
   title: 'Odhalení',
   budgetSec: 15,
-  steps: 5,
+  steps: 6,
   screen: {
     bank: 'Banka.',
     sheet: 'Excel.',
     chat: 'WhatsApp.',
-    tag: { value: '[doplnit: tag]', status: 'placeholder' },
+    contracts: 'Smlouvy.',
+    tag: { value: 'Pronájem, který se řídí sám.', source: 'volba Kryštofa, slajd 3', status: 'verified' },
   },
   notes: cs(
-    'Banka. [klik] Excel. [klik] WhatsApp. [klik] [pauza 2 s] Nejsou to tři nástroje. Je to jeden. [klik] EstatIQ. [klik]',
+    'Banka. [klik] Excel. [klik] WhatsApp. [klik] Smlouvy. [klik] [pauza 2 s] Dnes jsou oddělené. EstatIQ propojí platby, dokumenty a komunikaci pro pronajímatele i nájemníka. [klik] EstatIQ. [klik]',
   ),
 } satisfies SlideContent;
 
@@ -131,15 +132,15 @@ export const s4 = {
   steps: 3,
   screen: {
     paymentShot: { value: 'Screenshot · platby · fiktivní Ostrava', status: 'placeholder' },
-    ownerShot: { value: 'Screenshot · portál vlastníka · fiktivní Ostrava', status: 'placeholder' },
+    ownerShot: { value: 'Screenshot · portál vlastníka · přehled nemovitosti', status: 'placeholder' },
     tenantShot: {
       value: 'Screenshot · portál nájemníka · fiktivní Ostrava',
       status: 'placeholder',
     },
     paymentWord: 'Platby.',
-    ownerWord: 'Vlastník.',
+    ownerWord: 'Přehled nemovitosti.',
     tenantWord: 'Nájemník.',
-    summary: 'Tři nástroje. Jedna obrazovka.',
+    summary: 'Každý svůj přehled.',
   },
   rows: { matchedPayment: [matchedPayment] },
   highlights: {
@@ -147,7 +148,7 @@ export const s4 = {
     tenantReportButton: { x: 64, y: 72, width: 27, height: 13 },
   },
   notes: cs(
-    'Takhle vypadá stejný měsíc s EstatIQ. Banka: platby se vytvoří samy a správce na jedné obrazovce vidí, kdo zaplatil. [klik] Excel: vlastník bytu nedostává tabulky, vidí všechno živě ve svém portálu. [klik] WhatsApp: nájemník má vlastní portál. Vidí platby i smlouvu a závadu nahlásí jedním klikem. Žádné zprávy v deset večer. [pauza 2 s] Tři nástroje. Jedna obrazovka.',
+    'Banka se promění v přehled plateb: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel nahradí portál vlastníka s přehledem jeho nemovitostí a úkonů. [klik] WhatsApp nahradí portál pro smlouvu, platby a hlášení závad. Nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik]',
   ),
 } satisfies SlideContent;
 
@@ -155,7 +156,8 @@ export const s5Math = {
   units: 300,
   rentPerUnit: 15_000,
   monthlyPrice: 4_990,
-  managementRate: [0.08, 0.12] as const,
+  selfManagedRent: 20_000,
+  managementRate: [0.1, 0.12] as const,
 };
 
 const number = (value: number) =>
@@ -170,6 +172,8 @@ const relativePrice = new Intl.NumberFormat('cs-CZ', {
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 }).format((s5Math.monthlyPrice / (s5Math.units * s5Math.rentPerUnit)) * 100);
+const managementFeeMin = number(s5Math.selfManagedRent * s5Math.managementRate[0]);
+const managementFeeMax = number(s5Math.selfManagedRent * s5Math.managementRate[1]);
 
 export const s5 = {
   id: 's5',
@@ -192,60 +196,114 @@ export const s5 = {
     },
     b2bRatio: { value: `${relativePrice}${NB}%`, source: '4 990 / 4 500 000', status: 'verified' },
     b2cContext: {
-      value: 'Pronajímatel · správcovská firma',
-      source: 'BRIEF §6 S5',
+      value: `Model · nájem ${number(s5Math.selfManagedRent)}${NB}Kč`,
+      source: 'modelový příklad; sazbu 10–12 % ověřit',
+      status: 'placeholder',
+    },
+    b2cRate: { value: `10–12${NB}%`, source: 'modelový příklad; sazbu ověřit', status: 'placeholder' },
+    b2cManagerLabel: 'Správa nemovitosti',
+    b2cFee: {
+      value: `${managementFeeMin}–${managementFeeMax}${NB}Kč`,
+      source: '20 000 Kč × 10–12 %',
       status: 'verified',
     },
-    b2cFee: { value: `1${NB}200${NB}Kč`, source: '8 % z 15 000 Kč', status: 'verified' },
-    b2cPrice: { value: `od${NB}199${NB}Kč`, source: 'BRIEF §6 S5', status: 'verified' },
+    b2cPeriod: 'měsíčně',
+    b2cProductLabel: 'Pro vlastníka, který spravuje sám',
+    b2cPrice: { value: `od${NB}199${NB}Kč/měs.`, source: 'cena zadaná Kryštofem', status: 'verified' },
   },
   notes: cs(
-    `Kolik to stojí? Správce 300 bytů hlídá při nájmu 15${NB}000${NB}Kč každý měsíc 4,5 milionu korun. [klik] EstatIQ ho stojí 4${NB}990${NB}Kč. [pauza 2 s] Jedna desetina procenta. Platí se každý měsíc a klient, kterému to šetří čas, neodchází. A pronajímatel, který dá byt správcovské firmě, odevzdá 8 až 12${NB}% nájmu, tedy 1${NB}200 až 1${NB}800${NB}Kč měsíčně. [klik] A kdo chce, aby byl nájem konečně pasivní příjem, zaplatí s EstatIQ od 199${NB}Kč.`,
+    `Správce 300 bytů při nájmu 15${NB}000${NB}Kč hlídá 4,5 milionu měsíčně. [klik] EstatIQ stojí 4${NB}990${NB}Kč. [klik] To je asi 0,1 procenta. [pauza 2 s] [klik] Při nájmu 20${NB}000${NB}Kč dělá modelových 10 až 12 procent 2${NB}000 až 2${NB}400${NB}Kč měsíčně. Sazbu ověříme; správa zahrnuje víc služeb. [klik] EstatIQ od 199${NB}Kč měsíčně.`,
   ),
 } satisfies SlideContent;
 
-export const s6Config = { showMarketStat: false } as const;
-
 export const s6 = {
   id: 's6',
-  title: 'Škálovatelnost',
+  title: 'Pronájem od smlouvy po daně',
   budgetSec: 20,
   steps: 3,
   screen: {
-    czechia: 'Česko',
-    slovakia: 'Slovensko',
-    centralEurope: 'Střední Evropa',
-    marketStat: {
-      value: `34${NB}500${NB}pronajímatelů 3+ bytů`,
-      source: 'BRIEF §6 S6; zdroj k ověření',
-      status: 'placeholder',
-    },
+    eyebrow: 'Postupné rozšíření.',
+    contract: 'Smlouvy.',
+    contractDetail: cs('Podpis a dokumenty'),
+    dailyManagement: 'Správa.',
+    managementDetail: 'Platby, zprávy, závady',
+    maintenance: 'Energie.',
+    energyDetail: cs('Spotřeba a dodavatelé'),
+    taxes: 'Daně.',
+    taxDetail: cs('Přehled příjmů a výdajů'),
   },
   notes: cs(
-    'Začínáme v Ostravě se správci, se kterými už mluvím. Pak celé Česko. [klik] Potom Slovensko, s podobnými nájmy i jazykem. [klik] Nakonec střední Evropa. [pauza 2 s] Jádro zůstává stejné. Mění se jen místní pravidla. A software se s každým dalším bytem neprodražuje.',
+    'Rozšíření chceme ověřit v Ostravě. Po přijetí nájemníka se smlouva podepíše. [klik] Platby, zprávy, faktury a závady se vážou k nemovitosti. [klik] Energie i spotřeba mají své místo. [klik] Záznamy vytvoří přehled příjmů a výdajů pro přiznání. Je to evidence a export podkladů, ne automatické podání ani změna pravidel.',
   ),
 } satisfies SlideContent;
 
 export const s7 = {
   id: 's7',
   title: 'Ještě jedna věc',
-  budgetSec: 25,
+  budgetSec: 30,
   steps: 5,
   screen: {
     opening: `A${NB}ještě jedna věc.`,
-    energy: 'Energie.',
-    tenants: 'Ověření nájemníci.',
-    payments: 'Každá platba.',
+    ai: 'AI pro pronájem.',
+    tenants: 'Ověřený nájemník.',
+    services: cs('Energie a řemeslníci.'),
+    payments: cs('Kauce a platby.'),
     finalLead: 'Platební',
     finalTail: 'vrstva nájemního bydlení.',
   },
   notes: cs(
-    'A ještě jedna věc. [pauza 2 s] Energie. [klik] Smlouvy s dodavateli energií uzavřené přímo v EstatIQ. [klik] Nájemníci, kteří si u nás budují ověřenou historii plateb. [klik] A časem každá platba kolem nájmu. [pauza] Nájem, energie, služby. Všechno přes nás proteče. [pauza] [klik] Nechceme být další evidence. Chceme být platební a datová vrstva nájemního bydlení.',
+    'A ještě jedna věc. [pauza 2 s] [klik] AI může připravit návrh smlouvy ke kontrole a vysvětlit spotřebu. [klik] Nájemník se může dobrovolně ověřit v registrech, doložit příjem a při stěhování ukázat historii: 12 měsíců, vše včas. O přijetí rozhoduje pronajímatel. [klik] Při závadě si v aplikaci objedná řemeslníka z okolí; u energií dostane srovnání. [klik] Kauci budeme evidovat a hlídat upomínky; o dalším kroku rozhodne vlastník. [klik] Platební a datová vrstva nájemního bydlení.',
   ),
 } satisfies SlideContent;
 
+export const creditMath = {
+  topupKc: 1_000,
+  creditsPerKc: 1,
+  repairCredits: 600,
+  contractCredits: 5,
+} as const;
+
+const topupCredits = creditMath.topupKc * creditMath.creditsPerKc;
+const afterRepair = topupCredits - creditMath.repairCredits;
+const remainingCredits = afterRepair - creditMath.contractCredits;
+
 export const s8 = {
   id: 's8',
+  title: 'Kredity a monetizace',
+  budgetSec: 50,
+  steps: 4,
+  screen: {
+    caveat: 'Model, ne ceník.',
+    topupLabel: 'Dobití',
+    topupMoney: { value: `${number(creditMath.topupKc)}${NB}Kč`, source: 'modelový příklad zadaný Kryštofem', status: 'verified' },
+    rate: { value: `1${NB}kredit = 1${NB}Kč`, source: 'modelový příklad zadaný Kryštofem', status: 'verified' },
+    topupCredits: { value: `${number(topupCredits)}${NB}kreditů`, source: '1 000 Kč × 1 kredit/Kč', status: 'verified' },
+    repairLabel: 'Oprava bytu',
+    repairDebit: { value: `−${number(creditMath.repairCredits)}${NB}kreditů`, source: 'modelový příklad zadaný Kryštofem', status: 'verified' },
+    contractLabel: 'AI návrh smlouvy',
+    contractDebit: { value: `−${number(creditMath.contractCredits)}${NB}kreditů`, source: 'modelový příklad zadaný Kryštofem', status: 'verified' },
+    balanceLabel: 'Zbývá',
+    afterRepair: { value: `${number(afterRepair)}${NB}kreditů`, source: '1 000 − 600', status: 'verified' },
+    balance: { value: `${number(remainingCredits)}${NB}kreditů`, source: '1 000 − 600 − 5', status: 'verified' },
+    revenueLabel: 'Příjmy EstatIQ',
+    subscription: 'Předplatné',
+    aiRevenue: 'AI funkce',
+    commission: 'Provize',
+    recommendations: 'Doporučení',
+    marketLabel: 'Co už umí trh',
+    marketBaseline: 'Platby. Smlouvy. Portály. Kredity.',
+    edgeLabel: 'Naše plánované odlišení',
+    edgeHistory: 'Přenositelná historie.',
+    edgeRepair: cs('Závada až k opravě.'),
+    edgeEnergy: cs('Spotřeba až k nabídce.'),
+  },
+  notes: cs(
+    'Tohle je model, ne dnešní ceník. Tisíc korun dá tisíc kreditů. [klik] Oprava za šest set kreditů nechá čtyři sta. Celých šest set není náš výnos: řemeslník má cenu práce, EstatIQ by mělo smluvní provizi. [klik] Návrh smlouvy za pět kreditů nechá tři sta devadesát pět. [klik] Vydělávat chceme z předplatného, AI funkcí, provizí a označených doporučení energií. [klik] Repilot už používá kredity; eviduje.cz má platby, smlouvy i portál. Naší sázkou je přenosná historie nájemníka a cesta od závady k opravě nebo od spotřeby k nabídce. Ověříme ji v pilotech.',
+  ),
+} satisfies SlideContent;
+
+export const s9 = {
+  id: 's9',
   title: 'Co chci',
   budgetSec: 20,
   steps: 3,
@@ -253,10 +311,10 @@ export const s8 = {
     calls: `12${NB}hovorů.`,
     pilots: `2${NB}piloty.`,
     ask: 'Mentoři. Tým.',
+    tagline: 'Přidej. Pronajmi. Vydělávej.',
   },
-  rows: { closing: [statement[0]!] },
   notes: cs(
-    'Dnes mám hotové MVP a mluvil jsem s dvanácti realitkami a správci. [klik] Do Startup Show chci dva pilotní správce. [klik] Od Green Light chci dvě věci. Odborníky, od kterých se naučím, co mi chybí, a pomoc najít parťáka, který umí prodávat. [pauza 2 s] [klik] Aby žádný správce už nemusel přepisovat výpis z banky do Excelu. Děkuji.',
+    'MVP je hotové a mluvil jsem s dvanácti realitkami a správci. [klik] Do Startup Show chci dva pilotní správce. [klik] Od Green Light chci mentory a pomoc najít obchodního parťáka. [pauza 2 s] [klik] Přidej. Pronajmi. Vydělávej. Děkuji.',
   ),
 } satisfies SlideContent;
 
@@ -269,9 +327,11 @@ export const z1 = {
     subscription: 'Předplatné',
     credits: 'Kredity',
     commission: 'Provize',
-    implementation: 'Implementace',
+    recommendation: 'Doporučení',
   },
-  notes: '',
+  notes: cs(
+    'Výnosy mohou tvořit předplatné, provize za zprostředkované služby a transparentně označená doporučení dodavatelů energií či řemeslníků. Kredity jsou zatím pracovní model, ne schválený ceník ani peněženka. Příklad k diskusi: balíček 1 000 Kč za 1 000 kreditů, návrh nájemní smlouvy za 5 kreditů a řemeslnická zakázka za 600 kreditů. Je potřeba stanovit, jaká část zakázky připadne řemeslníkovi a jaká provize platformě. Před zavedením kreditů a toků peněz je potřeba ověřit právní model a případně použít licencovaného platebního partnera.',
+  ),
 } satisfies SlideContent;
 
 export const z2 = {
@@ -291,10 +351,12 @@ export const z3 = {
   budgetSec: 0,
   steps: 0,
   screen: {
-    evidence: 'Evidence',
-    layer: 'Vrstva',
+    evidence: 'Trh dnes',
+    layer: 'Naše sázka',
   },
-  notes: '',
+  notes: cs(
+    'Repilot už má párování banky, upomínky, energie i kreditovou peněženku. eviduje.cz uvádí smlouvy, nájemnický portál a daňový přehled. Samotné platby ani kredity tedy nejsou odlišení. Chceme ověřit, jestli pronajímatelé ocení přenosnou dobrou historii nájemníka a jestli z nahlášené závady nebo z dat o spotřebě skutečně vznikne objednávka služby. Silnější tvrzení o konkurenci patří až za piloty.',
+  ),
 } satisfies SlideContent;
 
 export const z4 = {
@@ -303,12 +365,14 @@ export const z4 = {
   budgetSec: 0,
   steps: 0,
   screen: {
-    system: 'Systém',
-    transaction: 'Transakce',
-    investor: 'Investor',
-    marketplace: 'Tržiště',
+    system: 'MVP',
+    transaction: cs('AI a data'),
+    investor: 'Platby',
+    marketplace: 'Služby',
   },
-  notes: '',
+  notes: cs(
+    'Roadmapu rozdělit na ověřitelné kroky: dnešní MVP tvoří přehled plateb a portály vlastníka a nájemníka podle skutečného stavu aplikace. V cílovém portálu vlastník uvidí všechny své nemovitosti, platby, faktury, spotřebu a opravy; nájemník jen vlastní smlouvu, platby, spotřebu a požadavky, bez přístupu k jiným nájemníkům a interním financím majitele. Další krok může propojit zprávy a podklady pro daně. Později přidat AI návrhy smluv ke kontrole, vysvětlení spotřeby a srovnání dodavatelů energií. Nájemník by mohl dobrovolně sdílet historii plateb. Ověření insolvenčních a exekučních záznamů či příjmu vyžaduje potřebný právní základ, přiměřený rozsah údajů a souhlas tam, kde je nutný; výsledek nesmí automaticky rozhodnout o přijetí. Nakonec tržiště energií a řemeslníků s transparentní provizí. Automatické stržení nájmu a příjem peněz za nezávislé dodavatele vyžadují zvláštní právní a partnerské řešení.',
+  ),
 } satisfies SlideContent;
 
 export const z5 = {
@@ -348,14 +412,16 @@ export const z7 = {
     question: 'Co když nájemník nezaplatí?',
     digitalDeposit: 'Digitální kauce',
     reminders: 'Upomínky',
-    offset: 'Započtení',
-    replenishment: 'Doplnění',
-    documents: 'Podklady',
+    evidence: 'Evidence kauce',
+    decision: 'Rozhodnutí vlastníka',
+    settlement: 'Vypořádání po skončení',
   },
-  notes: '',
+  notes: cs(
+    'EstatIQ může evidovat výši kauce, upozornit na nezaplacený nájem a připravit přehled plateb a komunikace. O případném započtení rozhoduje pronajímatel po kontrole konkrétní situace. Občanský zákoník výslovně upravuje vrácení jistoty a započtení dluhů při skončení nájmu; tento slajd proto neslibuje automatické stržení z kauce během trvání nájmu ani automatické navyšování jistoty. Konkrétní postup nechat posoudit právníkem.',
+  ),
 } satisfies SlideContent;
 
-export const slides: SlideContent[] = [s1, s2, s3, s4, s5, s6, s7, s8, z1, z2, z3, z4, z5, z6, z7];
+export const slides: SlideContent[] = [s1, s2, s3, s4, s5, s6, s7, s8, s9, z1, z2, z3, z4, z5, z6, z7];
 
 /** Text faktu nebo řetězce, jak se ukáže na plátně. */
 export const text = (v: string | Fact) => (typeof v === 'string' ? v : v.value);

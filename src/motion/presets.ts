@@ -18,7 +18,6 @@ export const dur = {
   draw: 0.4,
   count: 2.4,
   flow: 2.4,
-  dissolve: 1.2,
 } as const;
 
 export const spring = {
@@ -28,6 +27,12 @@ export const spring = {
 /** S4: řádek z výpisu dosedne do platby a krátce nato se označí jako spárovaný. */
 export const pairing = {
   greenDelay: 0.24,
+} as const;
+
+/** S8: řádky kreditního výpisu přicházejí ze strany, druhý obraz nahradí první. */
+export const creditMove = {
+  entryX: 34,
+  phaseY: 24,
 } as const;
 
 export const stagger = {
@@ -47,9 +52,6 @@ export const slideFade: Variants = fade;
 
 /** Odhalení kroku. */
 export const stepReveal = { duration: dur.step, ease: ease.out } as const;
-
-/** Jednorázové vyprávěcí rozpuštění řádku v závěru S8. */
-export const stripDissolve = { duration: dur.dissolve, ease: ease.inOut } as const;
 
 /** Okamžitý skok pro přímý vstup nebo instantní režim. */
 export const instant = { duration: 0 } as const;
@@ -157,7 +159,7 @@ export const chaosLoop = (from: number, to: number, delay: number) =>
 
 /**
  * S2 → S3, rozpad: ≤ 600 ms. Jediná výjimka z limitu 400 ms (zapsaná v memory.md).
- * Kulisy se rozsypou se zpožděním 30 ms, tři slova vyjedou z banky, tabulky a bubliny
+ * Kulisy se rozsypou se zpožděním 30 ms, čtyři slova vyjedou z banky, tabulky, bubliny a šanonu
  * do levého sloupce a papír se stáhne k vodorovné ose.
  */
 export const rozpad = {

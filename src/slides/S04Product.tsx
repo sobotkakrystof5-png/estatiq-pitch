@@ -1,4 +1,4 @@
-// S4 · Produkt · tma. Tři reálné obrazovky zatím zastupují popsané placeholdery.
+// S4 · Produkt · tma. Tři skutečné obrazovky MVP; do dodání zůstávají popsané placeholdery.
 import { motion } from 'motion/react';
 import { LaptopFrame, Placeholder, StatementRow, Word } from '../design/primitives';
 import { pairing, spring, stepReveal } from '../motion/presets';
@@ -11,6 +11,7 @@ const shots = [
   { key: 'ownerShot', label: screen.ownerWord, alt: screen.ownerShot },
   { key: 'tenantShot', label: screen.tenantWord, alt: screen.tenantShot },
 ] as const;
+const summaryStep = shots.length;
 
 function Highlight({
   rect,
@@ -37,13 +38,13 @@ export function S04Product({ step, mode, direction }: SlideProps) {
         className="absolute"
         style={{ left: 120, top: 170, width: 1000 }}
         initial={false}
-        animate={{ opacity: step < 3 ? 1 : 0 }}
+        animate={{ opacity: step < summaryStep ? 1 : 0 }}
         transition={stepReveal}
       >
         <LaptopFrame>
           <div className="relative h-full w-full">
             {shots.map((shot, index) => {
-              const visible = step < 3 && step === index;
+              const visible = step < summaryStep && step === index;
               return (
                 <motion.div
                   key={shot.key}
@@ -82,10 +83,7 @@ export function S04Product({ step, mode, direction }: SlideProps) {
       <div className="absolute flex h-[625px] w-[660px] items-center" style={{ left: 1220, top: 170 }}>
         {shots.map((shot, index) => (
           <div key={shot.key} data-testid="s4-word" className="absolute inset-0 flex items-center">
-            <Word
-              state={step === index ? 'lit' : 'hidden'}
-              className="text-word"
-            >
+            <Word state={step === index ? 'lit' : 'hidden'} className="text-word max-w-full text-balance">
               {text(shot.label)}
             </Word>
           </div>
@@ -93,7 +91,7 @@ export function S04Product({ step, mode, direction }: SlideProps) {
       </div>
 
       <div data-testid="s4-summary" className="absolute inset-0 flex items-center justify-center px-edge">
-        <Word state={step === 3 ? 'lit' : 'hidden'} className="text-word">
+        <Word state={step === summaryStep ? 'lit' : 'hidden'} className="text-word">
           {text(screen.summary)}
         </Word>
       </div>

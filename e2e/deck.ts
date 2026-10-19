@@ -9,12 +9,13 @@ export const url = pathToFileURL(resolve('dist/index.html')).href;
 export const MAIN = [
   ['s1', 2],
   ['s2', 1],
-  ['s3', 5],
+  ['s3', 6],
   ['s4', 3],
   ['s5', 4],
   ['s6', 3],
   ['s7', 5],
-  ['s8', 3],
+  ['s8', 4],
+  ['s9', 3],
 ] as const;
 
 export const positions = MAIN.flatMap(([id, steps], s) =>

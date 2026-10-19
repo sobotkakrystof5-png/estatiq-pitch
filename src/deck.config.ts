@@ -7,7 +7,8 @@ import { S04Product } from './slides/S04Product';
 import { S05Business } from './slides/S05Business';
 import { S06Scale } from './slides/S06Scale';
 import { S07Vision } from './slides/S07Vision';
-import { S08Ask } from './slides/S08Ask';
+import { S08Credits } from './slides/S08Credits';
+import { S09Ask } from './slides/S09Ask';
 import {
   Z01BusinessModel,
   Z02Pricing,
@@ -17,7 +18,7 @@ import {
   Z06Finance,
   Z07Deposit,
 } from './slides/backup/Slides';
-import { s1, s2, s3, s4, s5, s6, s7, s8, z1, z2, z3, z4, z5, z6, z7 } from './content/slides';
+import { s1, s2, s3, s4, s5, s6, s7, s8, s9, z1, z2, z3, z4, z5, z6, z7 } from './content/slides';
 import {
   chaos,
   cutInVariants,
@@ -46,7 +47,7 @@ export const engine = {
   presenterTimerWarningSec: 20,
 } as const;
 
-export const totalBudgetSec = 180;
+export const totalBudgetSec = 235;
 
 export const mainSlides: SlideDef[] = [
   {
@@ -106,7 +107,8 @@ export const mainSlides: SlideDef[] = [
     budgetSec: s7.budgetSec,
     variants: s7Variants,
   },
-  { id: 's8', component: S08Ask, steps: s8.steps, background: 'night', budgetSec: s8.budgetSec },
+  { id: 's8', component: S08Credits, steps: s8.steps, background: 'night', budgetSec: s8.budgetSec },
+  { id: 's9', component: S09Ask, steps: s9.steps, background: 'night', budgetSec: s9.budgetSec },
 ];
 
 export const backupSlides: SlideDef[] = [

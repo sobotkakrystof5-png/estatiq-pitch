@@ -120,7 +120,7 @@ export function Presenter() {
   const late =
     timerStartedAt !== null &&
     elapsed >= totalBudgetSec - engine.presenterTimerWarningSec &&
-    position.slide !== 7;
+    position.slide !== mainSlides.length - 1;
   const targetStart =
     position.slide < mainSlides.length
       ? mainSlides.slice(0, position.slide).reduce((sum, slide) => sum + slide.budgetSec, 0)

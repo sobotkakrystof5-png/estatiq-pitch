@@ -3,7 +3,7 @@
 Fakta pro libovolného AI asistenta (Claude Code, Codex, Cursor). **Pravidla chování jsou v `CLAUDE.md` a platí pro všechny nástroje, ne jen pro Claude.** Pokud ho tvůj nástroj nenačítá automaticky, přečti ho ručně. Aktuální stav projektu je v `memory/memory.md`.
 
 ## Přehled
-- **Co to je:** prezentace na pitch EstatIQ pro akcelerátor Green Light (VŠB-TUO). Celkem 3:00 a 8 hlavních slajdů, k tomu záložní slajdy na otázky poroty.
+- **Co to je:** prezentace na pitch EstatIQ pro akcelerátor Green Light (VŠB-TUO). Aktuální verze má rozpočet 3:55 a 9 hlavních slajdů; záložní slajdy slouží na otázky poroty. Povolený čas pořadatele je nutné potvrdit.
 - **Typ:** aplikace pro promítání s pevným plátnem 1920×1080 (16:9), ovládaná klávesnicí nebo prezentérem. Nejde o web.
 - **Stack:** Vite + React 19 + TypeScript (strict), Tailwind CSS v4 (`@tailwindcss/vite`, tokeny v `@theme`), Motion (`motion/react`, nástupce Framer Motion), `@fontsource/space-grotesk` a `@fontsource/jetbrains-mono` (jen latin + latin-ext), `vite-plugin-singlefile`. Dev: `opentype.js` 1.3.4 (logo, kontrola glyfů; v2 dává v cestách NaN). Testy: Vitest a Playwright (Chromium je předinstalovaný, `playwright install` nespouštěj, pokud prohlížeč chybí).
 - **Výstupy:** `dist/index.html` je jeden soubor se všemi assety inline a funguje z `file://` bez sítě. `export/pitch.pdf` má jednu stránku na každý krok a `export/pitch-final.pdf` poslední krok každého slajdu; slouží jako záloha na flashku.
@@ -37,7 +37,7 @@ src/
   design/          tokens.css (@theme: barvy, škála text-hero/number/word/label/row, spacing edge),
                    primitives/ (Word, Strike, Counter, StatementRow, LaptopFrame, Placeholder, FlowLine, Logo, Glyph)
   styleguide/      #/styleguide, jen v `npm run dev` (v buildu není)
-  slides/          S01Intro.tsx … S08Ask.tsx, backup/Z01…Z07, dev/Dummy.tsx (testovací slajd enginu),
+  slides/          S01Intro.tsx … S09Ask.tsx, backup/Z01…Z07, dev/Dummy.tsx (testovací slajd enginu),
                    chaos/ (ChaosScene + layout.ts: chaos z S2, ze kterého S3 startuje rozpad)
   content/         slides.ts: jediný zdroj textů, čísel a poznámek; check.ts: pravidla check:content
   deck.config.ts   pořadí slajdů, kroky, časový rozpočet, časy ovládání, mapování kláves

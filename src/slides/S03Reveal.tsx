@@ -1,6 +1,6 @@
-// S3 · Odhalení · papír → tma. Krok 0 je rozpad chaosu z S2: kulisy se rozsypou, z banky,
-// tabulky a bubliny vyjedou tři slova a papír se stáhne k ose. Kroky 1–3 rozsvítí slovo,
-// krok 4 je slije do loga (sjetí, zmenšení, prolnutí, ne morph), krok 5 ukáže tag.
+// S3 · Odhalení · papír → tma. Krok 0 je rozpad chaosu z S2: z banky, tabulky, bubliny
+// a šanonu vyjedou čtyři slova. Kroky 1–4 rozsvítí slovo, krok 5 je slije do loga,
+// krok 6 ukáže tag.
 import { useLayoutEffect, useState } from 'react';
 import { motion, useAnimate, type AnimationSequence } from 'motion/react';
 import { formatCount, Logo, Word, useElementSize } from '../design/primitives';
@@ -16,6 +16,7 @@ const WORDS = [
   { key: 'bank', label: text(screen.bank) },
   { key: 'sheet', label: text(screen.sheet) },
   { key: 'chat', label: text(screen.chat) },
+  { key: 'contracts', label: text(screen.contracts) },
 ] as const;
 
 /** Slova pod sebou u levého okraje, svisle uprostřed. `text-hero`: 200 px × 0,95. */
@@ -31,7 +32,7 @@ const LOGO_H = 180;
 
 function WordLine({ index, label, step }: { index: number; label: string; step: number }) {
   const [ref, { width }] = useElementSize<HTMLDivElement>();
-  const merged = step >= 4;
+  const merged = step >= 5;
   const state = step === 0 || merged || step - 1 === index ? 'lit' : 'dim';
   return (
     <motion.div
@@ -110,12 +111,12 @@ export function S03Reveal({ step, mode, direction }: SlideProps) {
         <motion.div
           data-testid="reveal-logo"
           initial={false}
-          animate={{ opacity: step >= 4 ? 1 : 0, scale: step >= 4 ? 1 : merge.logoFrom }}
+          animate={{ opacity: step >= 5 ? 1 : 0, scale: step >= 5 ? 1 : merge.logoFrom }}
           transition={merge.transition}
         >
           <Logo className="block h-[180px] w-auto" />
         </motion.div>
-        <Word state={step >= 5 ? 'lit' : 'hidden'} className="mt-14 text-word text-muted">
+        <Word state={step >= 6 ? 'lit' : 'hidden'} className="mt-14 text-word text-muted">
           {text(screen.tag)}
         </Word>
       </div>

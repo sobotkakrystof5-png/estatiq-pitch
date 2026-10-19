@@ -60,4 +60,5 @@ export const anchors = {
   bank: { x: statementBox.x + statementBox.w / 2, y: statementBox.y + statementBox.pad + 28 },
   sheet: { x: sheetBox.x + sheetWidth / 2, y: sheetBox.y + sheetBox.head / 2 },
   chat: { x: bubbles.rent.x + 300, y: bubbles.rent.y + 46 },
+  contracts: { x: props.binder.x + props.binder.w / 2, y: props.binder.y + (props.binder.w * 3) / 8 },
 };

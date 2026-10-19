@@ -57,7 +57,7 @@ async function settledWithin(page: Page, ms: number) {
 }
 
 test('jeden klik se normálně animuje (≤ 400 ms)', async ({ page }) => {
-  await open(page, '#/3/5');
+  await open(page, '#/3/6');
   await page.waitForTimeout(500);
   await page.keyboard.press('ArrowRight');
   const mid = await settledWithin(page, 100);
@@ -116,16 +116,16 @@ test('D ukáže kódy kláves', async ({ page }) => {
 test('nouzový skok, Home/End a číslo + Enter', async ({ page }) => {
   await open(page, '#/2/1');
   await page.keyboard.press('b');
-  expect(await hash(page)).toBe('#/8/0');
+  expect(await hash(page)).toBe('#/9/0');
   await page.keyboard.press('Home');
   expect(await hash(page)).toBe('#/1/0');
   await page.keyboard.press('.');
-  expect(await hash(page)).toBe('#/8/0');
+  expect(await hash(page)).toBe('#/9/0');
   await page.keyboard.press('2');
   await page.keyboard.press('Enter');
   expect(await hash(page)).toBe('#/2/0');
   await page.keyboard.press('End');
-  expect(await hash(page)).toBe('#/8/0');
+  expect(await hash(page)).toBe('#/9/0');
 });
 
 test('přehled záložních slajdů a návrat Esc', async ({ page }) => {
@@ -145,8 +145,8 @@ test('přehled záložních slajdů a návrat Esc', async ({ page }) => {
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('overview')).toHaveCount(0);
   expect(await hash(page)).toBe('#/z3/0');
-  await expect(top(page).getByTestId('z3-positioning')).toContainText('Evidence');
-  await expect(top(page).getByTestId('z3-positioning')).toContainText('Vrstva');
+  await expect(top(page).getByTestId('z3-positioning')).toContainText('Trh dnes');
+  await expect(top(page).getByTestId('z3-positioning')).toContainText('Naše sázka');
   await page.keyboard.press('Escape');
   expect(await hash(page)).toBe('#/5/3');
 });
@@ -161,15 +161,15 @@ test('S6 → S7 je okamžitý střih do černé', async ({ page }) => {
   expect(opacity).toBe('1');
 });
 
-test('S7 tok běží přes strokeDashoffset a S8 rozpuštění neblokuje zpětný krok', async ({
+test('S7 tok běží přes strokeDashoffset a S9 závěr neblokuje zpětný krok', async ({
   page,
 }) => {
   await open(page, '#/7/4');
   await page.waitForTimeout(900);
   const flows = top(page).locator('svg path.stroke-mint');
-  await expect(flows).toHaveCount(3);
+  await expect(flows).toHaveCount(4);
   const tracks = top(page).locator('svg path.stroke-fg');
-  await expect(tracks).toHaveCount(3);
+  await expect(tracks).toHaveCount(4);
   const trackStyle = await tracks.first().evaluate((path) => ({
     stroke: getComputedStyle(path).stroke,
     opacity: getComputedStyle(path).opacity,
@@ -185,18 +185,14 @@ test('S7 tok běží přes strokeDashoffset a S8 rozpuštění neblokuje zpětn�
   );
   expect(after).not.toEqual(before);
 
-  await open(page, '#/8/2');
-  await page.waitForTimeout(900);
+  await open(page, '#/9/2');
   await page.keyboard.press('ArrowRight');
-  await expectAt(page, 's8', 3);
-  const strip = top(page).getByTestId('s8-closing-strip');
-  await expect(strip).toBeVisible();
-  const full = await strip.evaluate((el) => getComputedStyle(el).clipPath);
-  await page.waitForTimeout(180);
-  const dissolving = await strip.evaluate((el) => getComputedStyle(el).clipPath);
-  expect(dissolving).not.toBe(full);
+  await expectAt(page, 's9', 3);
+  const endcard = top(page).getByTestId('s9-endcard');
+  await expect(endcard).toBeVisible();
+  await expect(endcard.getByText('Přidej. Pronajmi. Vydělávej.')).toBeVisible();
   await page.keyboard.press('ArrowLeft');
-  await expectAt(page, 's8', 2);
+  await expectAt(page, 's9', 2);
 });
 
 test('plátno se škáluje a letterbox má barvu slajdu', async ({ page }) => {

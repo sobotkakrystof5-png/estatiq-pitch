@@ -76,7 +76,7 @@ export function Z01BusinessModel() {
         {text(z1.screen.commission)}
       </AbsoluteText>
       <AbsoluteText left={1200} top={720}>
-        {text(z1.screen.implementation)}
+        {text(z1.screen.recommendation)}
       </AbsoluteText>
       <Logo className="absolute left-[770px] top-[472px] w-[380px]" />
     </div>
@@ -175,9 +175,9 @@ export function Z06Finance() {
 export function Z07Deposit() {
   const steps = [
     z7.screen.reminders,
-    z7.screen.offset,
-    z7.screen.replenishment,
-    z7.screen.documents,
+    z7.screen.evidence,
+    z7.screen.decision,
+    z7.screen.settlement,
   ] as const;
   const positions = [300, 740, 1180, 1620] as const;
 

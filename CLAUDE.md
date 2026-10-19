@@ -7,7 +7,7 @@ Přečti v tomto pořadí: `memory/index.md` → `memory/pravidla.md` → `memor
 Pracuješ podle jednoho promptu z `docs/prompts/`. Nedělej práci z dalších fází.
 
 ## 1. Co stavíme (jedna věta)
-Prezentaci na 3minutový pitch EstatIQ před porotou Green Light. Je to **aplikace pro promítání, ne web**: žádné scrollování, SEO, responzivita pro mobil, formuláře ani navigace pro návštěvníky.
+Prezentaci na pitch EstatIQ před porotou Green Light. Aktuální verze podle Kryštofova zadání má devět hlavních slajdů a časový rozpočet 3:55. Je to **aplikace pro promítání, ne web**: žádné scrollování, SEO, responzivita pro mobil, formuláře ani navigace pro návštěvníky.
 
 ## 2. Jak jednat s uživatelem
 - Uživatel je Kryštof, zakladatel EstatIQ a vývojář. Mluv s ním česky, věcně a bez nadšení a omáčky.

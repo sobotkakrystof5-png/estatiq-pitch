@@ -1,4 +1,4 @@
-// S7 · Ještě jedna věc · černá. Tři proudy míří do platební vrstvy.
+// S7 · Ještě jedna věc · černá. AI, ověření, služby, kauce a platby míří do stejného systému.
 import { motion } from 'motion/react';
 import { FlowLine, Logo, Word } from '../design/primitives';
 import { stepReveal } from '../motion/presets';
@@ -24,48 +24,54 @@ export function S07Vision({ step, mode }: SlideProps) {
           </Word>
         </div>
 
-        <motion.div
-          className="absolute text-word"
-          style={{ left: '50%', top: '50%' }}
-          initial={false}
-          animate={{ x: step >= 2 ? -650 : 0, y: step >= 2 ? -390 : 0 }}
-          transition={stepReveal}
-        >
-          <Word state={step >= 1 ? 'lit' : 'hidden'} className="text-word">
-            {text(s7.screen.energy)}
-          </Word>
-        </motion.div>
-
         <svg
           aria-hidden
           className="pointer-events-none absolute inset-0 size-full"
           viewBox="0 0 1920 1080"
         >
-          <FlowLine d="M 465 168 C 650 168 650 418 805 500" active={step >= 2} mode={mode} />
-          <FlowLine d="M 1760 220 C 1515 250 1305 430 1115 510" active={step >= 3} mode={mode} />
-          <FlowLine d="M 680 830 C 720 790 770 650 835 590" active={step >= 4} mode={mode} />
+          <FlowLine d="M 535 205 C 665 215 725 390 830 478" active={step >= 1} mode={mode} />
+          <FlowLine d="M 1390 205 C 1260 220 1205 390 1090 478" active={step >= 2} mode={mode} />
+          <FlowLine d="M 1345 840 C 1240 810 1185 660 1085 603" active={step >= 3} mode={mode} />
+          <FlowLine d="M 540 840 C 680 800 742 655 830 603" active={step >= 4} mode={mode} />
         </svg>
 
         <motion.div
-          className="absolute"
-          style={{ left: 960, top: 160 }}
+          className="absolute left-[120px] top-[165px] w-[530px]"
+          initial={false}
+          animate={{ opacity: step >= 1 ? 1 : 0 }}
+          transition={stepReveal}
+        >
+          <Word state={step >= 1 ? 'lit' : 'hidden'} className="max-w-full text-balance text-word">
+            {text(s7.screen.ai)}
+          </Word>
+        </motion.div>
+        <motion.div
+          className="absolute left-[1270px] top-[165px] w-[530px]"
+          initial={false}
+          animate={{ opacity: step >= 2 ? 1 : 0 }}
+          transition={stepReveal}
+        >
+          <Word state={step >= 2 ? 'lit' : 'hidden'} className="max-w-full text-balance text-word">
+            {text(s7.screen.tenants)}
+          </Word>
+        </motion.div>
+        <motion.div
+          className="absolute left-[1190px] top-[790px] w-[650px]"
           initial={false}
           animate={{ opacity: step >= 3 ? 1 : 0 }}
           transition={stepReveal}
         >
-          <Word state={step >= 3 ? 'lit' : 'hidden'} className="text-word">
-            {text(s7.screen.tenants)}
+          <Word state={step >= 3 ? 'lit' : 'hidden'} className="max-w-full text-balance text-word">
+            {text(s7.screen.services)}
           </Word>
         </motion.div>
-
         <motion.div
-          className="absolute"
-          style={{ left: 120, top: 790 }}
+          className="absolute left-[120px] top-[790px] w-[540px]"
           initial={false}
           animate={{ opacity: step >= 4 ? 1 : 0 }}
           transition={stepReveal}
         >
-          <Word state={step >= 4 ? 'lit' : 'hidden'} className="text-word">
+          <Word state={step >= 4 ? 'lit' : 'hidden'} className="max-w-full text-balance text-word">
             {text(s7.screen.payments)}
           </Word>
         </motion.div>
@@ -74,7 +80,7 @@ export function S07Vision({ step, mode }: SlideProps) {
           className="absolute"
           style={{ left: 760, top: 452, width: 400 }}
           initial={false}
-          animate={{ opacity: step >= 2 ? 1 : 0 }}
+          animate={{ opacity: step >= 1 ? 1 : 0 }}
           transition={stepReveal}
         >
           <Logo className="h-auto w-full" />

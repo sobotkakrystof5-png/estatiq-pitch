@@ -1,6 +1,6 @@
-// S5 · Proč platí · tma. B2B nahoře, B2C níže a vpravo.
+// S5 · Proč platí · tma. B2B vlevo; vpravo modelový příklad vlastníka, který spravuje sám.
 import { motion } from 'motion/react';
-import { Strike, Word } from '../design/primitives';
+import { Word } from '../design/primitives';
 import { stepReveal } from '../motion/presets';
 import { s5, text } from '../content/slides';
 import type { SlideProps } from '../deck/types';
@@ -54,22 +54,32 @@ export function S05Business({ step }: SlideProps) {
 
       <motion.div
         className="absolute"
-        style={{ left: 1120, top: 585 }}
+        style={{ left: 1120, top: 485, width: 690 }}
         initial={false}
-        animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 20 }}
+        animate={{ opacity: step >= 3 ? 1 : 0, y: step >= 3 ? 0 : 24 }}
         transition={stepReveal}
       >
         <p className="text-label text-muted">{text(screen.b2cContext)}</p>
-        <div className="mt-10" data-testid="s5-b2c-fee">
-          <Strike drawn={step >= 3} className={`text-word ${step >= 4 ? 'opacity-35' : ''}`}>
-            {text(screen.b2cFee)}
-          </Strike>
+        <p className="mt-8 text-word" data-testid="s5-b2c-fee">
+          {text(screen.b2cRate)}
+        </p>
+        <p className="mt-1 text-label text-muted">{text(screen.b2cManagerLabel)}</p>
+        <div className="mt-4">
+          <p className="text-word">{text(screen.b2cFee)}</p>
+          <p className="mt-1 text-label text-muted">{text(screen.b2cPeriod)}</p>
         </div>
-        <div className="mt-10">
-          <Word state={step >= 4 ? 'lit' : 'hidden'} className="text-word">
+        <motion.div
+          className="mt-8 border-t border-line pt-6"
+          initial={false}
+          animate={{ opacity: step >= 4 ? 1 : 0, y: step >= 4 ? 0 : 18 }}
+          transition={stepReveal}
+          data-testid="s5-b2c-price"
+        >
+          <p className="text-label text-muted">{text(screen.b2cProductLabel)}</p>
+          <Word state={step >= 4 ? 'lit' : 'hidden'} className="mt-2 text-word">
             {text(screen.b2cPrice)}
           </Word>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );

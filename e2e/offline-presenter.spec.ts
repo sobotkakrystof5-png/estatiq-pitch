@@ -10,9 +10,9 @@ test('single-file deck projde offline všemi hlavními i záložními kroky', as
   await page.context().setOffline(true);
   await open(page);
 
-  const steps = [2, 1, 5, 3, 4, 3, 5, 3, 0, 0, 0, 0, 0, 0, 0];
+  const steps = [2, 1, 6, 3, 4, 3, 5, 4, 3, 0, 0, 0, 0, 0, 0, 0];
   for (let slide = 0; slide < steps.length; slide++) {
-    const id = slide < 8 ? `${slide + 1}` : `z${slide - 7}`;
+    const id = slide < 9 ? `${slide + 1}` : `z${slide - 8}`;
     for (let step = 0; step <= steps[slide]!; step++) {
       const hash = `#/${id}/${step}`;
       await page.evaluate((nextHash) => {
@@ -20,7 +20,7 @@ test('single-file deck projde offline všemi hlavními i záložními kroky', as
       }, hash);
       await expect(page.locator('[data-slide]').last()).toHaveAttribute(
         'data-slide',
-        slide < 8 ? `s${id}` : id,
+        slide < 9 ? `s${id}` : id,
       );
       await expect(page.locator('[data-slide]').last()).toHaveAttribute('data-step', String(step));
     }
@@ -63,14 +63,14 @@ test('okno přednášejícího se z file:// synchronizuje v obou směrech', asyn
   await expect(presenter.getByTestId('presenter-timer')).not.toHaveText('PŘIPRAVENO');
 
   await presenter.keyboard.press('t');
-  await expect(presenter.getByTestId('presenter-timer')).toContainText('−3:00');
+  await expect(presenter.getByTestId('presenter-timer')).toContainText('−3:55');
   await presenter.close();
 });
 
 test('tiskový pohled vykreslí všechny kroky bez animací', async ({ page }) => {
   await page.context().setOffline(true);
   await page.goto(`${url}?print`);
-  await expect(page.locator('[data-print-page]')).toHaveCount(41);
+  await expect(page.locator('[data-print-page]')).toHaveCount(47);
   await expect(page.locator('[data-print-page]').first()).toHaveAttribute('data-step', '0');
   await expect(page.locator('[data-print-page]').last()).toHaveAttribute('data-slide', 'z7');
 });
