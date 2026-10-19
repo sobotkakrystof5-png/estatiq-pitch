@@ -4,9 +4,9 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Aktuální stav
 - **Projekt:** prezentace EstatIQ pro elevator pitch Green Light (3 min prezentace + 7 min otázky).
-- **Fáze:** 3 (design systém) hotová a commitnutá (`fáze 3: design systém`). Další krok je `docs/prompts/04-act1-chaos.md`.
+- **Fáze:** 4 (S1–S3, chaos a odhalení) hotová a commitnutá (`fáze 4: S1–S3`). Další krok je `docs/prompts/05-act2-product.md`.
 - **Stack:** Vite + React 19 + TS + Tailwind v4 + Motion, single-file build (AGENTS.md).
-- **Co existuje:** engine v `src/deck/` (dummy slajdy D1–D3, Z1–Z7), tokeny ověřené v repech EstatIQ, primitiva v `src/design/primitives/`, logo SVG a styleguide `#/styleguide` (jen dev). Ověřeno: typecheck, lint, 23 unit testů (reducer, check:content, pokrytí glyfů, žádný hex ani `duration` mimo tokens/presets), `check:content`, 11 e2e testů (engine nad `dist/` přes `file://`, logo proti webu).
+- **Co existuje:** engine v `src/deck/`, slajdy S1–S3 (`src/slides/S01Intro`, `S02Problem`, `S03Reveal`, sdílený chaos v `src/slides/chaos/`), S4–S8 a Z1–Z7 jsou dummy se správným počtem kroků, obsah S1–S3 v `src/content/slides.ts`, tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Ověřeno: typecheck, lint, 25 unit testů, `check:content` (8 varování = placeholdery), 17 e2e testů nad `dist/` přes `file://` (engine, S1–S3, logo).
 
 ## Klíčová rozhodnutí
 - **2026-10-19:** Je to aplikace pro promítání, ne web. Reason: pitch se promítá, nikdo ji neprochází.
@@ -26,6 +26,14 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **2026-10-19:** Logo odpovídá `.splash-logo` z webu: Space Grotesk 700, letter-spacing −0,02em, „IQ“ v emerald-400. Rozdíly na webu: hlavička má „IQ“ v emerald-500 a tracking 0, aplikace emerald-600 (světlé UI). Proti textu ve stylu splash se SVG liší o 0,00 % pixelů (`e2e/logo.spec.ts`, snímek `test-results/logo-compare.png`).
 - **2026-10-19:** `Word` nastupuje clip-path wipem zleva doprava (ve směru čtení), ne fade + slide-up. `StatementRow` „zezelená“ přetažením zelené kopie přes řádek, protože barva se animovat nesmí.
 - **2026-10-19:** `→` a `★` Space Grotesk z fontsource nemá. Kreslí je `<Glyph>` a `check:content` je v textu slajdu odmítne.
+- **2026-10-19:** Rozpad S2 → S3 trvá ≤ 600 ms (`rozpad` v `presets.ts`). Je to jediná výjimka z limitu 400 ms pro přechod (prompt 04). Klik během rozpadu ho přes `busyMs: 600` okamžitě dokončí.
+- **2026-10-19:** Rozpad není přes `layoutId`. S3 při příchodu z S2 sám nakreslí hotový chaos (`ChaosScene`) ve ztlumeném stavu a slova vyjedou z pevných souřadnic v `src/slides/chaos/layout.ts`. Reason: plátno je zmenšené přes `transform: scale()` a projekce `layoutId` měří v px okna, takže by posuny vycházely o měřítko vedle. Navíc přímý skok, instant nebo PDF na S3 by neměl odkud animovat. Tahle cesta je deterministická.
+- **2026-10-19:** Ztlumení v S2 kroku 1 trvá 0,8 s (BRIEF: „pomalu se stáhne“). Nic na něj nečeká, další klik jde hned na S3. Proto to není výjimka z pravidla „klik vyhrává“, jen z orientačních 400 ms pro odhalení kroku.
+- **2026-10-19:** Slova v S3 jsou pod sebou u levého okraje v `text-hero` (200 px), ne vedle sebe. Reason: „Banka. Excel. WhatsApp.“ v jedné řadě by se do 1 680 px vešlo jen v ~125 px, a to je mimo typografickou škálu. Krok 0 (po rozpadu) svítí všechna tři slova. Kroky 1–3 rozsvítí vždy jedno a ostatní klesnou na 25 % (BRIEF: „klesnou“, takže předtím svítí).
+- **2026-10-19:** S1 → S2: S1 se odkrojí `clip-path` zespodu nahoru a pod ním už stojí papír S2 (`s1Variants`, `cutInVariants`). Hranice papíru tak plynule pokračuje z mostu v kroku 2. Zpětné přechody jsou obyčejné prolnutí.
+- **2026-10-19:** Smyčka v S2 je konečná: v tabulce přibude 5 řádků po 4 s (~20 s), pak je klid. Nekonečný posun tabulky by S3 nedokázal navázat bez skoku.
+- **2026-10-19:** Bublina v S2 je „Nájem pošlu příští týden.“ místo „Dobrý den, nájem pošlu příští týden.“ z BRIEF. Reason: 6 slov porušuje limit 5 slov z CLAUDE.md §4.2, který má přednost.
+- **2026-10-19:** `check:content` počítá číslo s nezlomitelnou mezerou mezi číslicemi („15 000,00“) jako jedno slovo. Řádky výpisu kontroluje jako jeden prvek na řádek, pole odděluje „·“.
 
 ## Otevřené otázky
 Čeká se na Kryštofa. Do té doby zůstává v obsahu `[doplnit: …]`.
@@ -40,16 +48,26 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Datum pitche, vlastní notebook (HDMI/USB-C), druhý monitor pro režim přednášejícího, jak striktně se hlídá čas.**
 - **BRIEF §3:** přepsat hex tabulku podle `tokens.css`? BRIEF se mění jen po schválení.
 - **Assety v `public/` se do single-file buildu neinlinují.** Vite je jen zkopíruje do `dist/assets/`, takže `dist/index.html` by bez té složky neměl obrázky. Logo to neřeší, jde do HTML přes `logo.generated.ts`. Fotky a screenshoty ano. Návrh před fází 4: přesunout podklady do `src/assets/` a importovat je, pak je `vite-plugin-singlefile` vloží do HTML. Mění to strukturu z AGENTS.md, proto čeká na Kryštofa.
-- **`steps` a `budgetSec` jsou dvakrát:** v `deck.config.ts` (podle promptu 02) i v typu `SlideContent` v `src/content/slides.ts`. Návrh: při plnění obsahu ve fázi 4 nechat jen `deck.config.ts`.
+- **`steps` a `budgetSec` jsou dvakrát:** v `deck.config.ts` (podle promptu 02) i v typu `SlideContent` v `src/content/slides.ts`. Pro S1–S3 je `deck.config.ts` bere z obsahu a `src/content/slides.test.ts` hlídá, že se nerozejdou. Návrh trvá: nechat jen jedno místo.
+- **Bublina v S2:** zkrácený text „Nájem pošlu příští týden.“ (viz rozhodnutí). Sedí, nebo jiná formulace do 5 slov?
+- **Časy ve zprávách v S2** (22:04, 22:17) jsou fiktivní kulisa a navazují na „žádné zprávy v deset večer“ v S4. Nechat?
 - **Ceník na záložním slajdu:** varianta po pásmech (300 j. ≈ 5 663 Kč), nebo cenová hypotéza z pitche (4 990 Kč)? Obě verze nesmí být vidět zároveň.
 
 ## Záměrně neuděláno
 - **Responzivita pro mobil, SEO, meta tagy, analytika.** Nejde o web.
 - **Živé demo uvnitř prezentace.** Živé demo běží v EstatIQ na notebooku, prezentace má statické screenshoty.
 - **Číslo hodin na slajdu 2.** Počítadlo ukazuje „300 řádků / měsíc“ (aritmetika z příkladu). Hodiny až z hovorů.
+- **`layoutId` mezi S2 a S3.** Viz rozhodnutí o rozpadu. Neopravovat zpět na `layoutId`.
+- **Mazání `[doplnit: tag]` v S3.** Na plátně zůstává placeholder, dokud Kryštof nevybere tag.
 - **Automatické stržení nájmu na slajdu 4.** Není v MVP a je to regulovaná platební služba. Patří jen do vize na slajdu 7.
 
 ## Changelog
+
+### 2026-10-19 — Fáze 4: S1–S3
+- **Co:** Vznikly slajdy S1 (fotka vlevo, jméno vpravo dole, důkazy pod fotkou, most z papíru a řádků výpisu), S2 (timeline na `useAnimate` 2,7 s: výpis, tabulka se zeleným pruhem, 8 řádků přeletí do buněk, dvě bubliny, počítadlo 0 → 300, pak smyčka a v kroku 1 zmrazení se ztlumením) a S3 (rozpad ≤ 600 ms, rozsvěcování slov, splynutí v logo, tag). Obsah S1–S3 je v `src/content/slides.ts` s fiktivním výpisem (Ostrava, česká jména, VS = rok + jednotka) a poznámkami doslova z BRIEF. S4–S8 jsou dummy se správným počtem kroků. `Placeholder` dostal `align`, `Counter` exportuje `formatCount`, rozměr plátna se přesunul do `src/deck/canvas.ts`. E2e se přepsaly na skutečný deck (`e2e/deck.ts`, `engine.spec.ts` testuje mechaniku na dummy S4–S8) a přibyl `act1.spec.ts`.
+- **Proč:** na pokyn uživatele (prompt 04).
+- **Dopad:** fáze 5 nahradí dummy S4, takže se `engine.spec.ts` musí přesunout na slajdy, které ještě dummy jsou. S4 má podle BRIEF pokračovat stejným motivem řádku (`StatementRow`). Plynulost S2 při CPU throttlingu 4× (headless Chromium, CDP `Emulation.setCPUThrottlingRate`, ne DevTools na integrované grafice): 194 snímků, průměr 59,4 fps, p95 16,7 ms, 1 snímek nad 25 ms. Co nefungovalo: skrytý výchozí stav přes `style` hrozil přepsáním hodnot z `useAnimate` při re-renderu, proto je v `initial`. Smyčka pod `instantAnimations` jen skočí na konec, proto se spouští až v `mode: 'normal'`. Import `stage` z `deck.config.ts` do slajdu udělal kruh a `check:content` padal na TDZ. Chrome serializuje `inset(50% 0% 50% 0%)` jako `inset(50% 0%)`. Výchozí `p-8` v `Placeholder` přebíjí `p-3` z `className`, nutné `p-3!`.
+- **Soubory:** `src/slides/S01Intro.tsx`, `src/slides/S02Problem.tsx`, `src/slides/S03Reveal.tsx`, `src/slides/chaos/*`, `src/content/slides.ts`, `src/content/slides.test.ts`, `src/content/check*.ts`, `src/motion/presets.ts`, `src/deck.config.ts`, `src/deck/canvas.ts`, `src/design/primitives/{Placeholder,Counter,index}.ts*`, `src/smoke.test.ts` (smazán), `e2e/*`, `AGENTS.md`, `memory/index.md`
 
 ### 2026-10-19 — Fáze 3: design systém
 - **Co:** Tokeny přepsané podle rep EstatIQ, přibyla typografická škála (`text-hero` 200, `text-number` 280, `text-word` 88, `text-label` 30, `text-row` 34 px) a `spacing-edge` 120 px. Logo se generuje z obrysů (`scripts/make-logo.ts`, opentype.js 1.3.4). Vznikla primitiva Word, Strike, Counter, StatementRow, LaptopFrame, Placeholder, FlowLine, Logo a Glyph, dev styleguide `#/styleguide` (4 desky) a skript `shoot:styleguide`. `check:content` se přesunul do `src/content/check.ts` s testy: výjimky z limitu slov jsou v `deck.config.ts` (`s1`, `z*`), přibyla kontrola mezer v číslech a zákaz `→` a `★`, `[doplnit` je mimo release varování. Fonty se importují jen v podmnožinách latin a latin-ext (build 799 → 716 kB). `presets.ts` dostal `dur.draw` 0,4, `dur.count` 2,4 a `dur.flow` 2,8 s: tabulka v BRIEF je nemá, rozpočet z pravidla 3 drží.

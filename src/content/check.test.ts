@@ -16,6 +16,8 @@ describe('checkText', () => {
   it('počítá slova bez interpunkce', () => {
     expect(countWords('15 let · student · zakladatel')).toBe(4);
     expect(countWords('Tři nástroje. Jedna obrazovka.')).toBe(4);
+    expect(countWords(`12.09 · VS 2024031 · 15${NB}000,00 · NOVÁK`)).toBe(5);
+    expect(countWords(`4${NB}990${NB}Kč`)).toBe(2);
   });
 
   it('hlídá limit 5 slov', () => {

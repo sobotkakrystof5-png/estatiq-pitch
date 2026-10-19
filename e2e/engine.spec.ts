@@ -1,55 +1,28 @@
-// Engine (fáze 2) nad buildem z `dist/` přes file://, bez sítě a serveru.
-import { pathToFileURL } from 'node:url';
-import { resolve } from 'node:path';
+// Engine (fáze 2) nad skutečným deckem. Mechaniku přechodů testuje na dummy S4–S8
+// (prosté prolnutí). Fáze 5–6 je nahradí, pak se testy přesunou na záložní slajdy nebo S4+.
 import { expect, test, type Page } from '@playwright/test';
+import { errors, expectAt, hash, open, positions, top } from './deck';
 
-const url = pathToFileURL(resolve('dist/index.html')).href;
-
-// Dummy deck: D1 (0 kroků), D2 (4), D3 (2), záložní Z1–Z7.
-const MAIN = [
-  ['D1', 0],
-  ['D2', 4],
-  ['D3', 2],
-] as const;
-const positions = MAIN.flatMap(([label, steps], s) =>
-  Array.from({ length: steps + 1 }, (_, step) => ({
-    hash: `#/${s + 1}/${step}`,
-    text: `${label} · ${step}/${steps}`,
-  })),
-);
-
-const errors: string[] = [];
-
-async function open(page: Page, hash = '') {
-  errors.length = 0;
-  page.on('console', (m) => {
-    if (m.type() === 'error' || m.type() === 'warning') errors.push(m.text());
-  });
-  page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto(url + hash);
-  await expect(page.locator('[data-slide]')).toHaveCount(1);
-}
-
-const hash = (page: Page) => page.evaluate(() => location.hash);
-const visible = (page: Page) => page.locator('[data-slide]').last().getByTestId('dummy');
+const dummy = (page: Page) => top(page).getByTestId('dummy');
 
 test.afterEach(() => {
   expect(errors).toEqual([]);
 });
 
 test('projde všechny kroky tam i zpět', async ({ page }) => {
+  test.setTimeout(60_000);
   await open(page);
   for (const [i, p] of positions.entries()) {
     if (i > 0) await page.keyboard.press('ArrowRight');
-    await expect(visible(page)).toHaveText(p.text);
+    await expectAt(page, p.id, p.step);
     expect(await hash(page)).toBe(p.hash);
     await page.waitForTimeout(450);
   }
   await page.keyboard.press('ArrowRight');
-  expect(await hash(page)).toBe('#/3/2');
+  expect(await hash(page)).toBe(positions.at(-1)!.hash);
   for (const p of [...positions].reverse().slice(1)) {
     await page.keyboard.press('ArrowLeft');
-    await expect(visible(page)).toHaveText(p.text);
+    await expectAt(page, p.id, p.step);
     expect(await hash(page)).toBe(p.hash);
     await page.waitForTimeout(450);
   }
@@ -58,16 +31,16 @@ test('projde všechny kroky tam i zpět', async ({ page }) => {
 test('rychlé klikání a držení šipky: stav odpovídá počtu stisků', async ({ page }) => {
   await open(page);
   for (let i = 0; i < 5; i++) await page.keyboard.press('ArrowRight');
-  await expect(visible(page)).toHaveText('D2 · 4/4');
+  await expectAt(page, positions[5]!.id, positions[5]!.step);
   for (let i = 0; i < 3; i++) await page.keyboard.press('ArrowLeft');
-  await expect(visible(page)).toHaveText('D2 · 1/4');
+  await expectAt(page, positions[2]!.id, positions[2]!.step);
   // Držení: opakované keydown s repeat=true.
   for (let i = 0; i < 4; i++) await page.keyboard.down('ArrowRight');
   await page.keyboard.up('ArrowRight');
-  await expect(visible(page)).toHaveText('D3 · 0/2');
-  expect(await hash(page)).toBe('#/3/0');
-  for (let i = 0; i < 30; i++) await page.keyboard.press('ArrowRight');
-  expect(await hash(page)).toBe('#/3/2');
+  await expectAt(page, positions[6]!.id, positions[6]!.step);
+  expect(await hash(page)).toBe(positions[6]!.hash);
+  for (let i = 0; i < 40; i++) await page.keyboard.press('ArrowRight');
+  expect(await hash(page)).toBe(positions.at(-1)!.hash);
   await expect(page.locator('[data-slide]')).toHaveCount(1);
 });
 
@@ -87,7 +60,7 @@ async function settledWithin(page: Page, ms: number) {
 }
 
 test('jeden klik se normálně animuje (≤ 400 ms)', async ({ page }) => {
-  await open(page);
+  await open(page, '#/4/3');
   await page.waitForTimeout(500);
   await page.keyboard.press('ArrowRight');
   const mid = await settledWithin(page, 100);
@@ -98,18 +71,18 @@ test('jeden klik se normálně animuje (≤ 400 ms)', async ({ page }) => {
 });
 
 test('klik uprostřed přechodu okamžitě ukáže cílový stav', async ({ page }) => {
-  await open(page);
+  await open(page, '#/4/3');
   await page.waitForTimeout(500);
   await page.keyboard.press('ArrowRight');
   await page.waitForTimeout(200);
   await page.keyboard.press('ArrowRight');
   const s = await settledWithin(page, 50);
   expect(s).toEqual({ count: 1, opacity: '1', steps: ['1', '0.15', '0.15', '0.15'] });
-  await expect(visible(page)).toHaveText('D2 · 1/4');
+  await expect(dummy(page)).toHaveText('S5 · 1/4');
 });
 
 test('klik po 350 ms: rozběhnutý přechod se dokončí okamžitě', async ({ page }) => {
-  await open(page);
+  await open(page, '#/4/3');
   await page.waitForTimeout(500);
   await page.keyboard.press('ArrowRight');
   await page.waitForTimeout(350);
@@ -119,12 +92,12 @@ test('klik po 350 ms: rozběhnutý přechod se dokončí okamžitě', async ({ p
   expect(s.opacity).toBe('1');
 });
 
-test('obnovení na #/2/3 ukáže přesně tento krok', async ({ page }) => {
-  await open(page, '#/2/3');
-  await expect(visible(page)).toHaveText('D2 · 3/4');
+test('obnovení na #/5/3 ukáže přesně tento krok', async ({ page }) => {
+  await open(page, '#/5/3');
+  await expect(dummy(page)).toHaveText('S5 · 3/4');
   await page.reload();
-  await expect(visible(page)).toHaveText('D2 · 3/4');
-  expect(await hash(page)).toBe('#/2/3');
+  await expect(dummy(page)).toHaveText('S5 · 3/4');
+  expect(await hash(page)).toBe('#/5/3');
 });
 
 test('D ukáže kódy kláves', async ({ page }) => {
@@ -141,27 +114,27 @@ test('D ukáže kódy kláves', async ({ page }) => {
 });
 
 test('nouzový skok, Home/End a číslo + Enter', async ({ page }) => {
-  await open(page, '#/2/2');
+  await open(page, '#/2/1');
   await page.keyboard.press('b');
-  expect(await hash(page)).toBe('#/3/0');
+  expect(await hash(page)).toBe('#/8/0');
   await page.keyboard.press('Home');
   expect(await hash(page)).toBe('#/1/0');
   await page.keyboard.press('.');
-  expect(await hash(page)).toBe('#/3/0');
+  expect(await hash(page)).toBe('#/8/0');
   await page.keyboard.press('2');
   await page.keyboard.press('Enter');
   expect(await hash(page)).toBe('#/2/0');
   await page.keyboard.press('End');
-  expect(await hash(page)).toBe('#/3/0');
+  expect(await hash(page)).toBe('#/8/0');
 });
 
 test('přehled záložních slajdů a návrat Esc', async ({ page }) => {
-  await open(page, '#/2/3');
+  await open(page, '#/5/3');
   await page.keyboard.press('z');
   await expect(page.getByTestId('overview')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(page.getByTestId('overview')).toHaveCount(0);
-  expect(await hash(page)).toBe('#/2/3');
+  expect(await hash(page)).toBe('#/5/3');
 
   await page.keyboard.press('z');
   await page.keyboard.press('ArrowRight');
@@ -172,9 +145,9 @@ test('přehled záložních slajdů a návrat Esc', async ({ page }) => {
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('overview')).toHaveCount(0);
   expect(await hash(page)).toBe('#/z3/0');
-  await expect(visible(page)).toHaveText('Z3 · 0/0');
+  await expect(dummy(page)).toHaveText('Z3 · 0/0');
   await page.keyboard.press('Escape');
-  expect(await hash(page)).toBe('#/2/3');
+  expect(await hash(page)).toBe('#/5/3');
 });
 
 test('plátno se škáluje a letterbox má barvu slajdu', async ({ page }) => {

@@ -5,6 +5,7 @@ import type { DeckMode } from '../../deck/types';
 
 // cs-CZ odděluje tisíce nezlomitelnou mezerou.
 const format = new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 0 });
+export const formatCount = (v: number) => format.format(Math.round(v));
 
 /**
  * Tabulková číslice `from` → `to`, když je `active`. Nahoru se počítá s `ease.out`,
@@ -24,7 +25,7 @@ export function Counter({
   className?: string;
 }) {
   const value = useMotionValue(active ? to : from);
-  const text = useTransform(value, (v) => format.format(Math.round(v)));
+  const text = useTransform(value, formatCount);
 
   useEffect(() => {
     const target = active ? to : from;

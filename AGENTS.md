@@ -31,21 +31,25 @@ public/assets/     photos/ · screens/ · logos/   (jen skutečné podklady)
 scripts/           check-content.ts · make-logo.ts · shoot-styleguide.ts · export-pdf.ts
 src/
   main.tsx  App.tsx
-  deck/            engine: types, reducer (+test), hash, useDeck, useControls, Stage, Overview, DebugOverlay,
+  deck/            engine: types, canvas (rozměr plátna), reducer (+test), hash, useDeck, useControls, Stage, Overview, DebugOverlay,
                    useStageGuards (kurzor, kontextové menu, preload), preload; fáze 7: sync, Presenter
   motion/          presets.ts (časy, easingy, varianty), jediný zdroj timingu
   design/          tokens.css (@theme: barvy, škála text-hero/number/word/label/row, spacing edge),
                    primitives/ (Word, Strike, Counter, StatementRow, LaptopFrame, Placeholder, FlowLine, Logo, Glyph)
   styleguide/      #/styleguide, jen v `npm run dev` (v buildu není)
-  slides/          S01Intro.tsx … S08Ask.tsx, backup/Z01…Z07, dev/Dummy.tsx (testovací slajd enginu)
+  slides/          S01Intro.tsx … S08Ask.tsx, backup/Z01…Z07, dev/Dummy.tsx (testovací slajd enginu),
+                   chaos/ (ChaosScene + layout.ts: chaos z S2, ze kterého S3 startuje rozpad)
   content/         slides.ts: jediný zdroj textů, čísel a poznámek; check.ts: pravidla check:content
   deck.config.ts   pořadí slajdů, kroky, časový rozpočet, časy ovládání, mapování kláves
-e2e/               Playwright: engine nad buildem, porovnání loga s webem
+e2e/               Playwright nad buildem: deck.ts (pomůcky), engine, act1 (S1–S3 + fps při throttlingu 4×), logo
 ```
 
 ## Engine (kontrakt pro slajdy)
 - Slajd je `({ step, mode, direction }) => JSX` a v `deck.config.ts` má `SlideDef`: `id`, `component`, `steps` (počet kliků, stavy 0…steps), `background` (`night` | `paper` | `black`), `budgetSec`, volitelně `variants` (`enter` / `center` / `exit`, doplní výchozí `slideFade`) a `busyMs` (délka vyprávěcí animace po vstupu).
 - Vyprávěcí animace se rozhoduje při mountu nebo změně kroku. Když je `mode === 'instant'`, skočí rovnou na konec. `direction === -1` znamená příchod zpětným krokem.
+- Vzor slajdu s nástupem: `const [play] = useState(() => step === 0 && mode === 'normal' && direction === 1)`. Jen když `play`, startuje nástup (`initial` se skrytým stavem, `useAnimate` sekvence); jinak se kreslí hotový stav. Skrytý výchozí stav patří do `initial`, ne do `style` (style by přepsal hodnoty z imperativní animace).
+- Smyčky (`repeat`, dlouhé lineární animace) spouštěj jen v `mode === 'normal'`: pod `instantAnimations` je Motion jen skočí na konec a už nepoběží.
+- Slajdy importují rozměr plátna z `src/deck/canvas.ts`, ne z `deck.config.ts` (kruhový import).
 - „Klik vyhrává“ řeší engine: když přijde akce během přechodu (`dur.slide` nebo `busyMs`), přemountuje slajd přes `epoch` s `MotionGlobalConfig.instantAnimations` a teprve pak akci provede. Slajdy proto nesmí držet stav, který by přemountování ztratilo, a vše odvozují ze `step`.
 - Hash `#/3/2` = hlavní slajd 3 (od 1), krok 2 (od 0). Záložní `#/z2/0`. Next/prev nepřechází mezi hlavními a záložními slajdy.
 

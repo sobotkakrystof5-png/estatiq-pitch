@@ -19,7 +19,11 @@ export function isExempt(id: string, patterns: readonly string[]) {
 
 /** Slovo = úsek mezi mezerami, který obsahuje písmeno nebo číslici („·“ se nepočítá). */
 export function countWords(text: string) {
-  return text.split(/\s+/).filter((t) => /[\p{L}\p{N}]/u.test(t)).length;
+  // „15 000,00“ je jedno číslo: nezlomitelná mezera mezi číslicemi slova nedělí.
+  return text
+    .replace(/(?<=\d)\u00a0(?=\d)/g, '')
+    .split(/\s+/)
+    .filter((t) => /[\p{L}\p{N}]/u.test(t)).length;
 }
 
 export function checkText(text: string, wordLimit: boolean): string[] {
@@ -48,6 +52,13 @@ export function checkSlides(slides: readonly SlideContent[], opts: CheckOptions)
       for (const p of checkText(text, wordLimit)) errors.push(`${where}: ${p}`);
       if (text.includes(PLACEHOLDER) || (typeof fact !== 'string' && fact.status === 'placeholder'))
         placeholder(where);
+    }
+    for (const [key, rows] of Object.entries(slide.rows ?? {})) {
+      rows.forEach((r, i) => {
+        // „·“ mezi poli, aby částka a jméno nevypadaly jako číslo a jednotka.
+        const text = [r.date, `VS ${r.vs}`, r.amount, r.name].join(' · ');
+        for (const p of checkText(text, wordLimit)) errors.push(`${slide.id}.${key}[${i}]: ${p}`);
+      });
     }
     if (slide.notes.includes(PLACEHOLDER)) placeholder(`${slide.id}.notes`);
   }
