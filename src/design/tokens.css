@@ -1,21 +1,58 @@
 @import 'tailwindcss';
 
-/* Tokeny designového systému A „Noc“ (BRIEF §3). Hodnoty ze screenshotů, ověřit v repu EstatIQ. */
+/*
+ * Tokeny designového systému A „Noc“ (BRIEF §3). Jediné místo s hex hodnotami.
+ * Ověřeno 2026-10-19 v repech EstatIQ (prelaunch/index.html, aplikace/src/index.css):
+ *   night = surface-950, night-2 = surface-900, fg = surface-50, muted = surface-400,
+ *   mint = emerald-400 („IQ“ v logu na tmě), green / amber / red = paid / pending / overdue z aplikace.
+ * paper, ink a black jsou jen pro pitch, na webu protějšek nemají.
+ */
 @theme {
-  --color-night: #0b0f17;
-  --color-night-2: #121826;
+  --color-night: #0b0f19;
+  --color-night-2: #0f172a;
   --color-black: #000000;
   --color-paper: #f5f4ef;
   --color-ink: #14171c;
-  --color-fg: #f2f4f7;
-  --color-muted: #8b95a5;
-  --color-mint: #5ed39a;
-  --color-green: #3e9b6c;
-  --color-amber: #e2a93b;
-  --color-red: #e5484d;
+  --color-fg: #f8fafc;
+  --color-muted: #94a3b8;
+  --color-mint: #34d399;
+  --color-green: #059669;
+  --color-amber: #d97706;
+  --color-red: #dc2626;
+  /* Tenké linky (rám notebooku, stopa toku). Na webu surface-800 u okrajů hlavičky. */
+  --color-line: #1e293b;
 
   --font-sans: 'Space Grotesk', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+
+  /* Typografická škála na plátně 1920×1080. Nic menšího než 28 px. */
+  --text-hero: 200px;
+  --text-hero--line-height: 0.95;
+  --text-hero--letter-spacing: -0.04em;
+  --text-hero--font-weight: 700;
+
+  --text-number: 280px;
+  --text-number--line-height: 0.9;
+  --text-number--letter-spacing: -0.045em;
+  --text-number--font-weight: 700;
+
+  --text-word: 88px;
+  --text-word--line-height: 1;
+  --text-word--letter-spacing: -0.03em;
+  --text-word--font-weight: 500;
+
+  --text-label: 30px;
+  --text-label--line-height: 1.3;
+  --text-label--letter-spacing: 0;
+  --text-label--font-weight: 400;
+
+  /* Řádek výpisu (monospace). */
+  --text-row: 34px;
+  --text-row--line-height: 1.5;
+  --text-row--letter-spacing: 0;
+
+  /* Okraj plátna. */
+  --spacing-edge: 120px;
 }
 
 html,
@@ -27,4 +64,7 @@ body,
   background: var(--color-night);
   color: var(--color-fg);
   font-family: var(--font-sans);
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }

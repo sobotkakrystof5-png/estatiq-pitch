@@ -3,7 +3,7 @@
 Čti jako první v každé session. Sám obsah nedrží, říká jen, kde co najdeš.
 
 ## 1. Stav projektu (jeden řádek)
-**Fáze:** 2 hotová (engine, commit `fáze 2: engine`). Další krok je `docs/prompts/03-design-system.md`.
+**Fáze:** 3 hotová (design systém, commit `fáze 3: design systém`). Další krok je `docs/prompts/04-act1-chaos.md`.
 Detail je v `memory.md` → Aktuální stav.
 
 ## 2. Systémové soubory

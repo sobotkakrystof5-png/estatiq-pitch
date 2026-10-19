@@ -4,9 +4,9 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Aktuální stav
 - **Projekt:** prezentace EstatIQ pro elevator pitch Green Light (3 min prezentace + 7 min otázky).
-- **Fáze:** 2 (engine) hotová a commitnutá (`fáze 2: engine`, obsahuje i scaffold z fáze 1). Další krok je `docs/prompts/03-design-system.md`.
+- **Fáze:** 3 (design systém) hotová a commitnutá (`fáze 3: design systém`). Další krok je `docs/prompts/04-act1-chaos.md`.
 - **Stack:** Vite + React 19 + TS + Tailwind v4 + Motion, single-file build (AGENTS.md).
-- **Co existuje:** dokumentace, kostra z fáze 1 a engine v `src/deck/` s dummy slajdy D1–D3 (0, 4 a 2 kroky) a Z1–Z7. Kontrakt slajdu je v AGENTS.md → Engine. Ověřeno: typecheck, lint, 11 unit testů, `check:content`, 10 e2e testů nad `dist/index.html` přes `file://`.
+- **Co existuje:** engine v `src/deck/` (dummy slajdy D1–D3, Z1–Z7), tokeny ověřené v repech EstatIQ, primitiva v `src/design/primitives/`, logo SVG a styleguide `#/styleguide` (jen dev). Ověřeno: typecheck, lint, 23 unit testů (reducer, check:content, pokrytí glyfů, žádný hex ani `duration` mimo tokens/presets), `check:content`, 11 e2e testů (engine nad `dist/` přes `file://`, logo proti webu).
 
 ## Klíčová rozhodnutí
 - **2026-10-19:** Je to aplikace pro promítání, ne web. Reason: pitch se promítá, nikdo ji neprochází.
@@ -21,6 +21,11 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **2026-10-19:** Nouzový skok (`B`, `.`) jde na S8 krok 0 v režimu `instant`. Home/End a číslo + Enter jsou taky okamžité, šipky se animují.
 - **2026-10-19:** Hlavní a záložní slajdy jsou oddělené sekce. Šipky mezi nimi nepřechází. `Esc` ze záložního slajdu vrátí na místo, odkud se otevřel přehled `Z`.
 - **2026-10-19:** Klik myší nenaviguje. Ovládá se jen klávesnicí nebo prezentérem (BRIEF §5 myš nezmiňuje, náhodné kliknutí na pódiu by posunulo slajd).
+- **2026-10-19:** Tokeny jsou ověřené v repech EstatIQ (`Projekty/EstatIQ - prelaunch/index.html`, `Projekty/Estatiq - aplikace /src/index.css`): night `#0B0F19`, night-2 `#0F172A`, fg `#F8FAFC`, muted `#94A3B8`, mint `#34D399` (emerald-400), green `#059669`, amber `#D97706`, red `#DC2626` a nový line `#1E293B` (okraje na webu). Paper, ink a black protějšek na webu nemají, zůstávají z BRIEF. Hex tabulka v BRIEF §3 tím neplatí, platí `tokens.css`. Reason: prompt 03.
+- **2026-10-19:** Zůstává jedno písmo (Space Grotesk), i když web má tělo v Plus Jakarta Sans. Monospace web nepoužívá, takže pro řádky výpisu zůstává JetBrains Mono podle BRIEF.
+- **2026-10-19:** Logo odpovídá `.splash-logo` z webu: Space Grotesk 700, letter-spacing −0,02em, „IQ“ v emerald-400. Rozdíly na webu: hlavička má „IQ“ v emerald-500 a tracking 0, aplikace emerald-600 (světlé UI). Proti textu ve stylu splash se SVG liší o 0,00 % pixelů (`e2e/logo.spec.ts`, snímek `test-results/logo-compare.png`).
+- **2026-10-19:** `Word` nastupuje clip-path wipem zleva doprava (ve směru čtení), ne fade + slide-up. `StatementRow` „zezelená“ přetažením zelené kopie přes řádek, protože barva se animovat nesmí.
+- **2026-10-19:** `→` a `★` Space Grotesk z fontsource nemá. Kreslí je `<Glyph>` a `check:content` je v textu slajdu odmítne.
 
 ## Otevřené otázky
 Čeká se na Kryštofa. Do té doby zůstává v obsahu `[doplnit: …]`.
@@ -30,11 +35,11 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Slajd 2:** vyškrtnout „Knihy, podcasty a“? Je to v rozporu s poznámkou u slajdu 1 („neříkat knihy a podcasty“) a zmizel by tím i otevřený bod s tituly.
 - **Slajd 4:** „Tři nástroje. Jedna obrazovka.“ ukazuje tři obrazovky. Návrh: „Jedna aplikace.“ Navíc mapování „Excel → portál vlastníka“ nesedí na slajd 2, kde Excel slouží ke zjištění, kdo zaplatil.
 - **Slajd 1:** škola a ročník (naposledy Friedrich-Schiller-Gymnasium Pirna, platí?), zdroj pro „5,0 ★ od klientů“ (jinak vypustit), světlé verze log Alteno a Vizeon.
-- **Logo EstatIQ jako SVG.** Font loga ověřit v repu EstatIQ. Pokud SVG neexistuje, vygeneruje se z obrysů písma (fáze 3).
 - **Druhé kolo hovorů:** hodiny měsíčně na platby, proč správci nepřešli na levnější nástroje, aspoň jeden tester nebo pilot.
 - **Počet správcovských firem v ČR:** jen jako odpověď na otázku, ne na slajd.
 - **Datum pitche, vlastní notebook (HDMI/USB-C), druhý monitor pro režim přednášejícího, jak striktně se hlídá čas.**
-- **Assety v `public/` se do single-file buildu neinlinují.** Vite je jen zkopíruje do `dist/assets/`, takže `dist/index.html` by bez té složky neměl obrázky. Návrh pro fázi 3: přesunout podklady do `src/assets/` a importovat je, pak je `vite-plugin-singlefile` vloží do HTML. Mění to strukturu z AGENTS.md, proto čeká na Kryštofa.
+- **BRIEF §3:** přepsat hex tabulku podle `tokens.css`? BRIEF se mění jen po schválení.
+- **Assety v `public/` se do single-file buildu neinlinují.** Vite je jen zkopíruje do `dist/assets/`, takže `dist/index.html` by bez té složky neměl obrázky. Logo to neřeší, jde do HTML přes `logo.generated.ts`. Fotky a screenshoty ano. Návrh před fází 4: přesunout podklady do `src/assets/` a importovat je, pak je `vite-plugin-singlefile` vloží do HTML. Mění to strukturu z AGENTS.md, proto čeká na Kryštofa.
 - **`steps` a `budgetSec` jsou dvakrát:** v `deck.config.ts` (podle promptu 02) i v typu `SlideContent` v `src/content/slides.ts`. Návrh: při plnění obsahu ve fázi 4 nechat jen `deck.config.ts`.
 - **Ceník na záložním slajdu:** varianta po pásmech (300 j. ≈ 5 663 Kč), nebo cenová hypotéza z pitche (4 990 Kč)? Obě verze nesmí být vidět zároveň.
 
@@ -45,6 +50,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Automatické stržení nájmu na slajdu 4.** Není v MVP a je to regulovaná platební služba. Patří jen do vize na slajdu 7.
 
 ## Changelog
+
+### 2026-10-19 — Fáze 3: design systém
+- **Co:** Tokeny přepsané podle rep EstatIQ, přibyla typografická škála (`text-hero` 200, `text-number` 280, `text-word` 88, `text-label` 30, `text-row` 34 px) a `spacing-edge` 120 px. Logo se generuje z obrysů (`scripts/make-logo.ts`, opentype.js 1.3.4). Vznikla primitiva Word, Strike, Counter, StatementRow, LaptopFrame, Placeholder, FlowLine, Logo a Glyph, dev styleguide `#/styleguide` (4 desky) a skript `shoot:styleguide`. `check:content` se přesunul do `src/content/check.ts` s testy: výjimky z limitu slov jsou v `deck.config.ts` (`s1`, `z*`), přibyla kontrola mezer v číslech a zákaz `→` a `★`, `[doplnit` je mimo release varování. Fonty se importují jen v podmnožinách latin a latin-ext (build 799 → 716 kB). `presets.ts` dostal `dur.draw` 0,4, `dur.count` 2,4 a `dur.flow` 2,8 s: tabulka v BRIEF je nemá, rozpočet z pravidla 3 drží.
+- **Proč:** na pokyn uživatele (prompt 03).
+- **Dopad:** slajdy 4–6 skládají z primitiv. Co nefungovalo: opentype.js 2.0 s výchozím `optimize` generuje v cestách `NaN` a `@types` jsou pro v1, proto pin 1.3.4. Jednotka `ch` u JetBrains Mono vycházela 0,5em místo 0,6em (unicode-range), sloupce výpisu jsou proto v `em`.
+- **Soubory:** `src/design/*`, `src/design/primitives/*`, `src/styleguide/Styleguide.tsx`, `src/content/check*.ts`, `src/motion/presets.ts`, `src/deck.config.ts`, `src/main.tsx`, `src/App.tsx`, `scripts/*`, `public/assets/logos/estatiq*.svg`, `e2e/logo.spec.ts`, `package.json`, `AGENTS.md`, `memory/index.md`
 
 ### 2026-10-19 — Fáze 2: engine
 - **Co:** Vznikl engine: čistý reducer (`next`, `prev`, `goto`, `jumpToFinal`, `setMode`) s testy, hash `#/slajd/krok`, plátno 1920×1080 se škálováním a letterboxem v barvě slajdu, prolínání přes `AnimatePresence mode="popLayout"` s vlastními variantami na slajd, „klik vyhrává“, režim `instant` (300 ms / 800 ms), klávesy z BRIEF §5 včetně čísla + Enter, přehled `Z`, debug `D`, skrytí kurzoru, zákaz výběru a kontextového menu, preload fontů a obrázků s pojistkou 4 s. `presets.ts` dostal hodnoty z BRIEF §4 a výchozí `slideFade`, protože je engine potřebuje už teď. `P` a `T` jsou namapované, ale nic nedělají (fáze 7). `F5` se zachytí, aby prezentér nemohl stránku obnovit. `npm run e2e` teď builduje a pouští 10 testů.

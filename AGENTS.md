@@ -5,7 +5,7 @@ Fakta pro libovolného AI asistenta (Claude Code, Codex, Cursor). **Pravidla cho
 ## Přehled
 - **Co to je:** prezentace na pitch EstatIQ pro akcelerátor Green Light (VŠB-TUO). Celkem 3:00 a 8 hlavních slajdů, k tomu záložní slajdy na otázky poroty.
 - **Typ:** aplikace pro promítání s pevným plátnem 1920×1080 (16:9), ovládaná klávesnicí nebo prezentérem. Nejde o web.
-- **Stack:** Vite + React 19 + TypeScript (strict), Tailwind CSS v4 (`@tailwindcss/vite`, tokeny v `@theme`), Motion (`motion/react`, nástupce Framer Motion), `@fontsource/space-grotesk`, `vite-plugin-singlefile`. Testy: Vitest a Playwright (Chromium je předinstalovaný, `playwright install` nespouštěj, pokud prohlížeč chybí).
+- **Stack:** Vite + React 19 + TypeScript (strict), Tailwind CSS v4 (`@tailwindcss/vite`, tokeny v `@theme`), Motion (`motion/react`, nástupce Framer Motion), `@fontsource/space-grotesk` a `@fontsource/jetbrains-mono` (jen latin + latin-ext), `vite-plugin-singlefile`. Dev: `opentype.js` 1.3.4 (logo, kontrola glyfů; v2 dává v cestách NaN). Testy: Vitest a Playwright (Chromium je předinstalovaný, `playwright install` nespouštěj, pokud prohlížeč chybí).
 - **Výstupy:** `dist/index.html` je jeden soubor se všemi assety inline a funguje z `file://` bez sítě. `export/pitch.pdf` má jednu stránku na každý krok a slouží jako záloha na flashku.
 
 ## Příkazy
@@ -17,6 +17,8 @@ Fakta pro libovolného AI asistenta (Claude Code, Codex, Cursor). **Pravidla cho
 | `npm run pdf` | Playwright vyrenderuje všechny kroky do `export/pitch.pdf` |
 | `npm run check:content` | kontrola obsahu: max. 5 slov na prvek, nezlomitelné mezery, placeholdery |
 | `npm run typecheck` / `lint` / `test` | TS, ESLint, Vitest |
+| `npm run make:logo` | znovu vygeneruje logo z obrysů Space Grotesk 700 (`public/assets/logos/estatiq*.svg`, `src/design/primitives/logo.generated.ts`) |
+| `npm run shoot:styleguide` | spustí Vite a nafotí `#/styleguide` do `test-results/styleguide/` (vizuální kontrola) |
 | `npm run e2e` | build a Playwright nad `dist/index.html` přes `file://`: projde všechny kroky a hlídá chyby v konzoli. Když v cache chybí Chromium pro nainstalovanou verzi Playwrightu, `playwright.config.ts` vezme nejnovější `chromium_headless_shell-*` z cache (nebo `PW_CHROMIUM_PATH`) |
 
 ## Struktura (cílová)
@@ -26,17 +28,19 @@ memory/            index.md · pravidla.md · memory.md
 docs/BRIEF.md      zadání: příběh, design, slajdy
 docs/prompts/      fázové prompty 01–08
 public/assets/     photos/ · screens/ · logos/   (jen skutečné podklady)
-scripts/           check-content.ts · export-pdf.ts
+scripts/           check-content.ts · make-logo.ts · shoot-styleguide.ts · export-pdf.ts
 src/
   main.tsx  App.tsx
   deck/            engine: types, reducer (+test), hash, useDeck, useControls, Stage, Overview, DebugOverlay,
                    useStageGuards (kurzor, kontextové menu, preload), preload; fáze 7: sync, Presenter
   motion/          presets.ts (časy, easingy, varianty), jediný zdroj timingu
-  design/          tokens.css (@theme), typography, primitives (Word, Strike, Counter, LaptopFrame, Logo)
+  design/          tokens.css (@theme: barvy, škála text-hero/number/word/label/row, spacing edge),
+                   primitives/ (Word, Strike, Counter, StatementRow, LaptopFrame, Placeholder, FlowLine, Logo, Glyph)
+  styleguide/      #/styleguide, jen v `npm run dev` (v buildu není)
   slides/          S01Intro.tsx … S08Ask.tsx, backup/Z01…Z07, dev/Dummy.tsx (testovací slajd enginu)
-  content/         slides.ts: jediný zdroj textů, čísel a poznámek
+  content/         slides.ts: jediný zdroj textů, čísel a poznámek; check.ts: pravidla check:content
   deck.config.ts   pořadí slajdů, kroky, časový rozpočet, časy ovládání, mapování kláves
-e2e/               Playwright testy enginu (běží nad buildem)
+e2e/               Playwright: engine nad buildem, porovnání loga s webem
 ```
 
 ## Engine (kontrakt pro slajdy)
@@ -50,6 +54,9 @@ e2e/               Playwright testy enginu (běží nad buildem)
 - **Text slajdu nikdy nepiš natvrdo do komponenty.** Patří do `src/content/slides.ts`.
 - **Časy a easingy nepiš natvrdo do komponent.** Patří do `src/motion/presets.ts`.
 - Barvy jen přes tokeny z `src/design/tokens.css`. Hex hodnoty v komponentách jsou zakázané.
+- Typografie jen přes škálu `text-hero`, `text-number`, `text-word`, `text-label`, `text-row`. Okraj plátna `p-edge` / `left-edge` (120 px).
+- `→` a `★` v písmu nejsou: kresli je `<Glyph>`, `check:content` je v textu slajdu odmítne.
+- Jednotku `ch` nepoužívej: Chrome ji u fontů s `unicode-range` počítá z náhradní metriky. Pro monospace použij `em` (JetBrains Mono = 0,6em na znak).
 - Animuj jen `transform`, `opacity`, `clip-path` a SVG `stroke-dashoffset`. Žádný `filter: blur` na velkých plochách a žádné animace layoutu kromě `layoutId`.
 - Jeden slajd = jedna komponenta. Stav slajdu se odvozuje deklarativně z indexu kroku (`step`), ne z časovačů.
 - Commity jsou malé a česky, ve tvaru `fáze N: co`.

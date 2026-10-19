@@ -43,6 +43,12 @@ export const shape: DeckShape = {
   mainCount: mainSlides.length,
 };
 
+/**
+ * Slajdy bez limitu 5 slov na prvek (check:content). S1 má jméno a podtitul,
+ * záložní slajdy odpovídají na otázky poroty a smí mít víc textu. `z*` = všechny Z.
+ */
+export const wordLimitExempt: readonly string[] = ['s1', 'z*'];
+
 /** Obrázky, které se načtou před startem. Doplní se se skutečnými assety. */
 export const preloadImages: string[] = [];
 
