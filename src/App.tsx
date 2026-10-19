@@ -1,5 +1,7 @@
 import { lazy, Suspense, useSyncExternalStore } from 'react';
 import { Deck } from './deck/Deck';
+import { Presenter } from './deck/Presenter';
+import { PrintDeck } from './deck/PrintDeck';
 
 // Styleguide jen ve vývoji. V produkčním buildu je větev mrtvá a modul se do HTML nedostane.
 const Styleguide = import.meta.env.DEV
@@ -11,9 +13,12 @@ function subscribe(onChange: () => void) {
   return () => window.removeEventListener('hashchange', onChange);
 }
 const isStyleguide = () => window.location.hash === '#/styleguide';
+const query = new URLSearchParams(window.location.search);
 
 export function App() {
   const styleguide = useSyncExternalStore(subscribe, isStyleguide);
+  if (query.has('presenter')) return <Presenter />;
+  if (query.has('print')) return <PrintDeck finalOnly={query.has('final')} />;
   if (Styleguide && styleguide) {
     return (
       <Suspense>

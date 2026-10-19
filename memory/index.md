@@ -3,7 +3,7 @@
 Čti jako první v každé session. Sám obsah nedrží, říká jen, kde co najdeš.
 
 ## 1. Stav projektu (jeden řádek)
-**Fáze:** 6 hotová (S1–S8, Z1–Z7, commit `fáze 6: S7, S8, záložní`). Další krok je `docs/prompts/07-presenter-export.md`.
+**Fáze:** 7 hotová (režim přednášejícího, offline build, PDF). Další krok je `docs/prompts/08-rehearsal-qa.md`.
 Detail je v `memory.md` → Aktuální stav.
 
 ## 2. Systémové soubory

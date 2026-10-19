@@ -42,6 +42,8 @@ export const engine = {
   /** Pojistka: prezentace se ukáže, i když se asset nenačte. */
   preloadTimeoutMs: 4000,
   overviewColumns: 4,
+  presenterTimerTickMs: 200,
+  presenterTimerWarningSec: 20,
 } as const;
 
 export const totalBudgetSec = 180;

@@ -5,6 +5,7 @@ import type { DeckState, Position } from './types';
 
 export type KeyRecord = { key: string; code: string; keyCode: number; mods: string; at: number };
 export type OverviewState = { selected: number };
+export type ControlCallbacks = { onPresenter?: () => void; onTimer?: () => void };
 
 /** Stav, který se čte z event handlerů: hodnota pro render a ref pro okamžité čtení. */
 function useRefState<T>(initial: T) {
@@ -35,6 +36,7 @@ function modifiers(e: KeyboardEvent) {
 export function useControls(
   navigate: (a: NavAction, o?: { instant?: boolean }) => void,
   getState: () => DeckState,
+  callbacks: ControlCallbacks = {},
 ) {
   const [overview, setOverview, overviewRef] = useRefState<OverviewState | null>(null);
   const [debug, setDebug, debugRef] = useRefState(false);
@@ -152,8 +154,10 @@ export function useControls(
           if (isBackup(getState().slide)) goto(returnTo.current ?? lastMain(), true);
           break;
         case 'presenter':
+          callbacks.onPresenter?.();
+          break;
         case 'timer':
-          // Fáze 7: okno přednášejícího a stopky.
+          callbacks.onTimer?.();
           break;
         case 'ignore':
           break;
@@ -162,7 +166,7 @@ export function useControls(
 
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [navigate, getState, setOverview, overviewRef, setDebug, debugRef]);
+  }, [navigate, getState, setOverview, overviewRef, setDebug, debugRef, callbacks]);
 
   return { overview, debug, keyLog };
 }

@@ -4,9 +4,9 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Aktuální stav
 - **Projekt:** prezentace EstatIQ pro elevator pitch Green Light (3 min prezentace + 7 min otázky).
-- **Fáze:** 6 (S1–S8, Z1–Z7) hotová a commitnutá (`fáze 6: S7, S8, záložní`). Další krok je `docs/prompts/07-presenter-export.md`.
+- **Fáze:** 7 hotová (S1–S8, Z1–Z7, režim přednášejícího a PDF). Další krok je `docs/prompts/08-rehearsal-qa.md`.
 - **Stack:** Vite + React 19 + TS + Tailwind v4 + Motion, single-file build (AGENTS.md).
-- **Co existuje:** engine v `src/deck/`; S1–S8 a Z1–Z7 jsou realizované; veškerý obsah je v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Fáze 6 ověřena: typecheck, lint, 38 unit testů, obsahová kontrola (16 varování = placeholdery), 19 e2e testů přes `file://`.
+- **Co existuje:** engine v `src/deck/`; S1–S8 a Z1–Z7 jsou realizované; veškerý obsah je v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Presenter se synchronizuje mezi `file://` okny, `?print` tiskne finální stavy kroků a `npm run pdf` vytváří 41stránkový pitch a 15stránkový výběr finálních stavů. Fáze 7 ověřena: typecheck, lint, obsahová kontrola (16 placeholderů), 22 e2e testů offline přes `file://`; build má 788,70 kB.
 
 ## Klíčová rozhodnutí
 - **2026-10-19:** Je to aplikace pro promítání, ne web. Reason: pitch se promítá, nikdo ji neprochází.
@@ -71,6 +71,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Automatické stržení nájmu na slajdu 4.** Není v MVP a je to regulovaná platební služba. Patří jen do vize na slajdu 7.
 
 ## Changelog
+
+### 2026-10-19 — Fáze 7: přednášející a export
+- **Co:** Přibyl režim přednášejícího s aktuálním a dalším krokem, poznámkami, časovým rozpočtem a synchronizací navigace i stopek přes `BroadcastChannel` a `window.opener.postMessage`. `?print` vykreslí každý krok bez animací; `npm run pdf` vytvoří kompletní PDF a PDF finálních stavů.
+- **Proč:** na pokyn uživatele (prompt 07).
+- **Dopad:** single-file build má 788,70 kB. Offline e2e přes `file://` prošlo (22 testů), včetně ovládání presenteru oběma směry. PDF má 41 a 15 stran, české fonty jsou načtené a každá strana odpovídá plátnu 1920×1080. `build:release` správně končí chybou a vypíše 16 chybějících hodnot. `check:content` a release check používají `node --import tsx`, protože spouštěč `tsx` v sandboxu narážel na `EPERM` při vytvoření IPC socketu.
+- **Soubory:** `AGENTS.md`, `package.json`, `playwright.config.ts`, `scripts/chromium.ts`, `scripts/export-pdf.ts`, `src/App.tsx`, `src/deck.config.ts`, `src/deck/{Deck,Presenter,PrintDeck,sync,useControls,print}.ts*`, `e2e/offline-presenter.spec.ts`, `memory/index.md`, `memory/memory.md`
 
 ### 2026-10-19 — Fáze 6: S7, S8, záložní
 - **Co:** Dummy S7–S8 a Z1–Z7 nahradily finální černý vrchol s tokem tří linek, závěrečné heslo a rozpuštění řádku výpisu a sedm záložních kompozic. Ceny, finance a chybějící lidé zůstali jako placeholdery. Obsahová kontrola i test kroků teď zahrnují také Z slajdy.

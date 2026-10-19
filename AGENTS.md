@@ -6,7 +6,7 @@ Fakta pro libovolného AI asistenta (Claude Code, Codex, Cursor). **Pravidla cho
 - **Co to je:** prezentace na pitch EstatIQ pro akcelerátor Green Light (VŠB-TUO). Celkem 3:00 a 8 hlavních slajdů, k tomu záložní slajdy na otázky poroty.
 - **Typ:** aplikace pro promítání s pevným plátnem 1920×1080 (16:9), ovládaná klávesnicí nebo prezentérem. Nejde o web.
 - **Stack:** Vite + React 19 + TypeScript (strict), Tailwind CSS v4 (`@tailwindcss/vite`, tokeny v `@theme`), Motion (`motion/react`, nástupce Framer Motion), `@fontsource/space-grotesk` a `@fontsource/jetbrains-mono` (jen latin + latin-ext), `vite-plugin-singlefile`. Dev: `opentype.js` 1.3.4 (logo, kontrola glyfů; v2 dává v cestách NaN). Testy: Vitest a Playwright (Chromium je předinstalovaný, `playwright install` nespouštěj, pokud prohlížeč chybí).
-- **Výstupy:** `dist/index.html` je jeden soubor se všemi assety inline a funguje z `file://` bez sítě. `export/pitch.pdf` má jednu stránku na každý krok a slouží jako záloha na flashku.
+- **Výstupy:** `dist/index.html` je jeden soubor se všemi assety inline a funguje z `file://` bez sítě. `export/pitch.pdf` má jednu stránku na každý krok a `export/pitch-final.pdf` poslední krok každého slajdu; slouží jako záloha na flashku.
 
 ## Příkazy
 | Příkaz | Co dělá |
@@ -14,7 +14,7 @@ Fakta pro libovolného AI asistenta (Claude Code, Codex, Cursor). **Pravidla cho
 | `npm run dev` | vývojový server |
 | `npm run build` | produkční single-file build do `dist/` |
 | `npm run build:release` | build, který selže, pokud v obsahu zůstal `[doplnit` |
-| `npm run pdf` | Playwright vyrenderuje všechny kroky do `export/pitch.pdf` |
+| `npm run pdf` | Playwright vyrenderuje všechny kroky a finální stavy slajdů do PDF |
 | `npm run check:content` | kontrola obsahu: max. 5 slov na prvek, nezlomitelné mezery, placeholdery |
 | `npm run typecheck` / `lint` / `test` | TS, ESLint, Vitest |
 | `npm run make:logo` | znovu vygeneruje logo z obrysů Space Grotesk 700 (`public/assets/logos/estatiq*.svg`, `src/design/primitives/logo.generated.ts`) |
@@ -32,7 +32,7 @@ scripts/           check-content.ts · make-logo.ts · shoot-styleguide.ts · ex
 src/
   main.tsx  App.tsx
   deck/            engine: types, canvas (rozměr plátna), reducer (+test), hash, useDeck, useControls, Stage, Overview, DebugOverlay,
-                   useStageGuards (kurzor, kontextové menu, preload), preload; fáze 7: sync, Presenter
+                   useStageGuards (kurzor, kontextové menu, preload), preload; fáze 7: sync, Presenter, PrintDeck
   motion/          presets.ts (časy, easingy, varianty), jediný zdroj timingu
   design/          tokens.css (@theme: barvy, škála text-hero/number/word/label/row, spacing edge),
                    primitives/ (Word, Strike, Counter, StatementRow, LaptopFrame, Placeholder, FlowLine, Logo, Glyph)

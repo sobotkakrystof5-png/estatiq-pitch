@@ -1,11 +1,13 @@
-import type { Ref } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type Ref } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { allSlides, engine } from '../deck.config';
+import { allSlides, engine, shape } from '../deck.config';
 import { slideFade } from '../motion/presets';
 import { DebugOverlay } from './DebugOverlay';
 import { Overview } from './Overview';
+import { reduce } from './reducer';
 import { Stage, backgroundClass } from './Stage';
 import type { DeckState, SlideDef } from './types';
+import { usePresenterLink, type LinkMessage, type LinkPayload } from './sync';
 import { useControls } from './useControls';
 import { useDeck } from './useDeck';
 import { useIdleCursor, useNoContextMenu, usePreload } from './useStageGuards';
@@ -40,7 +42,90 @@ function SlideFrame({
 export function Deck() {
   const ready = usePreload();
   const { state, epoch, navigate, getState } = useDeck();
-  const { overview, debug, keyLog } = useControls(navigate, getState);
+  const presenterWindow = useRef<Window | null>(null);
+  const stateRef = useRef(state);
+  const [timerStartedAt, setTimerStartedAt] = useState<number | null>(null);
+  const timerRef = useRef<number | null>(timerStartedAt);
+  const sendRef = useRef<(message: LinkPayload) => string>(() => '');
+  const navigateWithTimer = useCallback(
+    (action: Parameters<typeof navigate>[0], options?: Parameters<typeof navigate>[1]) => {
+      const current = getState();
+      const target = reduce(shape, current, action);
+      if (
+        timerRef.current === null &&
+        current.slide === 0 &&
+        action.type === 'next' &&
+        target !== current
+      ) {
+        const startedAt = Date.now();
+        timerRef.current = startedAt;
+        setTimerStartedAt(startedAt);
+      }
+      navigate(action, options);
+    },
+    [getState, navigate],
+  );
+  const navigateWithTimerRef = useRef(navigateWithTimer);
+
+  const onLinkMessage = useCallback((message: LinkMessage) => {
+    if (message.kind === 'hello') {
+      const current = stateRef.current;
+      sendRef.current({
+        kind: 'state',
+        position: { slide: current.slide, step: current.step },
+        timerStartedAt: timerRef.current,
+      });
+    } else if (message.kind === 'navigate') {
+      navigateWithTimerRef.current(message.action);
+    } else if (message.kind === 'timer') {
+      timerRef.current = message.startedAt;
+      setTimerStartedAt(message.startedAt);
+    }
+  }, []);
+  const send = usePresenterLink('stage', presenterWindow, onLinkMessage);
+
+  useEffect(() => {
+    stateRef.current = state;
+    timerRef.current = timerStartedAt;
+    sendRef.current = send;
+    navigateWithTimerRef.current = navigateWithTimer;
+  }, [navigateWithTimer, send, state, timerStartedAt]);
+
+  useEffect(() => {
+    send({
+      kind: 'state',
+      position: { slide: state.slide, step: state.step },
+      timerStartedAt,
+    });
+  }, [send, state.slide, state.step, timerStartedAt]);
+
+  const openPresenter = useCallback(() => {
+    if (presenterWindow.current && !presenterWindow.current.closed) {
+      presenterWindow.current.focus();
+      return;
+    }
+    const url = new URL(window.location.href);
+    url.searchParams.delete('print');
+    url.searchParams.delete('final');
+    url.searchParams.set('presenter', '');
+    presenterWindow.current = window.open(
+      url.toString(),
+      'estatiq-presenter',
+      'popup,width=1500,height=1000',
+    );
+    presenterWindow.current?.focus();
+  }, []);
+  const startTimer = useCallback(() => {
+    const startedAt = Date.now();
+    timerRef.current = startedAt;
+    setTimerStartedAt(startedAt);
+    send({ kind: 'timer', startedAt });
+  }, [send]);
+  const controlCallbacks = useMemo(
+    () => ({ onPresenter: openPresenter, onTimer: startTimer }),
+    [openPresenter, startTimer],
+  );
+  const { overview, debug, keyLog } = useControls(navigateWithTimer, getState, controlCallbacks);
   const cursorHidden = useIdleCursor(engine.cursorIdleMs);
   useNoContextMenu();
 
