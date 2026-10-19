@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+
+/* Tokeny designového systému A „Noc“ (BRIEF §3). Hodnoty ze screenshotů, ověřit v repu EstatIQ. */
+@theme {
+  --color-night: #0b0f17;
+  --color-night-2: #121826;
+  --color-black: #000000;
+  --color-paper: #f5f4ef;
+  --color-ink: #14171c;
+  --color-fg: #f2f4f7;
+  --color-muted: #8b95a5;
+  --color-mint: #5ed39a;
+  --color-green: #3e9b6c;
+  --color-amber: #e2a93b;
+  --color-red: #e5484d;
+
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--color-night);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+}
