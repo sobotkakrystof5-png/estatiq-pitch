@@ -5,7 +5,7 @@ import { expect, type Page } from '@playwright/test';
 
 export const url = pathToFileURL(resolve('dist/index.html')).href;
 
-/** Hlavní slajdy a počet kroků (BRIEF §6). S4–S8 jsou do fází 5–6 dummy. */
+/** Hlavní slajdy a počet kroků podle BRIEF §6. */
 export const MAIN = [
   ['s1', 2],
   ['s2', 1],

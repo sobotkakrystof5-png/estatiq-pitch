@@ -11,6 +11,8 @@ export type SlideContent = {
   screen: Record<string, string | Fact>;
   /** Řádky výpisu na plátně (fiktivní data). check:content je bere jako jeden prvek na řádek. */
   rows?: Record<string, readonly StatementRowData[]>;
+  /** Polohy jemného zvýraznění ve screenshotu, jako procenta jeho šířky a výšky. */
+  highlights?: Record<string, { x: number; y: number; width: number; height: number }>;
   notes: string;
 };
 
@@ -120,7 +122,96 @@ export const s3 = {
   ),
 } satisfies SlideContent;
 
-export const slides: SlideContent[] = [s1, s2, s3];
+const matchedPayment = statement[6]!;
+
+export const s4 = {
+  id: 's4',
+  title: 'Produkt',
+  budgetSec: 30,
+  steps: 3,
+  screen: {
+    paymentShot: { value: 'Screenshot · platby · fiktivní Ostrava', status: 'placeholder' },
+    ownerShot: { value: 'Screenshot · portál vlastníka · fiktivní Ostrava', status: 'placeholder' },
+    tenantShot: { value: 'Screenshot · portál nájemníka · fiktivní Ostrava', status: 'placeholder' },
+    paymentWord: 'Platby.',
+    ownerWord: 'Vlastník.',
+    tenantWord: 'Nájemník.',
+    summary: 'Tři nástroje. Jedna obrazovka.',
+  },
+  rows: { matchedPayment: [matchedPayment] },
+  highlights: {
+    ownerLiveValue: { x: 62, y: 18, width: 28, height: 14 },
+    tenantReportButton: { x: 64, y: 72, width: 27, height: 13 },
+  },
+  notes: cs(
+    'Takhle vypadá stejný měsíc s EstatIQ. Banka: platby se vytvoří samy a správce na jedné obrazovce vidí, kdo zaplatil. [klik] Excel: vlastník bytu nedostává tabulky, vidí všechno živě ve svém portálu. [klik] WhatsApp: nájemník má vlastní portál. Vidí platby i smlouvu a závadu nahlásí jedním klikem. Žádné zprávy v deset večer. [pauza 2 s] Tři nástroje. Jedna obrazovka.',
+  ),
+} satisfies SlideContent;
+
+export const s5Math = {
+  units: 300,
+  rentPerUnit: 15_000,
+  monthlyPrice: 4_990,
+  managementRate: [0.08, 0.12] as const,
+};
+
+const number = (value: number) =>
+  new Intl.NumberFormat('cs-CZ', { maximumFractionDigits: 0 })
+    .format(value)
+    .replace(/[\u00a0\u202f]/g, NB);
+const volumeInMillions = new Intl.NumberFormat('cs-CZ', {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+}).format((s5Math.units * s5Math.rentPerUnit) / 1_000_000);
+const relativePrice = new Intl.NumberFormat('cs-CZ', {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+}).format((s5Math.monthlyPrice / (s5Math.units * s5Math.rentPerUnit)) * 100);
+
+export const s5 = {
+  id: 's5',
+  title: 'Proč platí',
+  budgetSec: 25,
+  steps: 4,
+  screen: {
+    b2bContext: { value: `Správce · ${number(s5Math.units)}${NB}bytů`, source: 'BRIEF §6 S5', status: 'verified' },
+    b2bVolumeMain: { value: volumeInMillions, source: '300 × 15 000 Kč', status: 'verified' },
+    b2bVolumeUnit: { value: `mil.${NB}Kč`, source: '300 × 15 000 Kč', status: 'verified' },
+    rentLabel: { value: cs('měsíčně v nájmech'), source: 'BRIEF §6 S5', status: 'verified' },
+    b2bPrice: { value: `${number(s5Math.monthlyPrice)}${NB}Kč`, source: 'BRIEF §6 S5', status: 'verified' },
+    b2bRatio: { value: `${relativePrice}${NB}%`, source: '4 990 / 4 500 000', status: 'verified' },
+    b2cContext: { value: 'Pronajímatel · správcovská firma', source: 'BRIEF §6 S5', status: 'verified' },
+    b2cFee: { value: `1${NB}200${NB}Kč`, source: '8 % z 15 000 Kč', status: 'verified' },
+    b2cPrice: { value: `od${NB}199${NB}Kč`, source: 'BRIEF §6 S5', status: 'verified' },
+  },
+  notes: cs(
+    `Kolik to stojí? Správce 300 bytů hlídá při nájmu 15${NB}000${NB}Kč každý měsíc 4,5 milionu korun. [klik] EstatIQ ho stojí 4${NB}990${NB}Kč. [pauza 2 s] Jedna desetina procenta. Platí se každý měsíc a klient, kterému to šetří čas, neodchází. A pronajímatel, který dá byt správcovské firmě, odevzdá 8 až 12${NB}% nájmu, tedy 1${NB}200 až 1${NB}800${NB}Kč měsíčně. [klik] A kdo chce, aby byl nájem konečně pasivní příjem, zaplatí s EstatIQ od 199${NB}Kč.`,
+  ),
+} satisfies SlideContent;
+
+export const s6Config = { showMarketStat: false } as const;
+
+export const s6 = {
+  id: 's6',
+  title: 'Škálovatelnost',
+  budgetSec: 20,
+  steps: 3,
+  screen: {
+    czechia: 'Česko',
+    slovakia: 'Slovensko',
+    centralEurope: 'Střední Evropa',
+    marketStat: {
+      value: `34${NB}500${NB}pronajímatelů 3+ bytů`,
+      source: 'BRIEF §6 S6; zdroj k ověření',
+      status: 'placeholder',
+    },
+  },
+  notes: cs(
+    'Začínáme tady v Ostravě, se správci, se kterými už mluvím, a pak celé Česko. [klik] Potom Slovensko, s podobnými nájmy i jazykem. [klik] A pak střední Evropa. [pauza 2 s] Jádro zůstává stejné, mění se jen místní pravidla. A software se s každým dalším bytem neprodražuje.',
+  ),
+} satisfies SlideContent;
+
+export const slides: SlideContent[] = [s1, s2, s3, s4, s5, s6];
 
 /** Text faktu nebo řetězce, jak se ukáže na plátně. */
 export const text = (v: string | Fact) => (typeof v === 'string' ? v : v.value);

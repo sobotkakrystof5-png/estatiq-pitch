@@ -3,7 +3,7 @@
 Čti jako první v každé session. Sám obsah nedrží, říká jen, kde co najdeš.
 
 ## 1. Stav projektu (jeden řádek)
-**Fáze:** 4 hotová (S1–S3, commit `fáze 4: S1–S3`). Další krok je `docs/prompts/05-act2-product.md`.
+**Fáze:** 5 hotová (S1–S6, commit `fáze 5: S4–S6`). Další krok je `docs/prompts/06-act3-vision.md`.
 Detail je v `memory.md` → Aktuální stav.
 
 ## 2. Systémové soubory

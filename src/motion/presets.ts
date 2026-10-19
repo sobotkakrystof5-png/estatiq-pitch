@@ -24,6 +24,11 @@ export const spring = {
   snap: { type: 'spring', stiffness: 520, damping: 42 },
 } as const;
 
+/** S4: řádek z výpisu dosedne do platby a krátce nato se označí jako spárovaný. */
+export const pairing = {
+  greenDelay: 0.24,
+} as const;
+
 export const stagger = {
   rows: 0.06,
 } as const;

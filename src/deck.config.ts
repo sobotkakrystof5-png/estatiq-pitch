@@ -4,7 +4,10 @@ import { makeDummy } from './slides/dev/Dummy';
 import { S01Intro } from './slides/S01Intro';
 import { S02Problem } from './slides/S02Problem';
 import { S03Reveal } from './slides/S03Reveal';
-import { s1, s2, s3 } from './content/slides';
+import { S04Product } from './slides/S04Product';
+import { S05Business } from './slides/S05Business';
+import { S06Scale } from './slides/S06Scale';
+import { s1, s2, s3, s4, s5, s6 } from './content/slides';
 import { chaos, cutInVariants, intro, rozpad, s1Variants } from './motion/presets';
 
 export { stage } from './deck/canvas';
@@ -25,7 +28,7 @@ export const engine = {
 
 export const totalBudgetSec = 180;
 
-// S4–S8 jsou zatím dummy se správným počtem kroků podle BRIEF §6. Nahradí je fáze 5–6.
+// S7–S8 a Z slajdy zůstávají do dalších fází testovací dummy.
 export const mainSlides: SlideDef[] = [
   {
     id: 's1',
@@ -54,9 +57,9 @@ export const mainSlides: SlideDef[] = [
     variants: cutInVariants,
     busyMs: rozpad.busyMs,
   },
-  { id: 's4', component: makeDummy('S4', 3), steps: 3, background: 'night', budgetSec: 30 },
-  { id: 's5', component: makeDummy('S5', 4), steps: 4, background: 'night', budgetSec: 25 },
-  { id: 's6', component: makeDummy('S6', 3), steps: 3, background: 'night', budgetSec: 20 },
+  { id: 's4', component: S04Product, steps: s4.steps, background: 'night', budgetSec: s4.budgetSec },
+  { id: 's5', component: S05Business, steps: s5.steps, background: 'night', budgetSec: s5.budgetSec },
+  { id: 's6', component: S06Scale, steps: s6.steps, background: 'night', budgetSec: s6.budgetSec },
   { id: 's7', component: makeDummy('S7', 5), steps: 5, background: 'black', budgetSec: 25 },
   { id: 's8', component: makeDummy('S8', 3), steps: 3, background: 'night', budgetSec: 20 },
 ];

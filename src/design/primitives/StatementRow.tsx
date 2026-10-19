@@ -19,8 +19,14 @@ export function StatementRow({
   name,
   tone = 'night',
   matched = false,
+  matchDelay = 0,
   className = '',
-}: StatementRowData & { tone?: 'paper' | 'night'; matched?: boolean; className?: string }) {
+}: StatementRowData & {
+  tone?: 'paper' | 'night';
+  matched?: boolean;
+  matchDelay?: number;
+  className?: string;
+}) {
   const cells = (
     <>
       <span className="opacity-55">{date}</span>
@@ -45,9 +51,9 @@ export function StatementRow({
       <motion.div
         aria-hidden
         className={`${grid} text-green`}
-        initial={false}
+        initial={matched && matchDelay > 0 ? { clipPath: HIDDEN } : false}
         animate={{ clipPath: matched ? SHOWN : HIDDEN }}
-        transition={stepReveal}
+        transition={{ ...stepReveal, delay: matched ? matchDelay : 0 }}
       >
         {cells}
       </motion.div>

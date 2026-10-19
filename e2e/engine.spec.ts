@@ -1,9 +1,6 @@
-// Engine (fáze 2) nad skutečným deckem. Mechaniku přechodů testuje na dummy S4–S8
-// (prosté prolnutí). Fáze 5–6 je nahradí, pak se testy přesunou na záložní slajdy nebo S4+.
+// Engine nad skutečným deckem. Mechaniku přechodů hlídá i při procházení realizovaných slajdů.
 import { expect, test, type Page } from '@playwright/test';
 import { errors, expectAt, hash, open, positions, top } from './deck';
-
-const dummy = (page: Page) => top(page).getByTestId('dummy');
 
 test.afterEach(() => {
   expect(errors).toEqual([]);
@@ -60,7 +57,7 @@ async function settledWithin(page: Page, ms: number) {
 }
 
 test('jeden klik se normálně animuje (≤ 400 ms)', async ({ page }) => {
-  await open(page, '#/4/3');
+  await open(page, '#/3/5');
   await page.waitForTimeout(500);
   await page.keyboard.press('ArrowRight');
   const mid = await settledWithin(page, 100);
@@ -77,8 +74,9 @@ test('klik uprostřed přechodu okamžitě ukáže cílový stav', async ({ page
   await page.waitForTimeout(200);
   await page.keyboard.press('ArrowRight');
   const s = await settledWithin(page, 50);
-  expect(s).toEqual({ count: 1, opacity: '1', steps: ['1', '0.15', '0.15', '0.15'] });
-  await expect(dummy(page)).toHaveText('S5 · 1/4');
+  expect(s).toEqual({ count: 1, opacity: '1', steps: [] });
+  await expectAt(page, 's5', 1);
+  await expect(top(page).getByTestId('s5-volume')).toBeVisible();
 });
 
 test('klik po 350 ms: rozběhnutý přechod se dokončí okamžitě', async ({ page }) => {
@@ -90,13 +88,15 @@ test('klik po 350 ms: rozběhnutý přechod se dokončí okamžitě', async ({ p
   const s = await settledWithin(page, 30);
   expect(s.count).toBe(1);
   expect(s.opacity).toBe('1');
+  await expectAt(page, 's5', 1);
 });
 
 test('obnovení na #/5/3 ukáže přesně tento krok', async ({ page }) => {
   await open(page, '#/5/3');
-  await expect(dummy(page)).toHaveText('S5 · 3/4');
+  await expectAt(page, 's5', 3);
+  await expect(top(page).getByTestId('s5-b2c-fee')).toBeVisible();
   await page.reload();
-  await expect(dummy(page)).toHaveText('S5 · 3/4');
+  await expectAt(page, 's5', 3);
   expect(await hash(page)).toBe('#/5/3');
 });
 
@@ -145,7 +145,7 @@ test('přehled záložních slajdů a návrat Esc', async ({ page }) => {
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('overview')).toHaveCount(0);
   expect(await hash(page)).toBe('#/z3/0');
-  await expect(dummy(page)).toHaveText('Z3 · 0/0');
+  await expect(top(page).getByTestId('dummy')).toHaveText('Z3 · 0/0');
   await page.keyboard.press('Escape');
   expect(await hash(page)).toBe('#/5/3');
 });

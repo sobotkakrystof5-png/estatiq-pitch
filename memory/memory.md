@@ -4,9 +4,9 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Aktuální stav
 - **Projekt:** prezentace EstatIQ pro elevator pitch Green Light (3 min prezentace + 7 min otázky).
-- **Fáze:** 4 (S1–S3, chaos a odhalení) hotová a commitnutá (`fáze 4: S1–S3`). Další krok je `docs/prompts/05-act2-product.md`.
+- **Fáze:** 5 (S1–S6) hotová a commitnutá (`fáze 5: S4–S6`). Další krok je `docs/prompts/06-act3-vision.md`.
 - **Stack:** Vite + React 19 + TS + Tailwind v4 + Motion, single-file build (AGENTS.md).
-- **Co existuje:** engine v `src/deck/`, slajdy S1–S3 (`src/slides/S01Intro`, `S02Problem`, `S03Reveal`, sdílený chaos v `src/slides/chaos/`), S4–S8 a Z1–Z7 jsou dummy se správným počtem kroků, obsah S1–S3 v `src/content/slides.ts`, tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Ověřeno: typecheck, lint, 25 unit testů, `check:content` (8 varování = placeholdery), 17 e2e testů nad `dist/` přes `file://` (engine, S1–S3, logo).
+- **Co existuje:** engine v `src/deck/`; S1–S6 jsou hotové; S7–S8 a Z1–Z7 zůstávají dummy; obsah S1–S6 v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Fáze 5 ověřena: typecheck, lint, 29 unit testů, obsahová kontrola (12 varování = placeholdery), 17 e2e testů přes `file://`.
 
 ## Klíčová rozhodnutí
 - **2026-10-19:** Je to aplikace pro promítání, ne web. Reason: pitch se promítá, nikdo ji neprochází.
@@ -34,6 +34,9 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **2026-10-19:** Smyčka v S2 je konečná: v tabulce přibude 5 řádků po 4 s (~20 s), pak je klid. Nekonečný posun tabulky by S3 nedokázal navázat bez skoku.
 - **2026-10-19:** Bublina v S2 je „Nájem pošlu příští týden.“ místo „Dobrý den, nájem pošlu příští týden.“ z BRIEF. Reason: 6 slov porušuje limit 5 slov z CLAUDE.md §4.2, který má přednost.
 - **2026-10-19:** `check:content` počítá číslo s nezlomitelnou mezerou mezi číslicemi („15 000,00“) jako jedno slovo. Řádky výpisu kontroluje jako jeden prvek na řádek, pole odděluje „·“.
+- **2026-10-19:** S5 odvozuje objem nájmů (300 × 15 000 Kč), relativní cenu (4 990 / objem, zaokrouhleno na 0,1 %) a 8–12% provizi z čísel v obsahu; aritmetiku hlídá unit test.
+- **2026-10-19:** S4 highlighty jsou zapsané v procentech v obsahu. Souřadnice jsou pracovní, dokud nebudou dodané skutečné screenshoty.
+- **2026-10-19:** S6 přepínač `showMarketStat` je v obsahu výchozím stavem vypnutý, protože údaj 34 500 zatím nemá ověřený zdroj.
 
 ## Otevřené otázky
 Čeká se na Kryštofa. Do té doby zůstává v obsahu `[doplnit: …]`.
@@ -42,6 +45,8 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Časování:** odhad mluveného textu je 3:15 až 3:20. Hlavní přesah dělá slajd 5 (~42 s místo 25). Návrh: vyškrtnout větu „Platí se každý měsíc a klient, kterému to šetří čas, neodchází.“ a větu o „pasivním příjmu“ zkrátit na „Kdo si nájem řídí sám, zaplatí od 199 Kč.“
 - **Slajd 2:** vyškrtnout „Knihy, podcasty a“? Je to v rozporu s poznámkou u slajdu 1 („neříkat knihy a podcasty“) a zmizel by tím i otevřený bod s tituly.
 - **Slajd 4:** „Tři nástroje. Jedna obrazovka.“ ukazuje tři obrazovky. Návrh: „Jedna aplikace.“ Navíc mapování „Excel → portál vlastníka“ nesedí na slajd 2, kde Excel slouží ke zjištění, kdo zaplatil.
+- **S4 screenshoty:** platby, portál vlastníka a portál nájemníka. Do dodání zůstávají tři popsané placeholdery; souřadnice highlightů jsou jen výchozí návrh.
+- **S6 tržní statistika:** ověřit zdroj údaje „34 500 pronajímatelů 3+ bytů“, pokud se má zapnout `showMarketStat`.
 - **Slajd 1:** škola a ročník (naposledy Friedrich-Schiller-Gymnasium Pirna, platí?), zdroj pro „5,0 ★ od klientů“ (jinak vypustit), světlé verze log Alteno a Vizeon.
 - **Druhé kolo hovorů:** hodiny měsíčně na platby, proč správci nepřešli na levnější nástroje, aspoň jeden tester nebo pilot.
 - **Počet správcovských firem v ČR:** jen jako odpověď na otázku, ne na slajd.
@@ -62,6 +67,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Automatické stržení nájmu na slajdu 4.** Není v MVP a je to regulovaná platební služba. Patří jen do vize na slajdu 7.
 
 ## Changelog
+
+### 2026-10-19 — Fáze 5: S4–S6
+- **Co:** Dummy S4–S6 nahradily produktová ukázka s řádkem, který se spáruje a zezelená, asymetrický ceník B2B/B2C a expanze Česko → Slovensko → střední Evropa. Screenshoty jsou popsané placeholdery; S4 highlighty jsou procentuální hodnoty v obsahu. Přibyl test výpočtů S5 a engine e2e teď testuje nové slajdy.
+- **Proč:** na pokyn uživatele (prompt 05).
+- **Dopad:** všech 17 e2e testů prošlo včetně rychlého proklikání, zpětného průchodu a S2 FPS kontroly (59,7 fps průměr, p95 16,8 ms). typecheck, lint, 29 unit testů a obsahová kontrola také prošly. `npm run check:content` v sandboxu končí `EPERM` při IPC socketu `tsx`; stejný skript prošel přes `node --import tsx scripts/check-content.ts`. Vizuální sebekontrola BRIEF §2: 1) chybějící screenshoty jsou výslovné placeholdery, 2) bankovní párování zůstává k potvrzení a text mluvené části je zachován dle briefu, 3) neověřený údaj trhu je skrytý, dokud se nedodá zdroj. Otevřená zůstává i formulace závěru S4.
+- **Soubory:** `src/content/slides.ts`, `src/content/s5-math.test.ts`, `src/slides/S04Product.tsx`, `src/slides/S05Business.tsx`, `src/slides/S06Scale.tsx`, `src/deck.config.ts`, `src/design/primitives/StatementRow.tsx`, `src/motion/presets.ts`, `e2e/deck.ts`, `e2e/engine.spec.ts`, `memory/index.md`, `memory/memory.md`
 
 ### 2026-10-19 — Fáze 4: S1–S3
 - **Co:** Vznikly slajdy S1 (fotka vlevo, jméno vpravo dole, důkazy pod fotkou, most z papíru a řádků výpisu), S2 (timeline na `useAnimate` 2,7 s: výpis, tabulka se zeleným pruhem, 8 řádků přeletí do buněk, dvě bubliny, počítadlo 0 → 300, pak smyčka a v kroku 1 zmrazení se ztlumením) a S3 (rozpad ≤ 600 ms, rozsvěcování slov, splynutí v logo, tag). Obsah S1–S3 je v `src/content/slides.ts` s fiktivním výpisem (Ostrava, česká jména, VS = rok + jednotka) a poznámkami doslova z BRIEF. S4–S8 jsou dummy se správným počtem kroků. `Placeholder` dostal `align`, `Counter` exportuje `formatCount`, rozměr plátna se přesunul do `src/deck/canvas.ts`. E2e se přepsaly na skutečný deck (`e2e/deck.ts`, `engine.spec.ts` testuje mechaniku na dummy S4–S8) a přibyl `act1.spec.ts`.
