@@ -145,9 +145,58 @@ test('přehled záložních slajdů a návrat Esc', async ({ page }) => {
   await page.keyboard.press('Enter');
   await expect(page.getByTestId('overview')).toHaveCount(0);
   expect(await hash(page)).toBe('#/z3/0');
-  await expect(top(page).getByTestId('dummy')).toHaveText('Z3 · 0/0');
+  await expect(top(page).getByTestId('z3-positioning')).toContainText('Evidence');
+  await expect(top(page).getByTestId('z3-positioning')).toContainText('Vrstva');
   await page.keyboard.press('Escape');
   expect(await hash(page)).toBe('#/5/3');
+});
+
+test('S6 → S7 je okamžitý střih do černé', async ({ page }) => {
+  await open(page, '#/6/3');
+  await page.waitForTimeout(450);
+  await page.keyboard.press('ArrowRight');
+  await expectAt(page, 's7', 0);
+  await expect(top(page).getByTestId('s7-scene')).toBeVisible();
+  const opacity = await top(page).evaluate((el) => getComputedStyle(el).opacity);
+  expect(opacity).toBe('1');
+});
+
+test('S7 tok běží přes strokeDashoffset a S8 rozpuštění neblokuje zpětný krok', async ({
+  page,
+}) => {
+  await open(page, '#/7/4');
+  await page.waitForTimeout(900);
+  const flows = top(page).locator('svg path.stroke-mint');
+  await expect(flows).toHaveCount(3);
+  const tracks = top(page).locator('svg path.stroke-fg');
+  await expect(tracks).toHaveCount(3);
+  const trackStyle = await tracks.first().evaluate((path) => ({
+    stroke: getComputedStyle(path).stroke,
+    opacity: getComputedStyle(path).opacity,
+  }));
+  expect(trackStyle.stroke).toBe('rgb(248, 250, 252)');
+  expect(Number(trackStyle.opacity)).toBeCloseTo(0.18, 2);
+  const before = await flows.evaluateAll((paths) =>
+    paths.map((path) => getComputedStyle(path).strokeDashoffset),
+  );
+  await page.waitForTimeout(220);
+  const after = await flows.evaluateAll((paths) =>
+    paths.map((path) => getComputedStyle(path).strokeDashoffset),
+  );
+  expect(after).not.toEqual(before);
+
+  await open(page, '#/8/2');
+  await page.waitForTimeout(900);
+  await page.keyboard.press('ArrowRight');
+  await expectAt(page, 's8', 3);
+  const strip = top(page).getByTestId('s8-closing-strip');
+  await expect(strip).toBeVisible();
+  const full = await strip.evaluate((el) => getComputedStyle(el).clipPath);
+  await page.waitForTimeout(180);
+  const dissolving = await strip.evaluate((el) => getComputedStyle(el).clipPath);
+  expect(dissolving).not.toBe(full);
+  await page.keyboard.press('ArrowLeft');
+  await expectAt(page, 's8', 2);
 });
 
 test('plátno se škáluje a letterbox má barvu slajdu', async ({ page }) => {

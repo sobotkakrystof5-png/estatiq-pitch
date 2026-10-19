@@ -11,23 +11,25 @@ export function FlowLine({
   d,
   active,
   mode,
-  width = 3,
+  width = 1.5,
+  baseOpacity = 0.18,
 }: {
   d: string;
   active: boolean;
   mode: DeckMode;
   width?: number;
+  baseOpacity?: number;
 }) {
   return (
     <g>
       <motion.path
         d={d}
         fill="none"
-        className="stroke-line"
+        className="stroke-fg"
         strokeWidth={width}
         strokeLinecap="round"
         initial={false}
-        animate={{ pathLength: active ? 1 : 0, opacity: active ? 1 : 0 }}
+        animate={{ pathLength: active ? 1 : 0, opacity: active ? baseOpacity : 0 }}
         transition={drawStroke}
       />
       {active && (
@@ -35,7 +37,7 @@ export function FlowLine({
           key={mode}
           d={d}
           fill="none"
-          className="stroke-fg"
+          className="stroke-mint"
           strokeWidth={width}
           strokeLinecap="round"
           pathLength={1}

@@ -17,7 +17,8 @@ export const dur = {
   word: 0.28,
   draw: 0.4,
   count: 2.4,
-  flow: 2.8,
+  flow: 2.4,
+  dissolve: 1.2,
 } as const;
 
 export const spring = {
@@ -46,6 +47,12 @@ export const slideFade: Variants = fade;
 
 /** Odhalení kroku. */
 export const stepReveal = { duration: dur.step, ease: ease.out } as const;
+
+/** Jednorázové vyprávěcí rozpuštění řádku v závěru S8. */
+export const stripDissolve = { duration: dur.dissolve, ease: ease.inOut } as const;
+
+/** Okamžitý skok pro přímý vstup nebo instantní režim. */
+export const instant = { duration: 0 } as const;
 
 /** Word: nástup hesla zleva doprava (clip-path) a ztlumení. */
 export const wordReveal = { duration: dur.word, ease: ease.out } as const;
@@ -102,6 +109,22 @@ export const s1Variants: Variants = {
 /** S2 a S3 vpřed: slajd stojí hned (S1 nad ním odjede, resp. S3 začíná přesně tam, kde S2 skončil). */
 export const cutInVariants: Variants = {
   enter: (d: number): TargetAndTransition => (d === 1 ? { opacity: 1, zIndex: 1 } : fade.enter),
+  center: fade.center,
+  exit: fade.exit,
+};
+
+/** S6 → S7: jediný okamžitý střih do černé; zpětný krok zůstává plynulý. */
+export const s6ToS7Variants: Variants = {
+  enter: fade.enter,
+  center: fade.center,
+  exit: (d: number): TargetAndTransition =>
+    d === 1 ? { opacity: 0, zIndex: 0, transition: { duration: 0 } } : fade.exit,
+};
+
+/** S7 vstoupí tvrdým střihem vpřed a běžným prolnutím při návratu ze S8. */
+export const s7Variants: Variants = {
+  enter: (d: number): TargetAndTransition =>
+    d === 1 ? { opacity: 1, zIndex: 1, transition: { duration: 0 } } : fade.enter,
   center: fade.center,
   exit: fade.exit,
 };

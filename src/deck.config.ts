@@ -1,14 +1,32 @@
 // Pořadí slajdů, kroky, časový rozpočet a mapování kláves.
 import type { Command, DeckShape, SlideDef } from './deck/types';
-import { makeDummy } from './slides/dev/Dummy';
 import { S01Intro } from './slides/S01Intro';
 import { S02Problem } from './slides/S02Problem';
 import { S03Reveal } from './slides/S03Reveal';
 import { S04Product } from './slides/S04Product';
 import { S05Business } from './slides/S05Business';
 import { S06Scale } from './slides/S06Scale';
-import { s1, s2, s3, s4, s5, s6 } from './content/slides';
-import { chaos, cutInVariants, intro, rozpad, s1Variants } from './motion/presets';
+import { S07Vision } from './slides/S07Vision';
+import { S08Ask } from './slides/S08Ask';
+import {
+  Z01BusinessModel,
+  Z02Pricing,
+  Z03Positioning,
+  Z04Roadmap,
+  Z05Team,
+  Z06Finance,
+  Z07Deposit,
+} from './slides/backup/Slides';
+import { s1, s2, s3, s4, s5, s6, s7, s8, z1, z2, z3, z4, z5, z6, z7 } from './content/slides';
+import {
+  chaos,
+  cutInVariants,
+  intro,
+  rozpad,
+  s1Variants,
+  s6ToS7Variants,
+  s7Variants,
+} from './motion/presets';
 
 export { stage } from './deck/canvas';
 
@@ -28,7 +46,6 @@ export const engine = {
 
 export const totalBudgetSec = 180;
 
-// S7–S8 a Z slajdy zůstávají do dalších fází testovací dummy.
 export const mainSlides: SlideDef[] = [
   {
     id: 's1',
@@ -57,20 +74,84 @@ export const mainSlides: SlideDef[] = [
     variants: cutInVariants,
     busyMs: rozpad.busyMs,
   },
-  { id: 's4', component: S04Product, steps: s4.steps, background: 'night', budgetSec: s4.budgetSec },
-  { id: 's5', component: S05Business, steps: s5.steps, background: 'night', budgetSec: s5.budgetSec },
-  { id: 's6', component: S06Scale, steps: s6.steps, background: 'night', budgetSec: s6.budgetSec },
-  { id: 's7', component: makeDummy('S7', 5), steps: 5, background: 'black', budgetSec: 25 },
-  { id: 's8', component: makeDummy('S8', 3), steps: 3, background: 'night', budgetSec: 20 },
+  {
+    id: 's4',
+    component: S04Product,
+    steps: s4.steps,
+    background: 'night',
+    budgetSec: s4.budgetSec,
+  },
+  {
+    id: 's5',
+    component: S05Business,
+    steps: s5.steps,
+    background: 'night',
+    budgetSec: s5.budgetSec,
+  },
+  {
+    id: 's6',
+    component: S06Scale,
+    steps: s6.steps,
+    background: 'night',
+    budgetSec: s6.budgetSec,
+    variants: s6ToS7Variants,
+  },
+  {
+    id: 's7',
+    component: S07Vision,
+    steps: s7.steps,
+    background: 'black',
+    budgetSec: s7.budgetSec,
+    variants: s7Variants,
+  },
+  { id: 's8', component: S08Ask, steps: s8.steps, background: 'night', budgetSec: s8.budgetSec },
 ];
 
-export const backupSlides: SlideDef[] = Array.from({ length: 7 }, (_, i) => ({
-  id: `z${i + 1}`,
-  component: makeDummy(`Z${i + 1}`, i % 2),
-  steps: i % 2,
-  background: 'night',
-  budgetSec: 0,
-}));
+export const backupSlides: SlideDef[] = [
+  {
+    id: z1.id,
+    component: Z01BusinessModel,
+    steps: z1.steps,
+    background: 'night',
+    budgetSec: z1.budgetSec,
+  },
+  {
+    id: z2.id,
+    component: Z02Pricing,
+    steps: z2.steps,
+    background: 'night',
+    budgetSec: z2.budgetSec,
+  },
+  {
+    id: z3.id,
+    component: Z03Positioning,
+    steps: z3.steps,
+    background: 'night',
+    budgetSec: z3.budgetSec,
+  },
+  {
+    id: z4.id,
+    component: Z04Roadmap,
+    steps: z4.steps,
+    background: 'night',
+    budgetSec: z4.budgetSec,
+  },
+  { id: z5.id, component: Z05Team, steps: z5.steps, background: 'night', budgetSec: z5.budgetSec },
+  {
+    id: z6.id,
+    component: Z06Finance,
+    steps: z6.steps,
+    background: 'night',
+    budgetSec: z6.budgetSec,
+  },
+  {
+    id: z7.id,
+    component: Z07Deposit,
+    steps: z7.steps,
+    background: 'night',
+    budgetSec: z7.budgetSec,
+  },
+];
 
 export const allSlides: SlideDef[] = [...mainSlides, ...backupSlides];
 

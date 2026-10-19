@@ -4,9 +4,9 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Aktuální stav
 - **Projekt:** prezentace EstatIQ pro elevator pitch Green Light (3 min prezentace + 7 min otázky).
-- **Fáze:** 5 (S1–S6) hotová a commitnutá (`fáze 5: S4–S6`). Další krok je `docs/prompts/06-act3-vision.md`.
+- **Fáze:** 6 (S1–S8, Z1–Z7) hotová a commitnutá (`fáze 6: S7, S8, záložní`). Další krok je `docs/prompts/07-presenter-export.md`.
 - **Stack:** Vite + React 19 + TS + Tailwind v4 + Motion, single-file build (AGENTS.md).
-- **Co existuje:** engine v `src/deck/`; S1–S6 jsou hotové; S7–S8 a Z1–Z7 zůstávají dummy; obsah S1–S6 v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Fáze 5 ověřena: typecheck, lint, 29 unit testů, obsahová kontrola (12 varování = placeholdery), 17 e2e testů přes `file://`.
+- **Co existuje:** engine v `src/deck/`; S1–S8 a Z1–Z7 jsou realizované; veškerý obsah je v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Fáze 6 ověřena: typecheck, lint, 38 unit testů, obsahová kontrola (16 varování = placeholdery), 19 e2e testů přes `file://`.
 
 ## Klíčová rozhodnutí
 - **2026-10-19:** Je to aplikace pro promítání, ne web. Reason: pitch se promítá, nikdo ji neprochází.
@@ -37,6 +37,8 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **2026-10-19:** S5 odvozuje objem nájmů (300 × 15 000 Kč), relativní cenu (4 990 / objem, zaokrouhleno na 0,1 %) a 8–12% provizi z čísel v obsahu; aritmetiku hlídá unit test.
 - **2026-10-19:** S4 highlighty jsou zapsané v procentech v obsahu. Souřadnice jsou pracovní, dokud nebudou dodané skutečné screenshoty.
 - **2026-10-19:** S6 přepínač `showMarketStat` je v obsahu výchozím stavem vypnutý, protože údaj 34 500 zatím nemá ověřený zdroj.
+- **2026-10-19:** Jediný tvrdý střih je S6 → S7. S7 vpřed vstoupí do černé okamžitě, návrat ze S8 zůstává prolnutím. Linky S7 mají stopu `--fg` na 18 % a tok `--mint`, šířku 1,5 px a cyklus 2,4 s přes `strokeDashoffset`.
+- **2026-10-19:** S8 na konci znovu použije fiktivní řádek výpisu ze S2. Rozpustí se zleva doprava za 1,2 s; animace neblokuje další krok. Z1–Z7 drží jen obsah z briefu, bez odhadovaných cen, financí, jmen ani termínů.
 
 ## Otevřené otázky
 Čeká se na Kryštofa. Do té doby zůstává v obsahu `[doplnit: …]`.
@@ -57,6 +59,8 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Bublina v S2:** zkrácený text „Nájem pošlu příští týden.“ (viz rozhodnutí). Sedí, nebo jiná formulace do 5 slov?
 - **Časy ve zprávách v S2** (22:04, 22:17) jsou fiktivní kulisa a navazují na „žádné zprávy v deset večer“ v S4. Nechat?
 - **Ceník na záložním slajdu:** varianta po pásmech (300 j. ≈ 5 663 Kč), nebo cenová hypotéza z pitche (4 990 Kč)? Obě verze nesmí být vidět zároveň.
+- **Z5 tým:** doplnit jméno parťáka na obchod a člověka z oboru.
+- **Z6 finance:** po workshopu doplnit náklady a financování.
 
 ## Záměrně neuděláno
 - **Responzivita pro mobil, SEO, meta tagy, analytika.** Nejde o web.
@@ -67,6 +71,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Automatické stržení nájmu na slajdu 4.** Není v MVP a je to regulovaná platební služba. Patří jen do vize na slajdu 7.
 
 ## Changelog
+
+### 2026-10-19 — Fáze 6: S7, S8, záložní
+- **Co:** Dummy S7–S8 a Z1–Z7 nahradily finální černý vrchol s tokem tří linek, závěrečné heslo a rozpuštění řádku výpisu a sedm záložních kompozic. Ceny, finance a chybějící lidé zůstali jako placeholdery. Obsahová kontrola i test kroků teď zahrnují také Z slajdy.
+- **Proč:** na pokyn uživatele (prompt 06).
+- **Dopad:** S6 → S7 je jediný tvrdý střih; S8 používá 1,2s `clip-path` animaci, která neblokuje navigaci. Typecheck, lint, 38 unit testů, build a 19 e2e testů prošly; obsahová kontrola prošla s 16 placeholder varováními. E2E potvrzuje přesný návrat z přehledu, rychlý průchod, tok `strokeDashoffset` a okamžitý střih. S2 při 4× CPU throttlingu: 59,4 fps průměr, p95 16,8 ms. Vizuální sebekontrola BRIEF §2: bez karet, generických ikon a neověřených tvrzení; Z3 zůstává pozicování a Z7 časová osa. `npm run check:content` má známé omezení `EPERM` v sandboxu, ekvivalentní skript prošel přes `node --import tsx scripts/check-content.ts`.
+- **Soubory:** `src/content/slides.ts`, `src/content/slides.test.ts`, `src/deck.config.ts`, `src/design/primitives/FlowLine.tsx`, `src/motion/presets.ts`, `src/slides/S07Vision.tsx`, `src/slides/S08Ask.tsx`, `src/slides/backup/Slides.tsx`, `e2e/engine.spec.ts`, `memory/index.md`, `memory/memory.md`
 
 ### 2026-10-19 — Fáze 5: S4–S6
 - **Co:** Dummy S4–S6 nahradily produktová ukázka s řádkem, který se spáruje a zezelená, asymetrický ceník B2B/B2C a expanze Česko → Slovensko → střední Evropa. Screenshoty jsou popsané placeholdery; S4 highlighty jsou procentuální hodnoty v obsahu. Přibyl test výpočtů S5 a engine e2e teď testuje nové slajdy.

@@ -132,7 +132,10 @@ export const s4 = {
   screen: {
     paymentShot: { value: 'Screenshot · platby · fiktivní Ostrava', status: 'placeholder' },
     ownerShot: { value: 'Screenshot · portál vlastníka · fiktivní Ostrava', status: 'placeholder' },
-    tenantShot: { value: 'Screenshot · portál nájemníka · fiktivní Ostrava', status: 'placeholder' },
+    tenantShot: {
+      value: 'Screenshot · portál nájemníka · fiktivní Ostrava',
+      status: 'placeholder',
+    },
     paymentWord: 'Platby.',
     ownerWord: 'Vlastník.',
     tenantWord: 'Nájemník.',
@@ -174,13 +177,25 @@ export const s5 = {
   budgetSec: 25,
   steps: 4,
   screen: {
-    b2bContext: { value: `Správce · ${number(s5Math.units)}${NB}bytů`, source: 'BRIEF §6 S5', status: 'verified' },
+    b2bContext: {
+      value: `Správce · ${number(s5Math.units)}${NB}bytů`,
+      source: 'BRIEF §6 S5',
+      status: 'verified',
+    },
     b2bVolumeMain: { value: volumeInMillions, source: '300 × 15 000 Kč', status: 'verified' },
     b2bVolumeUnit: { value: `mil.${NB}Kč`, source: '300 × 15 000 Kč', status: 'verified' },
     rentLabel: { value: cs('měsíčně v nájmech'), source: 'BRIEF §6 S5', status: 'verified' },
-    b2bPrice: { value: `${number(s5Math.monthlyPrice)}${NB}Kč`, source: 'BRIEF §6 S5', status: 'verified' },
+    b2bPrice: {
+      value: `${number(s5Math.monthlyPrice)}${NB}Kč`,
+      source: 'BRIEF §6 S5',
+      status: 'verified',
+    },
     b2bRatio: { value: `${relativePrice}${NB}%`, source: '4 990 / 4 500 000', status: 'verified' },
-    b2cContext: { value: 'Pronajímatel · správcovská firma', source: 'BRIEF §6 S5', status: 'verified' },
+    b2cContext: {
+      value: 'Pronajímatel · správcovská firma',
+      source: 'BRIEF §6 S5',
+      status: 'verified',
+    },
     b2cFee: { value: `1${NB}200${NB}Kč`, source: '8 % z 15 000 Kč', status: 'verified' },
     b2cPrice: { value: `od${NB}199${NB}Kč`, source: 'BRIEF §6 S5', status: 'verified' },
   },
@@ -211,7 +226,136 @@ export const s6 = {
   ),
 } satisfies SlideContent;
 
-export const slides: SlideContent[] = [s1, s2, s3, s4, s5, s6];
+export const s7 = {
+  id: 's7',
+  title: 'Ještě jedna věc',
+  budgetSec: 25,
+  steps: 5,
+  screen: {
+    opening: `A${NB}ještě jedna věc.`,
+    energy: 'Energie.',
+    tenants: 'Ověření nájemníci.',
+    payments: 'Každá platba.',
+    finalLead: 'Platební',
+    finalTail: 'vrstva nájemního bydlení.',
+  },
+  notes: cs(
+    'A ještě jedna věc. [pauza 2 s] Energie. [klik] Smlouvy s dodavateli energií uzavřené přímo v EstatIQ. [klik] Nájemníci, kteří si u nás budují ověřenou historii plateb. [klik] A časem každá platba kolem nájmu. [pauza] Nájem, energie, služby. Všechno přes nás proteče. [pauza] [klik] Nechceme být další evidence. Chceme být platební a datová vrstva nájemního bydlení.',
+  ),
+} satisfies SlideContent;
+
+export const s8 = {
+  id: 's8',
+  title: 'Co chci',
+  budgetSec: 20,
+  steps: 3,
+  screen: {
+    calls: `12${NB}hovorů.`,
+    pilots: `2${NB}piloty.`,
+    ask: 'Mentoři. Tým.',
+  },
+  rows: { closing: [statement[0]!] },
+  notes: cs(
+    'Kde jsem dnes? MVP je hotové a mluvil jsem s dvanácti realitkami a správci. [klik] Do Startup Show chci dva pilotní správce. [klik] A od Green Light chci dvě věci: odborníky, od kterých se naučím, co mi chybí, a pomoc najít parťáka, který umí prodávat. [pauza 2 s] [klik] Aby žádný správce už nemusel přepisovat výpis z banky do Excelu. Děkuji.',
+  ),
+} satisfies SlideContent;
+
+export const z1 = {
+  id: 'z1',
+  title: 'Obchodní model',
+  budgetSec: 0,
+  steps: 0,
+  screen: {
+    subscription: 'Předplatné',
+    credits: 'Kredity',
+    commission: 'Provize',
+    implementation: 'Implementace',
+  },
+  notes: '',
+} satisfies SlideContent;
+
+export const z2 = {
+  id: 'z2',
+  title: 'Ceník',
+  budgetSec: 0,
+  steps: 0,
+  screen: {
+    price: { value: '[doplnit: varianta ceníku]', status: 'placeholder' },
+  },
+  notes: '',
+} satisfies SlideContent;
+
+export const z3 = {
+  id: 'z3',
+  title: 'Konkurence',
+  budgetSec: 0,
+  steps: 0,
+  screen: {
+    evidence: 'Evidence',
+    layer: 'Vrstva',
+  },
+  notes: '',
+} satisfies SlideContent;
+
+export const z4 = {
+  id: 'z4',
+  title: 'Roadmapa',
+  budgetSec: 0,
+  steps: 0,
+  screen: {
+    system: 'Systém',
+    transaction: 'Transakce',
+    investor: 'Investor',
+    marketplace: 'Tržiště',
+  },
+  notes: '',
+} satisfies SlideContent;
+
+export const z5 = {
+  id: 'z5',
+  title: 'Tým',
+  budgetSec: 0,
+  steps: 0,
+  screen: {
+    founder: 'Kryštof',
+    salesRole: 'Obchod',
+    salesPerson: { value: '[doplnit: jméno parťáka]', status: 'placeholder' },
+    industryRole: 'Obor',
+    industryPerson: { value: `[doplnit: člověk z${NB}oboru]`, status: 'placeholder' },
+  },
+  notes: '',
+} satisfies SlideContent;
+
+export const z6 = {
+  id: 'z6',
+  title: 'Finance',
+  budgetSec: 0,
+  steps: 0,
+  screen: {
+    costs: 'Náklady',
+    funding: 'Financování',
+    detail: { value: '[doplnit po workshopu Finance]', status: 'placeholder' },
+  },
+  notes: '',
+} satisfies SlideContent;
+
+export const z7 = {
+  id: 'z7',
+  title: 'Co když nájemník nezaplatí',
+  budgetSec: 0,
+  steps: 0,
+  screen: {
+    question: 'Co když nájemník nezaplatí?',
+    digitalDeposit: 'Digitální kauce',
+    reminders: 'Upomínky',
+    offset: 'Započtení',
+    replenishment: 'Doplnění',
+    documents: 'Podklady',
+  },
+  notes: '',
+} satisfies SlideContent;
+
+export const slides: SlideContent[] = [s1, s2, s3, s4, s5, s6, s7, s8, z1, z2, z3, z4, z5, z6, z7];
 
 /** Text faktu nebo řetězce, jak se ukáže na plátně. */
 export const text = (v: string | Fact) => (typeof v === 'string' ? v : v.value);
