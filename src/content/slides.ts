@@ -102,7 +102,7 @@ export const s2 = {
   },
   rows: { statement, later: statementLater },
   notes: cs(
-    'Když firmám automatizuji faktury, vidím pořád stejný vzorec: člověk ručně přepisuje data z jednoho místa do druhého. Pak jsem se ponořil do nemovitostí. Knihy, podcasty a hlavně dvanáct hovorů s realitkami a správci. A ten vzorec je tam taky. Jen mnohem větší. Správce otevře výpis z banky a řádek po řádku ho přepisuje do Excelu. Nájemníci píšou na WhatsApp. Smlouvy leží v šanonu. [pauza 2 s] Každý měsíc. Jen aby zjistil, kdo mu dluží.',
+    'Když firmám automatizuji faktury, pořád narážím na stejný vzorec: člověk ručně přepisuje data z jednoho místa do druhého. Pak jsem se ponořil do nemovitostí. Knihy, podcasty a hlavně dvanáct hovorů s realitkami a správci. A děje se tam totéž, jen ve větším měřítku. Správce otevře výpis z banky a přepisuje ho do Excelu, řádek po řádku. Nájemníci píšou na WhatsApp. Smlouvy leží v šanonu. [pauza 2 s] Každý měsíc. Jen aby zjistil, kdo mu dluží.',
   ),
 } satisfies SlideContent;
 
@@ -222,7 +222,7 @@ export const s6 = {
     },
   },
   notes: cs(
-    'Začínáme tady v Ostravě, se správci, se kterými už mluvím, a pak celé Česko. [klik] Potom Slovensko, s podobnými nájmy i jazykem. [klik] A pak střední Evropa. [pauza 2 s] Jádro zůstává stejné, mění se jen místní pravidla. A software se s každým dalším bytem neprodražuje.',
+    'Začínáme v Ostravě se správci, se kterými už mluvím. Pak celé Česko. [klik] Potom Slovensko, s podobnými nájmy i jazykem. [klik] Nakonec střední Evropa. [pauza 2 s] Jádro zůstává stejné. Mění se jen místní pravidla. A software se s každým dalším bytem neprodražuje.',
   ),
 } satisfies SlideContent;
 
@@ -256,7 +256,7 @@ export const s8 = {
   },
   rows: { closing: [statement[0]!] },
   notes: cs(
-    'Kde jsem dnes? MVP je hotové a mluvil jsem s dvanácti realitkami a správci. [klik] Do Startup Show chci dva pilotní správce. [klik] A od Green Light chci dvě věci: odborníky, od kterých se naučím, co mi chybí, a pomoc najít parťáka, který umí prodávat. [pauza 2 s] [klik] Aby žádný správce už nemusel přepisovat výpis z banky do Excelu. Děkuji.',
+    'Dnes mám hotové MVP a mluvil jsem s dvanácti realitkami a správci. [klik] Do Startup Show chci dva pilotní správce. [klik] Od Green Light chci dvě věci. Odborníky, od kterých se naučím, co mi chybí, a pomoc najít parťáka, který umí prodávat. [pauza 2 s] [klik] Aby žádný správce už nemusel přepisovat výpis z banky do Excelu. Děkuji.',
   ),
 } satisfies SlideContent;
 

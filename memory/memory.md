@@ -4,9 +4,9 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Aktuální stav
 - **Projekt:** prezentace EstatIQ pro elevator pitch Green Light (3 min prezentace + 7 min otázky).
-- **Fáze:** 7 hotová (S1–S8, Z1–Z7, režim přednášejícího a PDF). Další krok je `docs/prompts/08-rehearsal-qa.md`.
+- **Fáze:** 8 hotová, čeká na generálku. Zůstávají otevřené placeholdery a fyzické zkoušky uvedené níže.
 - **Stack:** Vite + React 19 + TS + Tailwind v4 + Motion, single-file build (AGENTS.md).
-- **Co existuje:** engine v `src/deck/`; S1–S8 a Z1–Z7 jsou realizované; veškerý obsah je v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Presenter se synchronizuje mezi `file://` okny, `?print` tiskne finální stavy kroků a `npm run pdf` vytváří 41stránkový pitch a 15stránkový výběr finálních stavů. Fáze 7 ověřena: typecheck, lint, obsahová kontrola (16 placeholderů), 22 e2e testů offline přes `file://`; build má 788,70 kB.
+- **Co existuje:** engine v `src/deck/`; S1–S8 a Z1–Z7 jsou realizované; veškerý obsah je v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Presenter se synchronizuje mezi `file://` okny, `?print` tiskne finální stavy kroků a `npm run pdf` vytváří 41stránkový pitch a 15stránkový výběr finálních stavů. Ve fázi 8 prošly typecheck, lint, 38 unit testů, obsahová kontrola a 22 e2e testů v Google Chrome offline přes `file://`; build má 788,70 kB.
 
 ## Klíčová rozhodnutí
 - **2026-10-19:** Je to aplikace pro promítání, ne web. Reason: pitch se promítá, nikdo ji neprochází.
@@ -44,7 +44,7 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 Čeká se na Kryštofa. Do té doby zůstává v obsahu `[doplnit: …]`.
 - **Tag u odhalení (slajd 3):** a) „Pronájem, který se řídí sám“ (pravdivé jen s bankovním párováním), b) „Celý nájem na jednom místě“, c) **doporučeno:** „Nájem bez přepisování.“ (navazuje na slajd 1 a 8, pravdivé s importem výpisu a párováním podle VS).
 - **Bankovní párování** (import výpisu GPC/ABO a párování podle VS): stihne se před pitchem? Na tom závisí pravdivost slajdů 2, 4 a 8.
-- **Časování:** odhad mluveného textu je 3:15 až 3:20. Hlavní přesah dělá slajd 5 (~42 s místo 25). Návrh: vyškrtnout větu „Platí se každý měsíc a klient, kterému to šetří čas, neodchází.“ a větu o „pasivním příjmu“ zkrátit na „Kdo si nájem řídí sám, zaplatí od 199 Kč.“
+- **Časování:** přepočet fáze 8 při 138 slovech/min dává 3:02,4 včetně určených pauz; nezahrnuje dvě pauzy bez délky na S7 ani prodlevy na kliky. Tabulka a návrhy neprovedených škrtů jsou v changelogu fáze 8.
 - **Slajd 2:** vyškrtnout „Knihy, podcasty a“? Je to v rozporu s poznámkou u slajdu 1 („neříkat knihy a podcasty“) a zmizel by tím i otevřený bod s tituly.
 - **Slajd 4:** „Tři nástroje. Jedna obrazovka.“ ukazuje tři obrazovky. Návrh: „Jedna aplikace.“ Navíc mapování „Excel → portál vlastníka“ nesedí na slajd 2, kde Excel slouží ke zjištění, kdo zaplatil.
 - **S4 screenshoty:** platby, portál vlastníka a portál nájemníka. Do dodání zůstávají tři popsané placeholdery; souřadnice highlightů jsou jen výchozí návrh.
@@ -71,6 +71,31 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Automatické stržení nájmu na slajdu 4.** Není v MVP a je to regulovaná platební služba. Patří jen do vize na slajdu 7.
 
 ## Changelog
+
+### 2026-10-19 — Fáze 8: generálka a QA
+- **Co:** Prošel jsem screenshoty všech 41 kroků S1–S8 a Z1–Z7 proti BRIEF §2; nenašel jsem generické šablonové prvky. Poznámky S2, S6 a S8 jsem stylisticky uhladil bez změny čísel nebo tvrzení. Přidal jsem checklist na den pitche.
+- **Proč:** na pokyn uživatele (prompt 08).
+- **Dopad:** `check:content` prošel s 16 oznámenými placeholdery. `npm run build:release` správně neprošel, dokud se nedodají hodnoty níže. 22 e2e testů prošlo v Google Chrome offline přes `file://`; `npm run pdf` ověřil 41 stran a 15 finálních stran. Čas je odhad podle 138 slov/min a určených pauz:
+
+  | Slajd | Odhad | Rozpočet | Rozdíl |
+  |---|---:|---:|---:|
+  | S1 | 18,5 s | 15 s | +3,5 s |
+  | S2 | 33,3 s | 30 s | +3,3 s |
+  | S3 | 6,8 s | 15 s | −8,2 s |
+  | S4 | 25,0 s | 30 s | −5,0 s |
+  | S5 | 33,3 s | 25 s | +8,3 s |
+  | S6 | 18,5 s | 20 s | −1,5 s |
+  | S7 | 22,4 s* | 25 s | −2,6 s* |
+  | S8 | 24,6 s | 20 s | +4,6 s |
+
+  Celkem 182,4 s (3:02,4); *S7 nezahrnuje dvě neurčené pauzy. Návrhy, neprovedeno: na S1 zkrátit větu „Pod značkami Alteno a Vizeon stavím firmám weby a automatizace“; na S2 vypustit „Knihy, podcasty a“ (navazuje na otevřený rozpor s poznámkou S1); na S5 vypustit větu „Platí se každý měsíc a klient, kterému to šetří čas, neodchází.“; na S8 zkrátit žádost například na „Odborníky, kteří mi poradí, co mi chybí, a parťáka na prodej.“ Žádný škrt není provedený; ověřit při generálce, které jsou potřeba.
+
+  Záznam Chrome DevTools Protocol při 4× CPU throttlingu: S2 413 snímků, 59,7 fps, p95 16,8 ms, 1 snímek nad 25 ms; S7 325 snímků, 60,0 fps, p95 16,7 ms, žádný nad 25 ms. Nejde o měření na integrované grafice. Trace soubory jsou lokální a ignorované v `test-results/performance/`.
+
+  Stav bodů BRIEF §8: obsahová kontrola, kroky vpřed/vzad i během animace, offline Google Chrome a PDF ověřeny. Firefox není v prostředí nainstalovaný; fyzický prezentér, nouzový skok z něj, druhý monitor a projektor vyžadují zkoušku na místě. 60 fps na integrované grafice nebylo tímto headless měřením ověřeno. Generálka se stopkami ještě neproběhla; odhad je nad 3:00 a v obsahu stále jsou `[doplnit]`.
+
+  Pro úspěšný `build:release` Kryštof musí dodat: školu a ročník, fotku a světlá loga pro S1; vlastní fotky šanonu, faktur a vodoměru pro S2; tag pro S3; screenshoty plateb a obou portálů pro S4; ověřený údaj/zdroj trhu pro S6; zvolenou variantu ceny pro Z2; jména obchodního parťáka a člověka z oboru pro Z5; obsah financí po workshopu pro Z6. Samostatně ověřit pravdivost MVP/bankovního párování a školního údaje před pitchem.
+- **Soubory:** `src/content/slides.ts`, `docs/DEN-PITCHE.md`, `memory/index.md`, `memory/memory.md`, `export/pitch.pdf`, `export/pitch-final.pdf`
 
 ### 2026-10-19 — Fáze 7: přednášející a export
 - **Co:** Přibyl režim přednášejícího s aktuálním a dalším krokem, poznámkami, časovým rozpočtem a synchronizací navigace i stopek přes `BroadcastChannel` a `window.opener.postMessage`. `?print` vykreslí každý krok bez animací; `npm run pdf` vytvoří kompletní PDF a PDF finálních stavů.

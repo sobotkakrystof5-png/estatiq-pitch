@@ -3,7 +3,7 @@
 Čti jako první v každé session. Sám obsah nedrží, říká jen, kde co najdeš.
 
 ## 1. Stav projektu (jeden řádek)
-**Fáze:** 7 hotová (režim přednášejícího, offline build, PDF). Další krok je `docs/prompts/08-rehearsal-qa.md`.
+**Fáze:** 8 hotová, čeká na generálku. Výsledky QA a otevřené body jsou v `memory.md`.
 Detail je v `memory.md` → Aktuální stav.
 
 ## 2. Systémové soubory
