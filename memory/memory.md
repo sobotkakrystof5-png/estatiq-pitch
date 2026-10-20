@@ -90,6 +90,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-20 — Push a deploy (klik/tap/swipe)
+- **Co:** Commit `fc58c73` na `main` v `sobotkakrystof5-png/estatiq-pitch` (zahrnuje i dřív neodevzdané změny: zrušený S7, přepočet S5). Produkční `vercel deploy --prod` na https://estatiq-pitch.vercel.app, HTTP 200, živá stránka už má `viewport` meta.
+- **Proč:** na pokyn uživatele.
+- **Dopad:** veřejná URL pořád obsahuje placeholdery (běžný build, ne `build:release`). PDF se nepřegenerovalo.
+- **Soubory:** žádné nové
+
 ### 2026-10-20 — Klik, tap a swipe posouvají prezentaci
 - **Co:** Klik levým tlačítkem nebo tap kamkoli na plátno (posun ≤ 12 px) pošle `next`. Na dotyku vodorovný tah ≥ 50 px: vlevo `next`, vpravo `prev`. Tah myší klik nevyvolá. Při otevřeném přehledu `Z` se tap ignoruje. Kořen decku má `touch-none` (bez zoomu a scrollu gesty), `index.html` dostal `viewport` meta; bez něj mobil vykresloval stránku jako 980 px a plátno by bylo drobné.
 - **Proč:** na pokyn Kryštofa (ovládání z tabletu a mobilu bez klávesnice).
