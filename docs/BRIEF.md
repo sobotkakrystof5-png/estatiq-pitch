@@ -6,7 +6,7 @@ Zdroj pravdy pro obsah, design a animace. Technika je v `AGENTS.md`, chování v
 
 ## 0. Účel a měřítko úspěchu
 
-Aktuální verze má podle Kryštofova zadání devět hlavních slajdů a rozpočet 3:55. Původní podklad počítal s 3:00 a 7 minutami otázek; povolený čas je potřeba před vystoupením potvrdit. Porota hodnotí inovaci, ověření u zákazníků, škálovatelnost, vazbu na Moravskoslezský kraj a tým.
+Aktuální verze má podle Kryštofova zadání osm hlavních slajdů (označených S1–S6, S8, S9) a rozpočet 3:55. Původní podklad počítal s 3:00 a 7 minutami otázek; povolený čas je potřeba před vystoupením potvrdit. Porota hodnotí inovaci, ověření u zákazníků, škálovatelnost, vazbu na Moravskoslezský kraj a tým.
 
 Prezentace je úspěšná, když si porota po vystoupení pamatuje tři věci:
 1. **Padoucha:** správce každý měsíc ručně přepisuje výpis z banky do Excelu.
@@ -22,13 +22,13 @@ Styl je Steve Jobs: jedna myšlenka na obrazovku, obří písmo, ticho a pauzy, 
 Celý příběh nese **barva pozadí**:
 
 ```
-S1 tma ──► S2 PAPÍR, chaos ──► S3 rozpad a tma ──► S4–S6 klid ──► S7 ČERNÁ ──► S8 tma ──► S9 závěr
+S1 tma ──► S2 PAPÍR, chaos ──► S3 rozpad a tma ──► S4–S6 klid ──► S8 tma ──► S9 závěr
              (problém)             (odhalení)       (produkt a tok)    (vize)      (ekonomika)    (prosba)
 ```
 
 - Dokud je problém, je světlo a nepořádek. Řádky, bubliny a papíry se překrývají.
 - Od chvíle, kdy přijde EstatIQ, je tma a prázdné místo. Na plátně je vždy jen jedna věc.
-- Slajd 7 je jediný úplně černý. Tím divák pozná, že přichází vrchol.
+- Úplně černý slajd v pitchi není: S7 se zrušil na pokyn Kryštofa (2026-10-20), `--black` zůstává jako rezerva. Označení S8 a S9 zůstala, jsou to 7. a 8. slajd v pořadí.
 
 **Podpisový motiv: řádek bankovního výpisu.** Jde o jednořádkový záznam neproporcionálním písmem (`12.09  VS 2024031  15 000,00  NOVÁK`). Prochází celým příběhem:
 - S1: na slova „ruční přepisování“ začnou zespodu prosakovat řádky. To je most do S2.
@@ -47,9 +47,10 @@ Motiv je podpis, ne dekorace. Nikde jinde se neobjevuje.
 | 4 | Produkt | 1:00 | 1:30 | 30 |
 | 5 | Proč platí | 1:30 | 1:55 | 25 |
 | 6 | Od smlouvy po daně | 1:55 | 2:15 | 20 |
-| 7 | Ještě jedna věc | 2:15 | 2:45 | 30 |
-| 8 | Kredity, příjmy, odlišení | 2:45 | 3:35 | 50 |
-| 9 | Co chci | 3:35 | 3:55 | 20 |
+| 8 | Kredity, příjmy, odlišení | 2:15 | 3:05 | 50 |
+| 9 | Co chci | 3:05 | 3:25 | 20 |
+
+Rozpočet slajdů je 3:25, do limitu 3:55 zbývá rezerva 30 s.
 
 ---
 
@@ -84,7 +85,7 @@ Převzatý z webu EstatIQ. Přesné hodnoty ověř v repu EstatIQ (`tailwind.con
 |---|---|---|
 | `--night` | `#0B0F17` | výchozí pozadí (S1, S3–S6, S8) |
 | `--night-2` | `#121826` | jemná plocha, rám notebooku |
-| `--black` | `#000000` | jen S7 |
+| `--black` | `#000000` | nepoužito (S7 zrušen), rezerva |
 | `--paper` | `#F5F4EF` | jen chaos (S2, most v S1, záblesk v S8) |
 | `--ink` | `#14171C` | text na papíru |
 | `--fg` | `#F2F4F7` | text na tmě |
@@ -121,7 +122,7 @@ Logo je wordmark „Estat“ v `--fg` a „IQ“ v `--mint`, tučný řez. Je po
 3. **Rozpočet:**
    - přechod mezi slajdy ≤ 400 ms,
    - odhalení kroku ≤ 400 ms,
-   - **vyprávěcí animace** (stavba chaosu v S2, počítadlo, tok linek v S7) běží samy, zatímco Kryštof mluví, trvají nejvýš 3 s (tok v S7 smí smyčkovat) a nikdy nečekají na klik.
+   - **vyprávěcí animace** (stavba chaosu v S2, počítadlo, tok linek v integracích na S4) běží samy, zatímco Kryštof mluví, trvají nejvýš 3 s (tok linek smí smyčkovat) a nikdy nečekají na klik.
 4. **Rychlé klikání:** při dvou klicích do 300 ms přejde engine do režimu `instant` bez animací, dokud se nezpomalí. Hodí se pro nouzový skok.
 5. Animuje se jen `transform`, `opacity`, `clip-path` a SVG `stroke-dashoffset`. Žádná paralaxa, 3D, blur ani animované stíny. Plynulých 60 fps na integrované grafice.
 6. Žádný pohyb pro pohyb. Každá animace odpovídá na otázku „co tím říkám?“.
@@ -146,7 +147,6 @@ Logo je wordmark „Estat“ v `--fg` a „IQ“ v `--mint`, tučný řez. Je po
 | S3 | Čtyři slova sjedou do středu a prolnou se v logo | `transform` + `opacity`, bez morphu |
 | S4 | Řádek výpisu „zaklapne“ do platby a zezelená | `spring.snap` |
 | S5 | Modelová cena správy se porovná s cenou nástroje | postupné odhalení částky a ceny |
-| S7 | Linky od čtyř prvků tečou do loga | `stroke-dashoffset` ve smyčce, pomalé |
 | S8 | Kreditní řádky odečtou opravu a návrh smlouvy; pak se obraz vymění za odlišení | `transform` a `opacity` |
 
 Všude jinde stačí jednoduchý nástup ≤ 320 ms. Na každém slajdu je nejvýš jedna signature animace.
@@ -166,6 +166,8 @@ Všude jinde stačí jednoduchý nástup ≤ 320 ms. Na každém slajdu je nejv�
 | `P` | otevře okno přednášejícího |
 | `F` | celá obrazovka |
 | `T` | start / reset stopek |
+| klik myší / tap | další krok |
+| swipe vlevo / vpravo (dotyk) | další / předchozí krok |
 | `D` | debug: zobrazí kódy kláves (pro test prezentéru) |
 
 - Kurzor se po 2 s nečinnosti skryje.
@@ -191,7 +193,7 @@ Formát: **Na plátně** (každý krok), **Pohyb**, **Poznámky** (mluvený text
   - z rohu vyskočí dvě chatové bubliny (zelená bublina, bez loga WhatsAppu): „Dobrý den, nájem pošlu příští týden.“ a „Neteče teplá voda.“,
   - v pozadí kulisy: šanon se smlouvami, papírové faktury, vodoměr (vlastní vektorová kresba `PaperProp`, ne fotky; rozhodnutí Kryštofa 2026-10-20),
   - nahoře vpravo počítadlo 0 → **300** a pod ním „řádků / měsíc“ (300 bytů = 300 platebních řádků v modelovém příkladu).
-  - Banka, Excel a WhatsApp musí být v chaosu nejvýraznější. Energie se tu neukazují; přijdou v S6 a S7.
+  - Banka, Excel a WhatsApp musí být v chaosu nejvýraznější. Energie se tu neukazují; přijdou v S6.
 - **Krok 1 (na „kdo mu dluží“):** všechno se zastaví (pauza timeline) a přes scénu se pomalu stáhne ztlumení (`opacity`).
 - **Poznámky:** Když firmám automatizuji faktury, člověk často ručně přepisuje data mezi nástroji. V pronájmech je stejný problém. Správce porovnává výpis z banky s Excelem. Nájemníci píšou na WhatsApp, smlouvy a faktury leží v šanonu. [pauza 2 s] U správce s 300 byty jde modelově o 300 platebních řádků každý měsíc. A nakonec musí zjistit: kdo mu dluží?
 
@@ -211,7 +213,7 @@ Formát: **Na plátně** (každý krok), **Pohyb**, **Poznámky** (mluvený text
   - Integrace (krok 8): bez rámu notebooku schéma s logem EstatIQ uprostřed a loga Raiffeisenbank, ČSOB, Komerční banka, Gmail, MCP, ČEZ, E.ON, Innogy kolem (seznam zadal Kryštof 2026-10-20); loga naskakují po jednom, linky k logu EstatIQ tečou. Slajd netvrdí, které integrace už fungují.
   - Komunikace (krok 3): kreslená obrazovka s fiktivními daty (`src/content/communicationDemo.ts`, zadání Kryštofa 2026-10-20) a štítkem **Plán**: vlevo vlákno zpráv u bytu místo WhatsAppu (závada předaná řemeslníkovi, platba spárovaná ze zprávy „Nájem jsem poslal.“), vpravo ověřený nájemník (insolvence, exekuce, příjem ověřené jednou a se souhlasem, 12 měsíců plateb, „12 měsíců, vše včas.“, sdílení historie nájemníkem). Přehraje se samo za ~2,5 s. Slajd neslibuje, že nájemník „dostane byt dřív“, ani automatické rozhodnutí o přijetí.
   - Funkce (krok 7): kreslená obrazovka s fiktivními daty (`src/content/featuresDemo.ts`, zadání Kryštofa 2026-10-20) a štítkem **Plán**: AI návrh smlouvy, vysvětlení spotřeby, srovnání dodavatelů energií, dobrovolně sdílená historie plateb s ověřením jen se souhlasem a na právním základě, tržiště řemeslníků a energií. Pět dlaždic se rozehraje samo za ~3 s, klik animaci dokončí. Je to plán, ne MVP; hotovost funkcí je v Otevřených otázkách.
-  - Spotřeba, Databáze: [doplnit: obsah těchto obrazovek a zda existují v MVP; databáze řemeslníků je podle S7 zatím vize]
+  - Spotřeba, Databáze: [doplnit: obsah těchto obrazovek a zda existují v MVP; databáze řemeslníků je podle S6 zatím vize]
 - **Krok 9:** screenshoty zmizí; zůstane **Každý svůj přehled.**
 - **Snímky:** jen skutečné MVP, fiktivní osobní data a realistická Ostrava. Chybějící snímky zůstávají placeholdery. Automatické stržení nájmu na S4 nepatří.
 - **Poznámky:** Banka se promění v přehled plateb: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel nahradí portál vlastníka s přehledem jeho nemovitostí a úkonů. [klik] WhatsApp nahradí portál pro smlouvu, platby a hlášení závad. Nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik] Spotřeba: [doplnit]. [klik] Databáze: [doplnit]. [klik] Finance: [doplnit]. [klik] Komunikace: zprávy a závady u bytu, ověřený nájemník s historií plateb. [klik] Funkce: AI návrh smlouvy, vysvětlení spotřeby, srovnání dodavatelů energií, dobrovolně sdílená historie plateb. [klik] Integrace: [doplnit]. [klik]
@@ -219,24 +221,17 @@ Formát: **Na plátně** (každý krok), **Pohyb**, **Poznámky** (mluvený text
 ### S5 · Proč platí · tma · 1:30–1:55
 - Rozdělená obrazovka bez dělicí čáry: B2B vlevo, modelový příklad vlastníka vpravo.
 - **Vlevo B2B:** správce · 300 bytů; při nájmu 19 990 Kč celkem 6,0 mil. Kč měsíčně. Klik odhalí 4 990 Kč za EstatIQ a následně 0,1 % objemu nájmů.
-- **Vpravo, krok 3:** model při stejném nájmu 19 990 Kč; sazba 10–12 % dává aritmeticky 1 999–2 399 Kč měsíčně. Sazbu ověřit, neoznačovat za typický průměr.
+- **Vpravo, krok 3:** model pro stejných 300 bytů (objem nájmů 5 997 000 Kč); sazba 10–12 % dává aritmeticky 599 700–719 640 Kč, na slajdu „600–720 tis. Kč“ měsíčně. Obě strany musí mít stejný základ. Sazbu ověřit, neoznačovat za typický průměr.
 - **Krok 4:** objeví se 199 Kč/měs. pro vlastníka do 5 bytů.
 - Správcovská firma poskytuje širší službu; nejde o totožné nabídky. Nepřeškrtávat cenu správy.
 - **Nedělat:** srovnání s Repilotem ani tvrzení o úspoře jako garantovaném výsledku.
-- **Poznámky:** Správce 300 bytů při nájmu 19 990 Kč hlídá 6 milionů měsíčně. [klik] EstatIQ stojí 4 990 Kč. [klik] To je asi 0,1 procenta. [pauza 2 s] [klik] Při stejném nájmu dělá modelových 10 až 12 procent 1 999 až 2 399 Kč měsíčně. Sazbu ověříme; správa zahrnuje víc služeb. [klik] Vlastník do pěti bytů platí 199 Kč měsíčně.
+- **Poznámky:** Správce 300 bytů při nájmu 19 990 Kč hlídá 6 milionů měsíčně. [klik] EstatIQ stojí 4 990 Kč. [klik] To je asi 0,1 procenta. [pauza 2 s] [klik] U stejných 300 bytů dělá modelových 10 až 12 procent 600 až 720 tisíc korun měsíčně. Sazbu ověříme; správa zahrnuje víc služeb. [klik] Vlastník do pěti bytů platí 199 Kč měsíčně.
   - *Otevřené: zkrácení kvůli času (memory.md).*
 
 ### S6 · Roadmapa funkcí · tma · 1:55–2:15
 - **Kroky 0–3:** štítek „Postupné rozšíření.“ a tři sloupce na společné ose: **Dnes.** (Platby. Portál vlastníka. Portál nájemníka.), **Další.** (Smlouvy. Zprávy a závady. Energie. Daňové podklady.), **Později.** (Ověřený nájemník. Integrace služeb. AI funkce. Řemeslníci. Kauce a platby.). Krok 0 rozsvítí Dnes, krok 1 Další, krok 2 Později (předchozí sloupce ztlumené na 60 %), krok 3 rozsvítí všechny tři.
-- **Pravidla:** Dnes = skutečný stav MVP, zbytek je plán, ne hotový produkt. Integrace se na slajdu nejmenují (žádné konkrétní služby, dokud nejsou potvrzené). Daně jsou evidence a export podkladů. Ověření nájemníka je dobrovolné, o přijetí rozhoduje pronajímatel. Kauce a platby čekají na právní ověření. S7 zůstává emoční vrchol a funkce z „Později“ jen rozvádí.
+- **Pravidla:** Dnes = skutečný stav MVP, zbytek je plán, ne hotový produkt. Integrace se na slajdu nejmenují (žádné konkrétní služby, dokud nejsou potvrzené). Daně jsou evidence a export podkladů. Ověření nájemníka je dobrovolné, o přijetí rozhoduje pronajímatel. Kauce a platby čekají na právní ověření. 
 - **Poznámky:** Dnes je v aplikaci přehled plateb a portál vlastníka i nájemníka. [klik] Další krok: smlouvy a podpis, zprávy a závady, energie a daňové podklady. Daně jsou evidence a export podkladů, ne automatické podání. [klik] Později ověřený nájemník, který se ověřuje dobrovolně, o přijetí rozhoduje pronajímatel. Integrace s dalšími službami: [doplnit: které služby a jak se údaje berou]. K tomu AI funkce, řemeslníci a kauce s platbami po právním ověření. [klik] Všechno je jedna platforma. Pořadí ověříme v Ostravě.
-
-### S7 · Ještě jedna věc · ČERNÁ · 2:15–2:45
-- **Krok 0:** čistá černá, uprostřed jen **A ještě jedna věc.** (80 px, `--fg`).
-- **Kroky 1–5:** postupně se objeví **AI funkce.**, **Ověřený nájemník.**, **Přehled výdajů.** s popiskem **Voda, plyn, elektřina.** (proud = elektřina, jedna položka; integrace v poznámkách, [doplnit: s kým a jak]), **Řemeslníci v okolí.** (databáze řemeslníků), **Kauce a platby.** Ke každému bodu vede linka do loga; linky se rozbíhají postupně a pak tečou.
-- **Krok 6:** všechno klesne na 15 % a doprostřed přijde věta **Platební vrstva nájemního bydlení.** Slovo „Platební“ je v `--mint`.
-- **Pravidla:** jde o vizi, ne současné MVP. AI návrhy smluv kontroluje člověk. Ověření a sdílení historie volí nájemník; o přijetí rozhoduje pronajímatel. Kauce je evidence a podklad k rozhodnutí vlastníka, ne automatické stržení během nájmu. Automatické platby a tok peněz dodavatelům vyžadují právní a partnerské ověření.
-- **Poznámky:** A ještě jedna věc. [pauza 2 s] [klik] AI funkce: návrh smlouvy ke kontrole a vysvětlení spotřeby. [klik] Nájemník se může dobrovolně ověřit v registrech, doložit příjem a při stěhování ukázat historii: 12 měsíců, vše včas. O přijetí rozhoduje pronajímatel. [klik] Přehled výdajů: voda, plyn a elektřina na jednom místě, [doplnit: integrace, s kým a jak se údaje berou]; u energií srovnání. [klik] Databáze řemeslníků z okolí; při závadě si v aplikaci objedná toho, kdo je nablízku. [klik] Kauci budeme evidovat a hlídat upomínky; o dalším kroku rozhodne vlastník. [klik] Platební a datová vrstva nájemního bydlení.
 
 ### S8 · Kredity, příjmy a odlišení · tma · 2:45–3:35
 - **Krok 0:** modelový účetní tok, bez skutečné peněženky: 1 000 Kč se mění na 1 000 kreditů, pod tím „1 kredit = 1 Kč“. Štítek **Model, ne ceník.**
@@ -283,7 +278,7 @@ Stejný design, ale smí mít víc obsahu (nejvýš jedna jednoduchá tabulka ne
 ---
 
 ## 8. Definice „hotovo“ pro celou prezentaci
-- [ ] Všech 9 slajdů a záložní slajdy odpovídají §6 a `check:content` projde.
+- [ ] Všech 8 slajdů a záložní slajdy odpovídají §6 a `check:content` projde.
 - [ ] Každý krok jde vpřed i vzad a další klik během animace ji okamžitě dokončí.
 - [ ] `dist/index.html` běží z `file://` bez sítě v Chrome i Firefoxu.
 - [ ] Ověřeno se skutečným prezentérem včetně nouzového skoku.

@@ -3,7 +3,7 @@ import { drawStroke, dur, flowLoop } from '../../motion/presets';
 import type { DeckMode } from '../../deck/types';
 
 /**
- * Linka toku (S7). Vykresluje `<g>`, takže se několik linek skládá do jednoho `<svg>`.
+ * Linka toku (S4, Integrace). Vykresluje `<g>`, takže se několik linek skládá do jednoho `<svg>`.
  * Stopa se natáhne tahem, po ní pak dokola teče krátký úsek (`stroke-dashoffset`).
  * Po návratu z `instant` se smyčka spustí znovu (klíč podle `mode`).
  */

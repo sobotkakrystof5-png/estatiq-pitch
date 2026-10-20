@@ -10,7 +10,7 @@ const HIDDEN = 'inset(-0.3em 100% -0.3em -0.15em)';
 
 /**
  * Heslo. Nastoupí zleva doprava ve směru čtení (ne fade + slide-up) a dá se ztlumit.
- * `dimTo` je úroveň ztlumení podle slajdu (S3 25 %, S8 40 %, S6 60 %, S7 15 %).
+ * `dimTo` je úroveň ztlumení podle slajdu (S3 25 %, S8 40 %, S6 60 %).
  */
 export function Word({
   state,

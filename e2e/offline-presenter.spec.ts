@@ -10,9 +10,10 @@ test('single-file deck projde offline všemi hlavními i záložními kroky', as
   await page.context().setOffline(true);
   await open(page);
 
-  const steps = [2, 1, 6, 3, 4, 3, 5, 4, 3, 0, 0, 0, 0, 0, 0, 0];
+  const mainIds = ['s1', 's2', 's3', 's4', 's5', 's6', 's8', 's9'];
+  const steps = [2, 1, 6, 9, 4, 3, 4, 3, 0, 0, 0, 0, 0, 0, 0];
   for (let slide = 0; slide < steps.length; slide++) {
-    const id = slide < 9 ? `${slide + 1}` : `z${slide - 8}`;
+    const id = slide < mainIds.length ? `${slide + 1}` : `z${slide - mainIds.length + 1}`;
     for (let step = 0; step <= steps[slide]!; step++) {
       const hash = `#/${id}/${step}`;
       await page.evaluate((nextHash) => {
@@ -20,7 +21,7 @@ test('single-file deck projde offline všemi hlavními i záložními kroky', as
       }, hash);
       await expect(page.locator('[data-slide]').last()).toHaveAttribute(
         'data-slide',
-        slide < 9 ? `s${id}` : id,
+        slide < mainIds.length ? mainIds[slide]! : id,
       );
       await expect(page.locator('[data-slide]').last()).toHaveAttribute('data-step', String(step));
     }
@@ -70,7 +71,7 @@ test('okno přednášejícího se z file:// synchronizuje v obou směrech', asyn
 test('tiskový pohled vykreslí všechny kroky bez animací', async ({ page }) => {
   await page.context().setOffline(true);
   await page.goto(`${url}?print`);
-  await expect(page.locator('[data-print-page]')).toHaveCount(54);
+  await expect(page.locator('[data-print-page]')).toHaveCount(47);
   await expect(page.locator('[data-print-page]').first()).toHaveAttribute('data-step', '0');
   await expect(page.locator('[data-print-page]').last()).toHaveAttribute('data-slide', 'z7');
 });

@@ -32,7 +32,7 @@ function modifiers(e: KeyboardEvent) {
     .join('+');
 }
 
-/** Klávesnice a prezentér (BRIEF §5). Mapování je v `deck.config.ts`. */
+/** Klávesnice, myš, dotyk a prezentér (BRIEF §5). Mapování je v `deck.config.ts`. */
 export function useControls(
   navigate: (a: NavAction, o?: { instant?: boolean }) => void,
   getState: () => DeckState,
@@ -164,8 +164,44 @@ export function useControls(
       }
     };
 
+    // Klik myší nebo tap = další krok; swipe dotykem: vlevo další, vpravo zpět.
+    let down: { x: number; y: number } | null = null;
+    const onPointerDown = (e: PointerEvent) => {
+      down =
+        e.isPrimary && (e.pointerType !== 'mouse' || e.button === 0)
+          ? { x: e.clientX, y: e.clientY }
+          : null;
+    };
+    const onPointerUp = (e: PointerEvent) => {
+      const start = down;
+      down = null;
+      if (!start || overviewRef.current) return;
+      const dx = e.clientX - start.x;
+      const dy = e.clientY - start.y;
+      if (Math.hypot(dx, dy) <= engine.tapMaxPx) {
+        navigate({ type: 'next' });
+      } else if (
+        e.pointerType !== 'mouse' &&
+        Math.abs(dx) >= engine.swipeMinPx &&
+        Math.abs(dx) > Math.abs(dy)
+      ) {
+        navigate({ type: dx < 0 ? 'next' : 'prev' });
+      }
+    };
+    const onPointerCancel = () => {
+      down = null;
+    };
+
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerCancel);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerCancel);
+    };
   }, [navigate, getState, setOverview, overviewRef, setDebug, debugRef, callbacks]);
 
   return { overview, debug, keyLog };

@@ -6,7 +6,6 @@ import { S03Reveal } from './slides/S03Reveal';
 import { S04Product } from './slides/S04Product';
 import { S05Business } from './slides/S05Business';
 import { S06Scale } from './slides/S06Scale';
-import { S07Vision } from './slides/S07Vision';
 import { S08Credits } from './slides/S08Credits';
 import { S09Ask } from './slides/S09Ask';
 import {
@@ -18,15 +17,13 @@ import {
   Z06Finance,
   Z07Deposit,
 } from './slides/backup/Slides';
-import { s1, s2, s3, s4, s5, s6, s7, s8, s9, z1, z2, z3, z4, z5, z6, z7 } from './content/slides';
+import { s1, s2, s3, s4, s5, s6, s8, s9, z1, z2, z3, z4, z5, z6, z7 } from './content/slides';
 import {
   chaos,
   cutInVariants,
   intro,
   rozpad,
   s1Variants,
-  s6ToS7Variants,
-  s7Variants,
 } from './motion/presets';
 
 export { stage } from './deck/canvas';
@@ -38,6 +35,10 @@ export const engine = {
   /** Po tolika ms klidu se `instant` vypne. */
   quietMs: 800,
   cursorIdleMs: 2000,
+  /** Dotyk/klik posunutý o méně px je tap (další krok). */
+  tapMaxPx: 12,
+  /** Vodorovný tah dotykem delší než toto px je swipe (vlevo další, vpravo zpět). */
+  swipeMinPx: 50,
   /** Jak dlouho čeká rozepsané číslo slajdu na Enter. */
   digitBufferMs: 2000,
   /** Pojistka: prezentace se ukáže, i když se asset nenačte. */
@@ -97,15 +98,6 @@ export const mainSlides: SlideDef[] = [
     steps: s6.steps,
     background: 'night',
     budgetSec: s6.budgetSec,
-    variants: s6ToS7Variants,
-  },
-  {
-    id: 's7',
-    component: S07Vision,
-    steps: s7.steps,
-    background: 'black',
-    budgetSec: s7.budgetSec,
-    variants: s7Variants,
   },
   { id: 's8', component: S08Credits, steps: s8.steps, background: 'night', budgetSec: s8.budgetSec },
   { id: 's9', component: S09Ask, steps: s9.steps, background: 'night', budgetSec: s9.budgetSec },

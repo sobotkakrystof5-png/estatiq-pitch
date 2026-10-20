@@ -25,6 +25,46 @@ test('projde všechny kroky tam i zpět', async ({ page }) => {
   }
 });
 
+test('klik myší a tap jdou na další krok, swipe doprava zpět', async ({ page }) => {
+  await open(page);
+  await page.mouse.click(960, 540);
+  await expectAt(page, positions[1]!.id, positions[1]!.step);
+  await page.waitForTimeout(450);
+  await page.mouse.click(300, 200);
+  await expectAt(page, positions[2]!.id, positions[2]!.step);
+  await page.waitForTimeout(450);
+  // Tah myší není klik; swipe dotykem ano (vlevo další, vpravo zpět).
+  await page.mouse.move(600, 500);
+  await page.mouse.down();
+  await page.mouse.move(900, 500, { steps: 5 });
+  await page.mouse.up();
+  await expectAt(page, positions[2]!.id, positions[2]!.step);
+  const swipe = async (from: number, to: number) => {
+    await page.evaluate(
+      ([a, b]) => {
+        const fire = (type: string, x: number) =>
+          window.dispatchEvent(
+            new PointerEvent(type, {
+              clientX: x,
+              clientY: 500,
+              pointerType: 'touch',
+              isPrimary: true,
+              button: 0,
+            }),
+          );
+        fire('pointerdown', a!);
+        fire('pointerup', b!);
+      },
+      [from, to],
+    );
+  };
+  await swipe(800, 1200);
+  await expectAt(page, positions[1]!.id, positions[1]!.step);
+  await page.waitForTimeout(450);
+  await swipe(1200, 800);
+  await expectAt(page, positions[2]!.id, positions[2]!.step);
+});
+
 test('rychlé klikání a držení šipky: stav odpovídá počtu stisků', async ({ page }) => {
   await open(page);
   for (let i = 0; i < 5; i++) await page.keyboard.press('ArrowRight');
@@ -116,16 +156,16 @@ test('D ukáže kódy kláves', async ({ page }) => {
 test('nouzový skok, Home/End a číslo + Enter', async ({ page }) => {
   await open(page, '#/2/1');
   await page.keyboard.press('b');
-  expect(await hash(page)).toBe('#/9/0');
+  expect(await hash(page)).toBe('#/8/0');
   await page.keyboard.press('Home');
   expect(await hash(page)).toBe('#/1/0');
   await page.keyboard.press('.');
-  expect(await hash(page)).toBe('#/9/0');
+  expect(await hash(page)).toBe('#/8/0');
   await page.keyboard.press('2');
   await page.keyboard.press('Enter');
   expect(await hash(page)).toBe('#/2/0');
   await page.keyboard.press('End');
-  expect(await hash(page)).toBe('#/9/0');
+  expect(await hash(page)).toBe('#/8/0');
 });
 
 test('přehled záložních slajdů a návrat Esc', async ({ page }) => {
@@ -151,41 +191,8 @@ test('přehled záložních slajdů a návrat Esc', async ({ page }) => {
   expect(await hash(page)).toBe('#/5/3');
 });
 
-test('S6 → S7 je okamžitý střih do černé', async ({ page }) => {
-  await open(page, '#/6/3');
-  await page.waitForTimeout(450);
-  await page.keyboard.press('ArrowRight');
-  await expectAt(page, 's7', 0);
-  await expect(top(page).getByTestId('s7-scene')).toBeVisible();
-  const opacity = await top(page).evaluate((el) => getComputedStyle(el).opacity);
-  expect(opacity).toBe('1');
-});
-
-test('S7 tok běží přes strokeDashoffset a S9 závěr neblokuje zpětný krok', async ({
-  page,
-}) => {
-  await open(page, '#/7/5');
-  await page.waitForTimeout(900);
-  const flows = top(page).locator('svg path.stroke-mint');
-  await expect(flows).toHaveCount(5);
-  const tracks = top(page).locator('svg path.stroke-fg');
-  await expect(tracks).toHaveCount(5);
-  const trackStyle = await tracks.first().evaluate((path) => ({
-    stroke: getComputedStyle(path).stroke,
-    opacity: getComputedStyle(path).opacity,
-  }));
-  expect(trackStyle.stroke).toBe('rgb(248, 250, 252)');
-  expect(Number(trackStyle.opacity)).toBeCloseTo(0.18, 2);
-  const before = await flows.evaluateAll((paths) =>
-    paths.map((path) => getComputedStyle(path).strokeDashoffset),
-  );
-  await page.waitForTimeout(220);
-  const after = await flows.evaluateAll((paths) =>
-    paths.map((path) => getComputedStyle(path).strokeDashoffset),
-  );
-  expect(after).not.toEqual(before);
-
-  await open(page, '#/9/2');
+test('S9 závěr neblokuje zpětný krok', async ({ page }) => {
+  await open(page, '#/8/2');
   await page.keyboard.press('ArrowRight');
   await expectAt(page, 's9', 3);
   const endcard = top(page).getByTestId('s9-endcard');

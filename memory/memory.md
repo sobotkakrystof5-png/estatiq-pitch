@@ -4,7 +4,7 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Aktuální stav
 - **Projekt:** prezentace EstatIQ pro elevator pitch Green Light; aktuální uživatelem zadaný rozpočet je 3:55. Původní podklad uváděl 3:00 + 7 minut otázek, povolený limit čeká na potvrzení.
-- **Fáze:** hlavní pitch má devět realizovaných slajdů včetně modelu kreditů a odlišení. Před vystoupením zbývá doplnit skutečné screenshoty, ověřit otevřené údaje a udělat generálku nahlas.
+- **Fáze:** hlavní pitch má osm realizovaných slajdů (S1–S6, S8, S9; S7 zrušen 2026-10-20) včetně modelu kreditů a odlišení. Před vystoupením zbývá doplnit skutečné screenshoty, ověřit otevřené údaje a udělat generálku nahlas.
 - **Stack:** Vite + React 19 + TS + Tailwind v4 + Motion, single-file build (AGENTS.md).
 - **Co existuje:** engine v `src/deck/`; S1–S9 a Z1–Z7 jsou realizované; veškerý obsah je v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Aktuální single-file build má 805,27 kB. PDF export má 54 stran a 16 finálních stavů. Typecheck, lint, `check:content`, build a vybrané e2e kontroly prošly; 16 varování zůstává kvůli známým placeholderům.
 
@@ -20,7 +20,7 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **2026-10-19:** „Klik vyhrává“ přes přemountování slajdu (`epoch`) s `MotionGlobalConfig.instantAnimations`, ne přes `AnimatePresence initial={false}`. Reason: `initial={false}` drží Motion v kontextu po celý život dítěte, takže prvky, které se objeví v pozdějším kroku, by se přestaly animovat. Ověřeno e2e testem, který bez snapu padá.
 - **2026-10-19:** Nouzový skok (`B`, `.`) jde na S8 krok 0 v režimu `instant`. Home/End a číslo + Enter jsou taky okamžité, šipky se animují.
 - **2026-10-19:** Hlavní a záložní slajdy jsou oddělené sekce. Šipky mezi nimi nepřechází. `Esc` ze záložního slajdu vrátí na místo, odkud se otevřel přehled `Z`.
-- **2026-10-19:** Klik myší nenaviguje. Ovládá se jen klávesnicí nebo prezentérem (BRIEF §5 myš nezmiňuje, náhodné kliknutí na pódiu by posunulo slajd).
+- **2026-10-20:** Klik myší a tap na dotykové obrazovce posouvá na další krok; na dotyku swipe vlevo je další a vpravo zpět. Přepisuje rozhodnutí z 2026-10-19 „Klik myší nenaviguje“ (na pokyn Kryštofa; riziko náhodného kliku na pódiu přijato).
 - **2026-10-19:** Tokeny jsou ověřené v repech EstatIQ (`Projekty/EstatIQ - prelaunch/index.html`, `Projekty/Estatiq - aplikace /src/index.css`): night `#0B0F19`, night-2 `#0F172A`, fg `#F8FAFC`, muted `#94A3B8`, mint `#34D399` (emerald-400), green `#059669`, amber `#D97706`, red `#DC2626` a nový line `#1E293B` (okraje na webu). Paper, ink a black protějšek na webu nemají, zůstávají z BRIEF. Hex tabulka v BRIEF §3 tím neplatí, platí `tokens.css`. Reason: prompt 03.
 - **2026-10-19:** Zůstává jedno písmo (Space Grotesk), i když web má tělo v Plus Jakarta Sans. Monospace web nepoužívá, takže pro řádky výpisu zůstává JetBrains Mono podle BRIEF.
 - **2026-10-19:** Logo odpovídá `.splash-logo` z webu: Space Grotesk 700, letter-spacing −0,02em, „IQ“ v emerald-400. Rozdíly na webu: hlavička má „IQ“ v emerald-500 a tracking 0, aplikace emerald-600 (světlé UI). Proti textu ve stylu splash se SVG liší o 0,00 % pixelů (`e2e/logo.spec.ts`, snímek `test-results/logo-compare.png`).
@@ -53,11 +53,10 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Otevřené otázky
 Čeká se na Kryštofa. Do té doby zůstává v obsahu `[doplnit: …]`.
-- **Integrace (S6, S7):** s kým se EstatIQ integruje (banky, dodavatelé energií, účetní software, jiné služby) a jak se údaje berou? Dokud to není jasné, S6 píše jen „Integrace služeb.“ a S7 u výdajů integraci netvrdí.
-- **S7 integrace výdajů:** s kým se přehled výdajů (voda, plyn, elektřina) integruje a jak se údaje berou (dodavatelé, měřidla, import faktur)? Dokud to není jasné, slajd integraci netvrdí.
+- **Integrace (S6):** s kým se EstatIQ integruje (banky, dodavatelé energií, účetní software, jiné služby) a jak se údaje berou? Dokud to není jasné, S6 píše jen „Integrace služeb.“.
 - ~~**Tag u odhalení (slajd 3)**~~ — vyřešeno 2026-10-19: „Pronájem, který se řídí sám.“ (volba Kryštofa; pravdivé jen s bankovním párováním, viz níže).
 - **Bankovní párování** (import výpisu GPC/ABO a párování podle VS): stihne se před pitchem? Na tom závisí pravdivost slajdů 2, 3, 4 a tvrzení o MVP na 9.
-- **Časování:** devět hlavních slajdů má rozpočet 3:55. Aktuálních 422 slov znamená přibližně 3:03 čisté řeči při 138 slovech/min; kliky a zadané pauzy mají prostor do 3:55. Zkouška se stopkami zatím neproběhla. Potvrdit, zda Green Light povoluje až čtyři minuty; původní brief uváděl 3:00.
+- **Časování:** osm hlavních slajdů má rozpočet slajdů 3:25 (limit 3:55). Aktuálních 422 slov znamená přibližně 3:03 čisté řeči při 138 slovech/min; kliky a zadané pauzy mají prostor do 3:55. Zkouška se stopkami zatím neproběhla. Potvrdit, zda Green Light povoluje až čtyři minuty; původní brief uváděl 3:00. Po zrušení S7 ubylo asi 70 slov, ale S4 má o ~75 slov víc (Funkce, Komunikace); slovní součet přepočítat.
 - **S4 screenshoty:** krok Přehled nemovitosti už má snímky (dashboard + kalendář, 2026-10-20). Zbývá dodat skutečné snímky z MVP: přehled plateb, přehled nemovitosti v portálu vlastníka, skutečný portál nájemníka (krok Nájemník má zatím seznam nájemníků z pohledu pronajímatele) a obrazovky Spotřeba, Databáze, Finance, Funkce a Integrace. Upřesnit, co ty tři ukazují a zda existují v MVP (databáze řemeslníků je podle S7 vize, nesmí vypadat jako hotový produkt). Upřesnit, co dashboard pronajímatele ukazuje a jak se liší od kroku „Přehled nemovitosti“; věta v poznámkách je zatím obecná.- **S5 sazba správy:** ověřit, zda lze pro konkrétní srovnávací příklad použít 10–12 %. Neříkat, že jde o typický tržní průměr, dokud nebude zdroj.
 - **Daňové podklady:** potvrdit s účetním, jaké příjmy, výdaje, faktury a export lze slíbit v produktu a zda má jít o souhrn či export pro konkrétní účetní software.
 - **Krok Komunikace a Funkce na S4:** jsou AI návrh smlouvy, vysvětlení spotřeby, srovnání energií, sdílení historie a tržiště hotové, nebo plánované? Dokud to není potvrzeno, scéna nese štítek Plán a mluvený text říká „které chci přidat“. Pokud je něco už v MVP, štítek se u té dlaždice vypustí.
@@ -77,7 +76,7 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Z6 finance:** po workshopu doplnit náklady a financování.
 
 ## Záměrně neuděláno
-- **Responzivita pro mobil, SEO, meta tagy, analytika.** Nejde o web.
+- **Responzivní přeskládání pro mobil, SEO, analytika.** Nejde o web. Mobil a tablet dostanou jen stejné plátno 1920×1080 zmenšené s letterboxem a ovládání tapem/swipem (2026-10-20).
 - **Živé demo uvnitř prezentace.** Živé demo běží v EstatIQ na notebooku, prezentace má statické screenshoty.
 - **Číslo hodin na slajdu 2.** Počítadlo ukazuje „300 řádků / měsíc“ (aritmetika z příkladu). Hodiny až z hovorů.
 - **`layoutId` mezi S2 a S3.** Viz rozhodnutí o rozpadu. Neopravovat zpět na `layoutId`.
@@ -85,10 +84,29 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Automatické stržení nájmu na slajdu 4.** Není v MVP a je to regulovaná platební služba. Patří jen do vize na slajdu 7.
 - **Automatické daňové přiznání.** S6 mluví o evidenci a exportu podkladů, ne o automatickém podání nebo změně daňových pravidel.
 - **Automatické odmítání nájemníků.** O přijetí rozhoduje pronajímatel; nájemník si volí, jakou historii sdílí.
+- **Slajd S7 „Ještě jedna věc“ (černá vize).** Zrušen 2026-10-20, neobnovovat bez pokynu; viz changelog.
 - **Průběžné automatické započtení z kauce a její automatické doplňování.** Z7 ukazuje evidenci, upozornění a přípravu podkladů; vypořádání posuzuje pronajímatel.
 - **Kredity jako hotová peněženka.** Model 1:1 a poplatky 600/5 jsou jen příklady do diskuse, dokud nebude ověřena právní struktura.
 
 ## Changelog
+
+### 2026-10-20 — Klik, tap a swipe posouvají prezentaci
+- **Co:** Klik levým tlačítkem nebo tap kamkoli na plátno (posun ≤ 12 px) pošle `next`. Na dotyku vodorovný tah ≥ 50 px: vlevo `next`, vpravo `prev`. Tah myší klik nevyvolá. Při otevřeném přehledu `Z` se tap ignoruje. Kořen decku má `touch-none` (bez zoomu a scrollu gesty), `index.html` dostal `viewport` meta; bez něj mobil vykresloval stránku jako 980 px a plátno by bylo drobné.
+- **Proč:** na pokyn Kryštofa (ovládání z tabletu a mobilu bez klávesnice).
+- **Dopad:** ruší rozhodnutí „Klik myší nenaviguje“ z 2026-10-19. Klik prochází stejným `navigate`, takže „klik vyhrává“ i rychlé klikání (`instant`) platí beze změny. Na pódiu hrozí náhodný klik; prezentér a klávesy fungují dál. Na mobilu na výšku je plátno malé (letterbox), nepřeskládává se. E2E test v `engine.spec.ts` (klik, tah myší, swipe oběma směry); typecheck, lint, 38 unit a 22 e2e prošly. Ověřeno jen v Chromiu s emulovanými událostmi, ne na skutečném tabletu nebo iPhonu.
+- **Soubory:** `src/deck/useControls.ts`, `src/deck/Deck.tsx`, `src/deck.config.ts`, `index.html`, `e2e/engine.spec.ts`
+
+### 2026-10-20 — S5: pravá strana přepočtená na 300 bytů
+- **Co:** Vpravo bylo 1 999–2 399 Kč (10–12 % z nájmu jednoho bytu), vlevo 4 990 Kč za 300 bytů; strany neměly stejný základ a EstatIQ vycházelo dráž. Teď je vpravo „Model · 300 bytů“ a 10–12 % z objemu nájmů 5 997 000 Kč = 599 700–719 640 Kč, na slajdu „600–720 tis. Kč“ (zaokrouhleno na tisíce). Cena EstatIQ 4 990 Kč a 199 Kč/měs. pro vlastníka do 5 bytů beze změny. `s5Math.selfManagedRent` zrušen, upraveny poznámky S5, BRIEF §S5 a test aritmetiky.
+- **Proč:** na pokyn Kryštofa (slajd matematicky nedával smysl); variantu „přepočítat na 300 bytů“ potvrdil dotazem.
+- **Dopad:** nahrazuje část záznamu „S5: nájem 19 990 Kč a 199 Kč do 5 bytů“ (částka 1 999–2 399 Kč už na slajdu není). Sazba 10–12 % je pořád k ověření.
+- **Soubory:** `src/content/slides.ts`, `src/content/s5-math.test.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
+### 2026-10-20 — Zrušen slajd S7 „Ještě jedna věc“
+- **Co:** Smazal jsem černý vizionářský slajd S7 (AI funkce, ověřený nájemník, přehled výdajů, řemeslníci, kauce a platby, věta „Platební vrstva nájemního bydlení.“). Odstraněny `S07Vision.tsx`, `s7` v obsahu, `s6ToS7Variants` a `s7Variants`, tvrdý střih S6 → S7 a jeho e2e testy. Hlavních slajdů je osm. Identifikátory **s8 a s9 zůstaly** (jsou to 7. a 8. slajd, hash `#/7/…` a `#/8/…`), aby se nepřepisovaly soubory, testy a historie. Součet rozpočtů slajdů je 3:25, rezerva do 3:55 je 30 s. Tiskový test čeká 47 stran, e2e seznam kroků a offline test mají mapu id.
+- **Proč:** na pokyn Kryštofa; obsah S7 se opakoval v S4 (Funkce, Komunikace) a S6 („Později“).
+- **Dopad:** nikde už není černý slajd ani věta o ambici „Platební (a datová) vrstva nájemního bydlení“ (BRIEF §0, bod 3); porota ji teď neuslyší, pokud ji Kryštof neřekne na S6 nebo S9. „Přehled výdajů: voda, plyn, elektřina“ zmizel z pitche úplně (zbývá krok Spotřeba na S4). Starší záznamy a rozhodnutí o S7 (tvrdý střih, vize, nouzový skok) jsou historie. Typecheck, lint, 38 unit testů, `check:content` (9 varování) a 21 e2e prošly. PDF, GitHub a Vercel nejsou aktualizované.
+- **Soubory:** `src/deck.config.ts`, `src/content/slides.ts`, `src/motion/presets.ts`, `src/slides/S07Vision.tsx` (smazán), `e2e/deck.ts`, `e2e/engine.spec.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `AGENTS.md`, `CLAUDE.md`, `memory/memory.md`
 
 ### 2026-10-20 — Push na GitHub a deploy na Vercel (kroky Komunikace a Funkce)
 - **Co:** Commit `5b305da` na `main` v `sobotkakrystof5-png/estatiq-pitch` (včetně nových `src/assets/`, screenshotů a fotky). Produkční deploy `vercel deploy --prod` (běžný build) na https://estatiq-pitch.vercel.app, stav READY, HTTP 200.

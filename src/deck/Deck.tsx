@@ -132,7 +132,7 @@ export function Deck() {
   const def = allSlides[state.slide]!;
 
   return (
-    <div className={`fixed inset-0 select-none ${cursorHidden ? 'cursor-none' : ''}`}>
+    <div className={`fixed inset-0 touch-none select-none ${cursorHidden ? 'cursor-none' : ''}`}>
       <Stage background={ready ? def.background : 'night'}>
         {ready ? (
           // `epoch` se mění, když klik přijde během přechodu: celý přechod se zahodí a slajd stojí v cíli.

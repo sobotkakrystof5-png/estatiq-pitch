@@ -274,7 +274,6 @@ export const s5Math = {
   units: 300,
   rentPerUnit: 19_990,
   monthlyPrice: 4_990,
-  selfManagedRent: 19_990,
   managementRate: [0.1, 0.12] as const,
 };
 
@@ -290,8 +289,10 @@ const relativePrice = new Intl.NumberFormat('cs-CZ', {
   minimumFractionDigits: 1,
   maximumFractionDigits: 1,
 }).format((s5Math.monthlyPrice / (s5Math.units * s5Math.rentPerUnit)) * 100);
-const managementFeeMin = number(s5Math.selfManagedRent * s5Math.managementRate[0]);
-const managementFeeMax = number(s5Math.selfManagedRent * s5Math.managementRate[1]);
+const rentVolume = s5Math.units * s5Math.rentPerUnit;
+const thousands = (value: number) => number(Math.round(value / 1_000));
+const managementFeeMin = thousands(rentVolume * s5Math.managementRate[0]);
+const managementFeeMax = thousands(rentVolume * s5Math.managementRate[1]);
 
 export const s5 = {
   id: 's5',
@@ -314,7 +315,7 @@ export const s5 = {
     },
     b2bRatio: { value: `${relativePrice}${NB}%`, source: '4 990 / 5 997 000', status: 'verified' },
     b2cContext: {
-      value: `Model · nájem ${number(s5Math.selfManagedRent)}${NB}Kč`,
+      value: `Model · ${number(s5Math.units)}${NB}bytů`,
       source: 'modelový příklad; sazbu 10–12 % ověřit',
       status: 'placeholder',
     },
@@ -325,8 +326,8 @@ export const s5 = {
     },
     b2cManagerLabel: 'Správa nemovitosti',
     b2cFee: {
-      value: `${managementFeeMin}–${managementFeeMax}${NB}Kč`,
-      source: '19 990 Kč × 10–12 %',
+      value: `${managementFeeMin}–${managementFeeMax}${NB}tis.${NB}Kč`,
+      source: '300 × 19 990 Kč × 10–12 %, zaokrouhleno na tisíce',
       status: 'verified',
     },
     b2cPeriod: 'měsíčně',
@@ -338,7 +339,7 @@ export const s5 = {
     },
   },
   notes: cs(
-    `Správce 300 bytů při nájmu 19${NB}990${NB}Kč hlídá 6 milionů měsíčně. [klik] EstatIQ stojí 4${NB}990${NB}Kč. [klik] To je asi 0,1 procenta. [pauza 2 s] [klik] Při stejném nájmu dělá modelových 10 až 12 procent 1${NB}999 až 2${NB}399${NB}Kč měsíčně. Sazbu ověříme; správa zahrnuje víc služeb. [klik] Vlastník do pěti bytů platí 199${NB}Kč měsíčně.`,
+    `Správce 300 bytů při nájmu 19${NB}990${NB}Kč hlídá 6 milionů měsíčně. [klik] EstatIQ stojí 4${NB}990${NB}Kč. [klik] To je asi 0,1 procenta. [pauza 2 s] [klik] U stejných 300 bytů dělá modelových 10 až 12 procent 600 až 720 tisíc korun měsíčně. Sazbu ověříme; správa zahrnuje víc služeb. [klik] Vlastník do pěti bytů platí 199${NB}Kč měsíčně.`,
   ),
 } satisfies SlideContent;
 
@@ -367,27 +368,6 @@ export const s6 = {
   },
   notes: cs(
     'Dnes je v aplikaci přehled plateb a portál vlastníka i nájemníka. [klik] Další krok: smlouvy a podpis, zprávy a závady, energie a daňové podklady. Daně jsou evidence a export podkladů, ne automatické podání. [klik] Později ověřený nájemník, který se ověřuje dobrovolně, o přijetí rozhoduje pronajímatel. Integrace s dalšími službami: [doplnit: které služby a jak se údaje berou]. K tomu AI funkce, řemeslníci a kauce s platbami po právním ověření. [klik] Všechno je jedna platforma. Pořadí ověříme v Ostravě.',
-  ),
-} satisfies SlideContent;
-
-export const s7 = {
-  id: 's7',
-  title: 'Ještě jedna věc',
-  budgetSec: 30,
-  steps: 6,
-  screen: {
-    opening: `A${NB}ještě jedna věc.`,
-    ai: 'AI funkce.',
-    tenants: 'Ověřený nájemník.',
-    expenses: 'Přehled výdajů.',
-    expensesDetail: 'Voda, plyn, elektřina.',
-    tradesmen: cs('Řemeslníci v okolí.'),
-    payments: cs('Kauce a platby.'),
-    finalLead: 'Platební',
-    finalTail: 'vrstva nájemního bydlení.',
-  },
-  notes: cs(
-    'A ještě jedna věc. [pauza 2 s] [klik] AI funkce: návrh smlouvy ke kontrole a vysvětlení spotřeby. [klik] Nájemník se může dobrovolně ověřit v registrech, doložit příjem a při stěhování ukázat historii: 12 měsíců, vše včas. O přijetí rozhoduje pronajímatel. [klik] Přehled výdajů: voda, plyn a elektřina na jednom místě, [doplnit: integrace, s kým a jak se údaje berou]; u energií srovnání. [klik] Databáze řemeslníků z okolí; při závadě si v aplikaci objedná toho, kdo je nablízku. [klik] Kauci budeme evidovat a hlídat upomínky; o dalším kroku rozhodne vlastník. [klik] Platební a datová vrstva nájemního bydlení.',
   ),
 } satisfies SlideContent;
 
@@ -592,7 +572,6 @@ export const slides: SlideContent[] = [
   s4,
   s5,
   s6,
-  s7,
   s8,
   s9,
   z1,

@@ -154,22 +154,6 @@ export const cutInVariants: Variants = {
   exit: fade.exit,
 };
 
-/** S6 → S7: jediný okamžitý střih do černé; zpětný krok zůstává plynulý. */
-export const s6ToS7Variants: Variants = {
-  enter: fade.enter,
-  center: fade.center,
-  exit: (d: number): TargetAndTransition =>
-    d === 1 ? { opacity: 0, zIndex: 0, transition: { duration: 0 } } : fade.exit,
-};
-
-/** S7 vstoupí tvrdým střihem vpřed a běžným prolnutím při návratu ze S8. */
-export const s7Variants: Variants = {
-  enter: (d: number): TargetAndTransition =>
-    d === 1 ? { opacity: 1, zIndex: 1, transition: { duration: 0 } } : fade.enter,
-  center: fade.center,
-  exit: fade.exit,
-};
-
 /**
  * S2: vyprávěcí timeline v sekundách (BRIEF §4: ≤ 3 s, běží sama, nikdy nečeká na klik).
  * Řádky odletí z výpisu do tabulky jeden po druhém, bubliny vyskočí, počítadlo jede 0 → 300.
