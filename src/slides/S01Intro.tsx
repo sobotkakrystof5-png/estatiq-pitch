@@ -2,7 +2,10 @@
 // Krok 2 je most do S2: zespodu vystoupá papír a na něm prosakují řádky výpisu.
 import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Placeholder, StatementRow } from '../design/primitives';
+import { StatementRow } from '../design/primitives';
+import photo from '../assets/photos/krystof.jpg';
+import logoAlteno from '../assets/logos/alteno.png';
+import logoVizeon from '../assets/logos/vizeon.png';
 import { bridge, intro, stepReveal } from '../motion/presets';
 import { s1, text } from '../content/slides';
 import type { SlideProps } from '../deck/types';
@@ -25,7 +28,12 @@ export function S01Intro({ step, mode, direction }: SlideProps) {
         animate={{ opacity: 1 }}
         transition={intro.photo}
       >
-        <Placeholder ratio="4/5" label={text(screen.photo)} className="h-full" />
+        <img
+          src={photo}
+          alt={text(screen.photo)}
+          className="block h-full"
+          style={{ aspectRatio: '4/5' }}
+        />
       </motion.div>
 
       {/* Důkazy: zleva doprava pod fotkou, naposledy. */}
@@ -38,9 +46,9 @@ export function S01Intro({ step, mode, direction }: SlideProps) {
         transition={stepReveal}
       >
         <div className="flex items-center gap-8">
-          <Placeholder ratio="3/1" label={text(screen.logoAlteno)} className="h-[104px] p-3!" />
+          <img src={logoAlteno} alt={text(screen.logoAlteno)} className="block h-[40px]" />
           <span>{text(screen.cross)}</span>
-          <Placeholder ratio="3/1" label={text(screen.logoVizeon)} className="h-[104px] p-3!" />
+          <img src={logoVizeon} alt={text(screen.logoVizeon)} className="block h-[40px]" />
         </div>
         <p className="mt-8">{text(screen.projects)}</p>
       </motion.div>

@@ -59,15 +59,24 @@ export const s1 = {
   steps: 2,
   screen: {
     photo: {
-      value: `Foto Kryštof · 4:5 · min.${NB}1200${NB}×${NB}1500${NB}px`,
-      status: 'placeholder',
+      value: 'Kryštof Sobotka',
+      source: 'vlastní foto dodané Kryštofem, 1200×1500 px',
+      status: 'verified',
     },
     firstName: 'Kryštof',
     lastName: 'Sobotka',
     role: { value: `15${NB}let · student · zakladatel`, source: 'BRIEF §6 S1', status: 'verified' },
-    logoAlteno: { value: 'Logo Alteno · světlé SVG', status: 'placeholder' },
+    logoAlteno: {
+      value: 'Alteno',
+      source: 'logo dodané Kryštofem (PNG, pozadí odstraněno)',
+      status: 'verified',
+    },
     cross: '×',
-    logoVizeon: { value: 'Logo Vizeon · světlé SVG', status: 'placeholder' },
+    logoVizeon: {
+      value: 'Vizeon',
+      source: 'logo dodané Kryštofem (PNG, pozadí odstraněno)',
+      status: 'verified',
+    },
     projects: { value: `15+${NB}projektů`, source: 'BRIEF §6 S1, poznámky', status: 'verified' },
   },
   rows: { bridge: statement.slice(0, 5) },
@@ -96,9 +105,21 @@ export const s2 = {
       status: 'verified',
     },
     counterLabel: 'řádků / měsíc',
-    propBinder: { value: 'Šanon se smlouvami · vlastní foto', status: 'placeholder' },
-    propInvoices: { value: 'Papírové faktury · vlastní foto', status: 'placeholder' },
-    propMeter: { value: 'Vodoměr · vlastní foto', status: 'placeholder' },
+    propBinder: {
+      value: 'Šanon se smlouvami',
+      source: 'vlastní vektorová kresba, rozhodnutí Kryštofa',
+      status: 'verified',
+    },
+    propInvoices: {
+      value: 'Papírové faktury',
+      source: 'vlastní vektorová kresba, rozhodnutí Kryštofa',
+      status: 'verified',
+    },
+    propMeter: {
+      value: 'Vodoměr',
+      source: 'vlastní vektorová kresba, rozhodnutí Kryštofa',
+      status: 'verified',
+    },
   },
   rows: { statement, later: statementLater },
   notes: cs(
@@ -116,14 +137,16 @@ export const s3 = {
     sheet: 'Excel.',
     chat: 'WhatsApp.',
     contracts: 'Smlouvy.',
-    tag: { value: 'Pronájem, který se řídí sám.', source: 'volba Kryštofa, slajd 3', status: 'verified' },
+    tag: {
+      value: 'Pronájem, který se řídí sám.',
+      source: 'volba Kryštofa, slajd 3',
+      status: 'verified',
+    },
   },
   notes: cs(
     'Banka. [klik] Excel. [klik] WhatsApp. [klik] Smlouvy. [klik] [pauza 2 s] Dnes jsou oddělené. EstatIQ propojí platby, dokumenty a komunikaci pro pronajímatele i nájemníka. [klik] EstatIQ. [klik]',
   ),
 } satisfies SlideContent;
-
-const matchedPayment = statement[6]!;
 
 export const s4 = {
   id: 's4',
@@ -131,25 +154,110 @@ export const s4 = {
   budgetSec: 30,
   steps: 9,
   screen: {
-    paymentShot: { value: 'Screenshot · platby · fiktivní Ostrava', status: 'placeholder' },
-    ownerShot: { value: 'Screenshot · portál vlastníka · přehled nemovitosti', status: 'placeholder' },
+    paymentShot: {
+      value: `Platby a${NB}finance v${NB}EstatIQ`,
+      source: 'vlastní kresba podle screenshotu MVP, fiktivní data (zadání Kryštofa 2026-10-20)',
+      status: 'verified',
+    },
+    ownerShot: {
+      value: `Přehled nemovitostí a${NB}peněz`,
+      source: 'skutečný screenshot MVP dodaný Kryštofem, 2026-10-20',
+      status: 'verified',
+    },
+    propertiesShot: {
+      value: `Seznam nemovitostí v${NB}EstatIQ`,
+      source: 'skutečný screenshot MVP dodaný Kryštofem, 2026-10-20',
+      status: 'verified',
+    },
+    formShot: {
+      value: 'Formulář nové nemovitosti',
+      source: 'skutečný screenshot MVP dodaný Kryštofem, 2026-10-20',
+      status: 'verified',
+    },
+    calendarShot: {
+      value: `Kalendář úkolů v${NB}EstatIQ`,
+      source: 'skutečný screenshot MVP dodaný Kryštofem, 2026-10-20',
+      status: 'verified',
+    },
     tenantShot: {
-      value: 'Screenshot · portál nájemníka · fiktivní Ostrava',
-      status: 'placeholder',
+      value: `Seznam nájemníků v${NB}EstatIQ`,
+      source: 'skutečný screenshot MVP dodaný Kryštofem, 2026-10-20',
+      status: 'verified',
     },
-    landlordShot: {
-      value: 'Screenshot · dashboard pronajímatele · fiktivní Ostrava',
-      status: 'placeholder',
+    communicationShot: {
+      value: `Komunikace a${NB}ověřený nájemník`,
+      source: 'vlastní kresba plánované komunikace, fiktivní data (zadání Kryštofa 2026-10-20)',
+      status: 'verified',
     },
-    consumptionShot: { value: 'Screenshot · spotřeba · fiktivní Ostrava', status: 'placeholder' },
-    databaseShot: { value: 'Screenshot · databáze · fiktivní Ostrava', status: 'placeholder' },
-    financeShot: { value: 'Screenshot · finance · fiktivní Ostrava', status: 'placeholder' },
-    featuresShot: { value: 'Screenshot · funkce · fiktivní Ostrava', status: 'placeholder' },
-    integrationsShot: { value: 'Screenshot · integrace · fiktivní Ostrava', status: 'placeholder' },
+    consumptionShot: {
+      value: `Odečty spotřeby v${NB}EstatIQ`,
+      source: 'skutečný screenshot MVP dodaný Kryštofem, 2026-10-20',
+      status: 'verified',
+    },
+    databaseShot: {
+      value: `Databáze dodavatelů v${NB}EstatIQ`,
+      source: 'vlastní kresba podle screenshotu MVP, fiktivní data (zadání Kryštofa 2026-10-20)',
+      status: 'verified',
+    },
+    financeShot: {
+      value: `Přehled financí v${NB}EstatIQ`,
+      source: 'skutečný screenshot MVP dodaný Kryštofem, 2026-10-20',
+      status: 'verified',
+    },
+    featuresShot: {
+      value: `Plánované funkce v${NB}EstatIQ`,
+      source: 'vlastní kresba plánovaných funkcí, fiktivní data (zadání Kryštofa 2026-10-20)',
+      status: 'verified',
+    },
+    integrationsShot: {
+      value: 'Integrace: banky, e-mail, MCP, energie',
+      source: 'seznam zadal Kryštof, 2026-10-20',
+      status: 'verified',
+    },
+    integrationRaiffeisen: {
+      value: 'Raiffeisenbank',
+      source: 'seznam zadal Kryštof, 2026-10-20',
+      status: 'verified',
+    },
+    integrationCsob: {
+      value: 'ČSOB',
+      source: 'seznam zadal Kryštof, 2026-10-20',
+      status: 'verified',
+    },
+    integrationKb: {
+      value: 'Komerční banka',
+      source: 'seznam zadal Kryštof, 2026-10-20',
+      status: 'verified',
+    },
+    integrationGmail: {
+      value: 'Gmail',
+      source: 'seznam zadal Kryštof, 2026-10-20',
+      status: 'verified',
+    },
+    integrationMcp: {
+      value: 'MCP',
+      source: 'seznam zadal Kryštof, 2026-10-20',
+      status: 'verified',
+    },
+    integrationCez: {
+      value: 'ČEZ',
+      source: 'seznam zadal Kryštof, 2026-10-20',
+      status: 'verified',
+    },
+    integrationEon: {
+      value: 'E.ON',
+      source: 'seznam zadal Kryštof, 2026-10-20',
+      status: 'verified',
+    },
+    integrationInnogy: {
+      value: 'Innogy',
+      source: 'seznam zadal Kryštof, 2026-10-20',
+      status: 'verified',
+    },
     paymentWord: 'Platby.',
     ownerWord: 'Přehled nemovitosti.',
     tenantWord: 'Nájemník.',
-    landlordWord: 'Pronajímatel.',
+    communicationWord: 'Komunikace.',
     consumptionWord: 'Spotřeba.',
     databaseWord: 'Databáze.',
     financeWord: 'Finance.',
@@ -157,13 +265,8 @@ export const s4 = {
     integrationsWord: 'Integrace.',
     summary: 'Každý svůj přehled.',
   },
-  rows: { matchedPayment: [matchedPayment] },
-  highlights: {
-    ownerLiveValue: { x: 62, y: 18, width: 28, height: 14 },
-    tenantReportButton: { x: 64, y: 72, width: 27, height: 13 },
-  },
   notes: cs(
-    'Banka se promění v přehled plateb: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel nahradí portál vlastníka s přehledem jeho nemovitostí a úkonů. [klik] WhatsApp nahradí portál pro smlouvu, platby a hlášení závad. Nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik] Pronajímatel má vlastní dashboard: nájmy, platby a úkoly na jednom místě. [klik] Spotřeba: [doplnit: co ukazuje přehled spotřeby]. [klik] Databáze: [doplnit: co je v databázi]. [klik] Finance: [doplnit: co ukazují finance]. [klik] Funkce: [doplnit: které funkce se ukazují]. [klik] Integrace: [doplnit: s kým se EstatIQ integruje]. [klik]',
+    'Banka se promění v přehled plateb: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel nahradí portál vlastníka s přehledem jeho nemovitostí a úkonů. [klik] WhatsApp nahradí evidenci nájemníků: pronajímatel je pozve přímo z aplikace a vidí stav pozvánky. Nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik] Komunikace, kterou chci přidat: zprávy a závady přímo u bytu místo WhatsAppu. Nájemník se ověří jednou, se souhlasem, a každý zaplacený nájem mu staví historii. Komu ji ukáže, rozhodne sám. [klik] Spotřeba: [doplnit: co ukazuje přehled spotřeby]. [klik] Databáze: [doplnit: co je v databázi]. [klik] Finance: [doplnit: co ukazují finance]. [klik] Funkce, které chci přidat: AI návrh smlouvy ke kontrole, vysvětlení spotřeby a srovnání dodavatelů energií. Nájemník si sám zvolí, jestli sdílí historii plateb. Ověření insolvence, exekucí nebo příjmu jde jen se souhlasem a na právním základě. [klik] Integrace: banky Raiffeisenbank, ČSOB a Komerční banka, Gmail, MCP a dodavatelé energií ČEZ, E.ON a Innogy. [doplnit: které už fungují a jak se údaje berou]. [klik]',
   ),
 } satisfies SlideContent;
 
@@ -215,7 +318,11 @@ export const s5 = {
       source: 'modelový příklad; sazbu 10–12 % ověřit',
       status: 'placeholder',
     },
-    b2cRate: { value: `10–12${NB}%`, source: 'modelový příklad; sazbu ověřit', status: 'placeholder' },
+    b2cRate: {
+      value: `10–12${NB}%`,
+      source: 'modelový příklad; sazbu ověřit',
+      status: 'placeholder',
+    },
     b2cManagerLabel: 'Správa nemovitosti',
     b2cFee: {
       value: `${managementFeeMin}–${managementFeeMax}${NB}Kč`,
@@ -224,7 +331,11 @@ export const s5 = {
     },
     b2cPeriod: 'měsíčně',
     b2cProductLabel: `Pro vlastníka do 5${NB}bytů`,
-    b2cPrice: { value: `199${NB}Kč/měs.`, source: 'cena zadaná Kryštofem: do 5 bytů', status: 'verified' },
+    b2cPrice: {
+      value: `199${NB}Kč/měs.`,
+      source: 'cena zadaná Kryštofem: do 5 bytů',
+      status: 'verified',
+    },
   },
   notes: cs(
     `Správce 300 bytů při nájmu 19${NB}990${NB}Kč hlídá 6 milionů měsíčně. [klik] EstatIQ stojí 4${NB}990${NB}Kč. [klik] To je asi 0,1 procenta. [pauza 2 s] [klik] Při stejném nájmu dělá modelových 10 až 12 procent 1${NB}999 až 2${NB}399${NB}Kč měsíčně. Sazbu ověříme; správa zahrnuje víc služeb. [klik] Vlastník do pěti bytů platí 199${NB}Kč měsíčně.`,
@@ -299,16 +410,44 @@ export const s8 = {
   screen: {
     caveat: 'Model, ne ceník.',
     topupLabel: 'Dobití',
-    topupMoney: { value: `${number(creditMath.topupKc)}${NB}Kč`, source: 'modelový příklad zadaný Kryštofem', status: 'verified' },
-    rate: { value: `1${NB}kredit = 1${NB}Kč`, source: 'modelový příklad zadaný Kryštofem', status: 'verified' },
-    topupCredits: { value: `${number(topupCredits)}${NB}kreditů`, source: '1 000 Kč × 1 kredit/Kč', status: 'verified' },
+    topupMoney: {
+      value: `${number(creditMath.topupKc)}${NB}Kč`,
+      source: 'modelový příklad zadaný Kryštofem',
+      status: 'verified',
+    },
+    rate: {
+      value: `1${NB}kredit = 1${NB}Kč`,
+      source: 'modelový příklad zadaný Kryštofem',
+      status: 'verified',
+    },
+    topupCredits: {
+      value: `${number(topupCredits)}${NB}kreditů`,
+      source: '1 000 Kč × 1 kredit/Kč',
+      status: 'verified',
+    },
     repairLabel: 'Oprava bytu',
-    repairDebit: { value: `−${number(creditMath.repairCredits)}${NB}kreditů`, source: 'modelový příklad zadaný Kryštofem', status: 'verified' },
+    repairDebit: {
+      value: `−${number(creditMath.repairCredits)}${NB}kreditů`,
+      source: 'modelový příklad zadaný Kryštofem',
+      status: 'verified',
+    },
     contractLabel: 'AI návrh smlouvy',
-    contractDebit: { value: `−${number(creditMath.contractCredits)}${NB}kreditů`, source: 'modelový příklad zadaný Kryštofem', status: 'verified' },
+    contractDebit: {
+      value: `−${number(creditMath.contractCredits)}${NB}kreditů`,
+      source: 'modelový příklad zadaný Kryštofem',
+      status: 'verified',
+    },
     balanceLabel: 'Zbývá',
-    afterRepair: { value: `${number(afterRepair)}${NB}kreditů`, source: '1 000 − 600', status: 'verified' },
-    balance: { value: `${number(remainingCredits)}${NB}kreditů`, source: '1 000 − 600 − 5', status: 'verified' },
+    afterRepair: {
+      value: `${number(afterRepair)}${NB}kreditů`,
+      source: '1 000 − 600',
+      status: 'verified',
+    },
+    balance: {
+      value: `${number(remainingCredits)}${NB}kreditů`,
+      source: '1 000 − 600 − 5',
+      status: 'verified',
+    },
     revenueLabel: 'Příjmy EstatIQ',
     affiliate: 'Affiliate marketing',
     ads: 'Personalizovaná reklama',
@@ -446,7 +585,24 @@ export const z7 = {
   ),
 } satisfies SlideContent;
 
-export const slides: SlideContent[] = [s1, s2, s3, s4, s5, s6, s7, s8, s9, z1, z2, z3, z4, z5, z6, z7];
+export const slides: SlideContent[] = [
+  s1,
+  s2,
+  s3,
+  s4,
+  s5,
+  s6,
+  s7,
+  s8,
+  s9,
+  z1,
+  z2,
+  z3,
+  z4,
+  z5,
+  z6,
+  z7,
+];
 
 /** Text faktu nebo řetězce, jak se ukáže na plátně. */
 export const text = (v: string | Fact) => (typeof v === 'string' ? v : v.value);

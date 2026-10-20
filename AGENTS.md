@@ -27,8 +27,9 @@ CLAUDE.md  AGENTS.md
 memory/            index.md · pravidla.md · memory.md
 docs/BRIEF.md      zadání: příběh, design, slajdy
 docs/prompts/      fázové prompty 01–08
-public/assets/     photos/ · screens/ · logos/   (jen skutečné podklady)
-scripts/           check-content.ts · make-logo.ts · shoot-styleguide.ts · export-pdf.ts
+public/assets/     logos/ (logo EstatIQ; ostatní obrázky nepatří sem, Vite je do single-file buildu neinlinuje)
+src/assets/        photos/ · screens/ · logos/ (+ logos/integrations/: loga služeb pro S4)   (skutečné podklady, importují se ve slajdech a jdou do buildu inline)
+scripts/           register-assets.mjs + asset-hooks.mjs (import obrázků v Node) · check-content.ts · make-logo.ts · shoot-styleguide.ts · export-pdf.ts
 src/
   main.tsx  App.tsx
   deck/            engine: types, canvas (rozměr plátna), reducer (+test), hash, useDeck, useControls, Stage, Overview, DebugOverlay,

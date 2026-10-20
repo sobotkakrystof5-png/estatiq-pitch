@@ -29,6 +29,45 @@ export const pairing = {
   greenDelay: 0.24,
 } as const;
 
+/** S4, krok Platby: fiktivní dashboard. Událost po `tick` s, čísla se dopočítají za `tween` s, karta krátce zabliká. */
+export const dashboard = {
+  start: 0.5,
+  tick: 0.85,
+  tween: { duration: 0.55, ease: ease.out },
+  rowIn: { type: 'spring', stiffness: 520, damping: 42 },
+  flash: { duration: 0.8, ease: ease.out },
+  settle: { duration: 0.3, ease: ease.out },
+} as const;
+
+/**
+ * S4, krok Funkce: pět dlaždic se rozehraje samo jedna po druhé (`every` s), uvnitř dlaždice položky naskakují
+ * podle `at` (s od začátku dlaždice). Celek zhruba 3 s; klik animaci okamžitě dokončí (engine).
+ */
+export const features = {
+  start: 0.1,
+  every: 0.5,
+  item: { duration: dur.step, ease: ease.out },
+  bar: { duration: 0.45, ease: ease.out },
+  wipeFrom: 'inset(0% 100% 0% 0%)',
+  wipeTo: 'inset(0% 0% 0% 0%)',
+  offerX: 36,
+  knobX: 56,
+} as const;
+
+/** S4, krok Komunikace: zprávy přijíždějí ze své strany (`bubbleX` px), vpravo se pak odškrtává ověření. Celek zhruba 2,5 s. */
+export const communication = {
+  start: 0.1,
+  bubbleX: 44,
+} as const;
+
+/** S4, krok Integrace: loga naskakují po jednom (`gap` s), linka do loga EstatIQ se rozběhne s malým zpožděním. Celek pod 1,5 s. */
+export const integrations = {
+  gap: 0.16,
+  lineLag: 0.1,
+  tile: { duration: dur.step, ease: ease.out },
+  scaleFrom: 0.94,
+} as const;
+
 /** S8: řádky kreditního výpisu přicházejí ze strany, druhý obraz nahradí první. */
 export const creditMove = {
   entryX: 34,

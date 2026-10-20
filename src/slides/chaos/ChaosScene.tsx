@@ -2,7 +2,7 @@
 // S2 ho staví timeline (`hidden` = výchozí stav sekvence), S3 ho kreslí hotový a rozsype.
 import type { ReactNode } from 'react';
 import { motion, useTransform, type MotionValue } from 'motion/react';
-import { Placeholder, StatementRow, type StatementRowData } from '../../design/primitives';
+import { PaperProp, StatementRow, type StatementRowData } from '../../design/primitives';
 import { chaos } from '../../motion/presets';
 import { s2, text } from '../../content/slides';
 import {
@@ -42,7 +42,7 @@ function Prop({
       style={{ left: p.x, top: p.y, width: p.w, rotate: p.rotate }}
     >
       <motion.div data-build="prop" initial={hidden ? { opacity: 0 } : false}>
-        <Placeholder ratio={p.ratio} label={label} align="start" className="bg-paper p-6!" />
+        <PaperProp kind={name} label={label} />
       </motion.div>
     </motion.div>
   );

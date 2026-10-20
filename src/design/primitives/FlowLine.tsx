@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { drawStroke, flowLoop } from '../../motion/presets';
+import { drawStroke, dur, flowLoop } from '../../motion/presets';
 import type { DeckMode } from '../../deck/types';
 
 /**
@@ -13,12 +13,15 @@ export function FlowLine({
   mode,
   width = 1.5,
   baseOpacity = 0.18,
+  delay = 0,
 }: {
   d: string;
   active: boolean;
   mode: DeckMode;
   width?: number;
   baseOpacity?: number;
+  /** Sekundy do začátku tahu a toku (postupné rozbíhání více linek). */
+  delay?: number;
 }) {
   return (
     <g>
@@ -30,7 +33,10 @@ export function FlowLine({
         strokeLinecap="round"
         initial={false}
         animate={{ pathLength: active ? 1 : 0, opacity: active ? baseOpacity : 0 }}
-        transition={drawStroke}
+        transition={{
+          pathLength: { ...drawStroke.pathLength, delay },
+          opacity: { ...drawStroke.opacity, delay },
+        }}
       />
       {active && (
         <motion.path
@@ -42,9 +48,12 @@ export function FlowLine({
           strokeLinecap="round"
           pathLength={1}
           strokeDasharray="0.12 0.88"
-          initial={{ strokeDashoffset: 0.12 }}
-          animate={{ strokeDashoffset: -0.88 }}
-          transition={flowLoop}
+          initial={{ strokeDashoffset: 0.12, opacity: 0 }}
+          animate={{ strokeDashoffset: -0.88, opacity: 1 }}
+          transition={{
+            strokeDashoffset: { ...flowLoop, delay: delay + dur.draw },
+            opacity: { ...drawStroke.opacity, delay: delay + dur.draw },
+          }}
         />
       )}
     </g>

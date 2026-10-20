@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "build:release": "node --import tsx scripts/check-content.ts --release && npm run build",
-    "pdf": "npm run build && tsx scripts/export-pdf.ts",
-    "check:content": "node --import tsx scripts/check-content.ts",
+    "build:release": "node --import tsx --import ./scripts/register-assets.mjs scripts/check-content.ts --release && npm run build",
+    "pdf": "npm run build && node --import tsx --import ./scripts/register-assets.mjs scripts/export-pdf.ts",
+    "check:content": "node --import tsx --import ./scripts/register-assets.mjs scripts/check-content.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",

@@ -189,7 +189,7 @@ Formát: **Na plátně** (každý krok), **Pohyb**, **Poznámky** (mluvený text
 - **Krok 0 (automaticky, vyprávěcí timeline ~3 s, pak klidná smyčka):**
   - uprostřed výpis z banky (HTML/CSS, fiktivní data, žádné logo banky), řádky po jednom letí do mřížky tabulky (Excel naznačený mřížkou a zeleným pruhem záhlaví, bez loga),
   - z rohu vyskočí dvě chatové bubliny (zelená bublina, bez loga WhatsAppu): „Dobrý den, nájem pošlu příští týden.“ a „Neteče teplá voda.“,
-  - v pozadí kulisy: šanon se smlouvami, papírové faktury, fotka vodoměru (skutečné fotky, do té doby placeholder),
+  - v pozadí kulisy: šanon se smlouvami, papírové faktury, vodoměr (vlastní vektorová kresba `PaperProp`, ne fotky; rozhodnutí Kryštofa 2026-10-20),
   - nahoře vpravo počítadlo 0 → **300** a pod ním „řádků / měsíc“ (300 bytů = 300 platebních řádků v modelovém příkladu).
   - Banka, Excel a WhatsApp musí být v chaosu nejvýraznější. Energie se tu neukazují; přijdou v S6 a S7.
 - **Krok 1 (na „kdo mu dluží“):** všechno se zastaví (pauza timeline) a přes scénu se pomalu stáhne ztlumení (`opacity`).
@@ -204,15 +204,17 @@ Formát: **Na plátně** (každý krok), **Pohyb**, **Poznámky** (mluvený text
 - **Tag:** „Pronájem, který se řídí sám.“ Platí jen po ověření skutečného bankovního párování.
 
 ### S4 · Produkt · tma · 1:00–1:30
-- **Kroky 0–8:** devět statických screenshoty skutečné aplikace v jednoduchém CSS rámu notebooku; žádné mockupy ani video. Vedle se vystřídají popisky **Platby.** → **Přehled nemovitosti.** → **Nájemník.** → **Pronajímatel.** → **Spotřeba.** → **Databáze.** → **Finance.** → **Funkce.** → **Integrace.**
-  - Platby: zelená zaplaceno, žlutá čeká, červená po splatnosti; jedna platba zezelená.
+- **Kroky 0–8:** devět obrazovek (skutečné screenshoty, kreslené kopie s fiktivními daty a plánované kresby) v jednoduchém CSS rámu notebooku; žádné mockupy ani video. Vedle se vystřídají popisky **Platby.** → **Přehled nemovitosti.** → **Nájemník.** → **Komunikace.** → **Spotřeba.** → **Databáze.** → **Finance.** → **Funkce.** → **Integrace.**
+  - Platby: kreslený dashboard s fiktivními daty (`src/content/paymentsDemo.ts`, výslovné zadání Kryštofa 2026-10-20): osm událostí za sebou přepočítá karty, graf i seznam plateb; nájem po splatnosti nakonec zezelená. Finance: skutečný screenshot.
   - Portál vlastníka: jeho nemovitosti, přehled plateb a související úkony.
   - Portál nájemníka: vlastní smlouva, platby a hlášení závady.
-  - Spotřeba, Databáze, Finance, Funkce, Integrace: [doplnit: obsah těchto pěti obrazovek a zda existují v MVP; databáze řemeslníků je podle S7 zatím vize]
-  - Dashboard pronajímatele: nájmy, platby a úkoly na jednom místě. [doplnit: co přesně dashboard ukazuje]
+  - Integrace (krok 8): bez rámu notebooku schéma s logem EstatIQ uprostřed a loga Raiffeisenbank, ČSOB, Komerční banka, Gmail, MCP, ČEZ, E.ON, Innogy kolem (seznam zadal Kryštof 2026-10-20); loga naskakují po jednom, linky k logu EstatIQ tečou. Slajd netvrdí, které integrace už fungují.
+  - Komunikace (krok 3): kreslená obrazovka s fiktivními daty (`src/content/communicationDemo.ts`, zadání Kryštofa 2026-10-20) a štítkem **Plán**: vlevo vlákno zpráv u bytu místo WhatsAppu (závada předaná řemeslníkovi, platba spárovaná ze zprávy „Nájem jsem poslal.“), vpravo ověřený nájemník (insolvence, exekuce, příjem ověřené jednou a se souhlasem, 12 měsíců plateb, „12 měsíců, vše včas.“, sdílení historie nájemníkem). Přehraje se samo za ~2,5 s. Slajd neslibuje, že nájemník „dostane byt dřív“, ani automatické rozhodnutí o přijetí.
+  - Funkce (krok 7): kreslená obrazovka s fiktivními daty (`src/content/featuresDemo.ts`, zadání Kryštofa 2026-10-20) a štítkem **Plán**: AI návrh smlouvy, vysvětlení spotřeby, srovnání dodavatelů energií, dobrovolně sdílená historie plateb s ověřením jen se souhlasem a na právním základě, tržiště řemeslníků a energií. Pět dlaždic se rozehraje samo za ~3 s, klik animaci dokončí. Je to plán, ne MVP; hotovost funkcí je v Otevřených otázkách.
+  - Spotřeba, Databáze: [doplnit: obsah těchto obrazovek a zda existují v MVP; databáze řemeslníků je podle S7 zatím vize]
 - **Krok 9:** screenshoty zmizí; zůstane **Každý svůj přehled.**
 - **Snímky:** jen skutečné MVP, fiktivní osobní data a realistická Ostrava. Chybějící snímky zůstávají placeholdery. Automatické stržení nájmu na S4 nepatří.
-- **Poznámky:** Banka se promění v přehled plateb: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel nahradí portál vlastníka s přehledem jeho nemovitostí a úkonů. [klik] WhatsApp nahradí portál pro smlouvu, platby a hlášení závad. Nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik] Pronajímatel má vlastní dashboard: nájmy, platby a úkoly na jednom místě. [klik] Spotřeba: [doplnit]. [klik] Databáze: [doplnit]. [klik] Finance: [doplnit]. [klik] Funkce: [doplnit]. [klik] Integrace: [doplnit]. [klik]
+- **Poznámky:** Banka se promění v přehled plateb: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel nahradí portál vlastníka s přehledem jeho nemovitostí a úkonů. [klik] WhatsApp nahradí portál pro smlouvu, platby a hlášení závad. Nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik] Spotřeba: [doplnit]. [klik] Databáze: [doplnit]. [klik] Finance: [doplnit]. [klik] Komunikace: zprávy a závady u bytu, ověřený nájemník s historií plateb. [klik] Funkce: AI návrh smlouvy, vysvětlení spotřeby, srovnání dodavatelů energií, dobrovolně sdílená historie plateb. [klik] Integrace: [doplnit]. [klik]
 
 ### S5 · Proč platí · tma · 1:30–1:55
 - Rozdělená obrazovka bez dělicí čáry: B2B vlevo, modelový příklad vlastníka vpravo.
@@ -269,11 +271,12 @@ Stejný design, ale smí mít víc obsahu (nejvýš jedna jednoduchá tabulka ne
 
 | Asset | Cesta | Stav |
 |---|---|---|
-| Fotka Kryštofa 4:5, min. 1200×1500 | `public/assets/photos/krystof.jpg` | chybí |
+| Fotka Kryštofa 4:5, min. 1200×1500 | `src/assets/photos/krystof.jpg` | hotovo |
 | Logo EstatIQ SVG | `public/assets/logos/estatiq.svg` | chybí, případně vygenerovat (fáze 3) |
-| Alteno, Vizeon, světlé SVG | `public/assets/logos/` | chybí |
-| Screenshoty: platby, portál vlastníka, portál nájemníka, dashboard pronajímatele, spotřeba, databáze, finance, funkce, integrace (2880×1800) | `public/assets/screens/` | chybí |
-| Vlastní fotky: vodoměr, šanon, faktury | `public/assets/photos/` | chybí |
+| Loga integrací: Raiffeisenbank, ČSOB, KB, Gmail, MCP, ČEZ, E.ON, Innogy | `src/assets/logos/integrations/` | hotovo (SVG z Wikimedia Commons); E.ON je starší „e·on“, ověřit aktuálnost |
+| Alteno, Vizeon, světlá loga | `src/assets/logos/` | hotovo jako PNG s průhledností, SVG by bylo lepší |
+| Screenshoty: platby, portál vlastníka, portál nájemníka, spotřeba, databáze, finance, funkce, integrace (2880×1800) | `src/assets/screens/` | částečně: přehled, kalendář, nemovitosti, formulář a spotřeba (`spotreba.png`) hotovo; zbytek chybí |
+| Vodoměr, šanon, faktury (S2) | `src/design/primitives/PaperProp.tsx` | hotovo jako vlastní SVG, fotky odpadají |
 
 **Placeholder** je rámeček ve finálním poměru stran s tenkou přerušovanou linkou `--muted` a popisem, co do něj patří (např. „Foto Kryštof, 4:5, min. 1200 × 1500 px“). Nikdy se do něj nedává stock fotka ani AI obrázek.
 

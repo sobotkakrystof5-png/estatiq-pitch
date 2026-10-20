@@ -2,6 +2,7 @@ export { Counter, formatCount } from './Counter';
 export { FlowLine } from './FlowLine';
 export { LaptopFrame } from './LaptopFrame';
 export { Logo } from './Logo';
+export { PaperProp } from './PaperProp';
 export { Placeholder } from './Placeholder';
 export { StatementRow, type StatementRowData } from './StatementRow';
 export { Strike } from './Strike';
