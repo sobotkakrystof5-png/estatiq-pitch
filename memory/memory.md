@@ -90,6 +90,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-20 — Push na GitHub a deploy na Vercel (kroky Komunikace a Funkce)
+- **Co:** Commit `5b305da` na `main` v `sobotkakrystof5-png/estatiq-pitch` (včetně nových `src/assets/`, screenshotů a fotky). Produkční deploy `vercel deploy --prod` (běžný build) na https://estatiq-pitch.vercel.app, stav READY, HTTP 200.
+- **Proč:** na pokyn Kryštofa.
+- **Dopad:** repo je **veřejné**, takže jsou veřejné i screenshoty MVP (obsahují jen jméno a zkrácený e-mail Kryštofa a testovací data „FINAL TEST – smaz me“) a jeho fotka. Veřejná URL obsahuje placeholdery (10 varování `check:content`); před ostrým použitím `build:release`. Deploy se spustil dvakrát za sebou, platí poslední.
+- **Soubory:** `memory/memory.md`
+
 ### 2026-10-20 — S4: nový krok Komunikace (zprávy a ověřený nájemník)
 - **Co:** S4 má 9 kroků (+ shrnutí). Za „Nájemník.“ přibyl krok 3 „Komunikace.“ (`src/slides/communication/CommunicationScene.tsx`, data `src/content/communicationDemo.ts`): vlevo vlákno zpráv u bytu 3C (závada „Teče kohoutek“ s označením a předáním řemeslníkovi, odpověď pronajímatele, „Nájem jsem poslal.“ a událost „Platba spárována · 14 200 Kč“), vpravo „Ověřený nájemník“ (Insolvence, Exekuce, Příjem: Ověřeno, „Jednou, se souhlasem.“, 12 měsíců plateb, „12 měsíců, vše včas.“, přepínač Sdílet historii). Štítek **Plán**. Přehraje se samo (~2,5 s, `communication` v `presets.ts`). Spotřeba je krok 4, Databáze 5, Finance 6, Funkce 7, Integrace 8. S04Product vykresluje kroky podle klíče, ne podle indexu. Sdílené jádro samopřehrávání je v `src/slides/reveal.tsx` (Funkce ho používají taky). `steps` S4 = 9, `e2e/deck.ts` a tiskový test (54 stran) upraveny. Poznámky S4 mají větu o komunikaci.
 - **Proč:** na pokyn Kryštofa (princip WhatsApp nahrazený komunikací v aplikaci a nápad „ověřený nájemník“: nájemník se ověří jednou, zaplacené nájmy budují historii, kterou ukáže dalšímu pronajímateli).
