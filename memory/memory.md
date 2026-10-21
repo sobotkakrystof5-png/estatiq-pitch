@@ -90,6 +90,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-21 — Push a deploy (S4 na pět kroků)
+- **Co:** Commit `a769ab2` na `main` v `sobotkakrystof5-png/estatiq-pitch`. Produkční `vercel deploy --prod` na https://estatiq-pitch.vercel.app, stav Ready, HTTP 200.
+- **Proč:** na pokyn Kryštofa.
+- **Dopad:** veřejná URL má běžný build s placeholdery (9 varování `check:content`), ne `build:release`. PDF se nepřegenerovalo. Složka `.agents/` zůstala necommitnutá.
+- **Soubory:** `memory/memory.md`
+
 ### 2026-10-21 — S4: Nájemník sloučen do Přehledu nemovitosti
 - **Co:** Krok „Nájemník.“ (screenshot seznamu nájemníků) zrušen, `najemnici.png`, `tenantShot` a `tenantWord` smazány. Zůstává krok „Přehled nemovitosti.“, do jehož poznámek přešla věta o pozvání nájemníka a portálu nájemníka („Excel i WhatsApp nahradí portál…“). S4 má 5 kroků + shrnutí (`steps` 5): Platby a finance → Přehled nemovitosti → Spotřeba → Funkce → Integrace. BRIEF §S4, `e2e/deck.ts`, `offline-presenter.spec.ts` upraveny.
 - **Proč:** na pokyn Kryštofa (zkrácení kvůli limitu 3:30).
