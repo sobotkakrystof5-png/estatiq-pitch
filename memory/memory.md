@@ -90,6 +90,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-21 — Push a deploy (S9)
+- **Co:** Commit `1f7c3f5` na `main`, produkční `vercel deploy --prod` na https://estatiq-pitch.vercel.app, HTTP 200, živá stránka obsahuje „První 3 piloty“.
+- **Proč:** na pokyn Kryštofa.
+- **Dopad:** běžný build s placeholdery, ne `build:release`; PDF se nepřegenerovalo; `.agents/` necommitnuto.
+- **Soubory:** `memory/memory.md`
+
 ### 2026-10-21 — S9: bez „12 hovorů“, první 3 piloty po workshopu
 - **Co:** Z S9 zmizelo heslo „12 hovorů.“ a věta o rozhovoru s dvanácti realitkami a správci. „2 piloty.“ je „První 3 piloty.“; mluvený text: „MVP je hotové. Po workshopu chceme první tři piloty. [klik] Od Green Light chci mentory a tým: pomoc najít obchodního parťáka.“ „Do Startup Show chci dva pilotní správce“ je pryč. S9 má 2 kroky + závěrečnou kartu (`steps` 2). Upraveny BRIEF §S9, `e2e/deck.ts`, `offline-presenter.spec.ts`.
 - **Proč:** na pokyn Kryštofa (cíl: po workshopu první 3 piloty a tým).
