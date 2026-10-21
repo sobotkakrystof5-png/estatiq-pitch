@@ -54,12 +54,6 @@ export const features = {
   knobX: 56,
 } as const;
 
-/** S4, krok Komunikace: zprávy přijíždějí ze své strany (`bubbleX` px), vpravo se pak odškrtává ověření. Celek zhruba 2,5 s. */
-export const communication = {
-  start: 0.1,
-  bubbleX: 44,
-} as const;
-
 /** S4, krok Integrace: loga naskakují po jednom (`gap` s), linka do loga EstatIQ se rozběhne s malým zpožděním. Celek pod 1,5 s. */
 export const integrations = {
   gap: 0.16,

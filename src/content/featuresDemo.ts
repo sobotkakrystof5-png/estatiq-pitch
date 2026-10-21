@@ -1,7 +1,7 @@
 // Fiktivní data pro kresbu plánovaných funkcí na S4, krok „Funkce.“ (výslovné zadání Kryštofa, 2026-10-20).
 // Není to výstup z MVP ani doložené výsledky: částky, doby, názvy dodavatelů energií i řemeslníci jsou vymyšlené.
 // Dodavatelé energií jsou schválně „Dodavatel A až C“, aby fiktivní ceny nebyly připsané skutečným firmám.
-// Řemeslníci jsou stejné vymyšlené firmy jako v kresbě databáze (`databaseDemo.ts`).
+// Řemeslníci jsou vymyšlené firmy (dřív stejné jako v zrušeném kroku Databáze).
 
 const NB = '\u00a0';
 

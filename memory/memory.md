@@ -4,7 +4,7 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Aktuální stav
 - **Projekt:** prezentace EstatIQ pro elevator pitch Green Light; aktuální uživatelem zadaný rozpočet je 3:55. Původní podklad uváděl 3:00 + 7 minut otázek, povolený limit čeká na potvrzení.
-- **Fáze:** hlavní pitch má osm realizovaných slajdů (S1–S6, S8, S9; S7 zrušen 2026-10-20) včetně modelu kreditů a odlišení. Před vystoupením zbývá doplnit skutečné screenshoty, ověřit otevřené údaje a udělat generálku nahlas.
+- **Fáze:** hlavní pitch má osm realizovaných slajdů (S1–S6, S8, S9; S7 zrušen 2026-10-20; S4 má od 2026-10-21 pět kroků) včetně modelu kreditů a odlišení. Před vystoupením zbývá doplnit skutečné screenshoty, ověřit otevřené údaje a udělat generálku nahlas.
 - **Stack:** Vite + React 19 + TS + Tailwind v4 + Motion, single-file build (AGENTS.md).
 - **Co existuje:** engine v `src/deck/`; S1–S9 a Z1–Z7 jsou realizované; veškerý obsah je v `src/content/slides.ts`; tokeny, primitiva, logo a styleguide `#/styleguide` (jen dev). Aktuální single-file build má 805,27 kB. PDF export má 54 stran a 16 finálních stavů. Typecheck, lint, `check:content`, build a vybrané e2e kontroly prošly; 16 varování zůstává kvůli známým placeholderům.
 
@@ -89,6 +89,18 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Kredity jako hotová peněženka.** Model 1:1 a poplatky 600/5 jsou jen příklady do diskuse, dokud nebude ověřena právní struktura.
 
 ## Changelog
+
+### 2026-10-21 — S4: Nájemník sloučen do Přehledu nemovitosti
+- **Co:** Krok „Nájemník.“ (screenshot seznamu nájemníků) zrušen, `najemnici.png`, `tenantShot` a `tenantWord` smazány. Zůstává krok „Přehled nemovitosti.“, do jehož poznámek přešla věta o pozvání nájemníka a portálu nájemníka („Excel i WhatsApp nahradí portál…“). S4 má 5 kroků + shrnutí (`steps` 5): Platby a finance → Přehled nemovitosti → Spotřeba → Funkce → Integrace. BRIEF §S4, `e2e/deck.ts`, `offline-presenter.spec.ts` upraveny.
+- **Proč:** na pokyn Kryštofa (zkrácení kvůli limitu 3:30).
+- **Dopad:** na slajdu už není žádná obrazovka nájemníka ani pozvánky; věta „nájemník vidí jen svůj byt“ zůstala jen v mluveném textu bez obrazového důkazu. Zmizelo tím upozornění na screenshot s e-mailem a testovacím nájemníkem. Mluvený text S4 je o ~20 slov kratší. Ověření viz níže.
+- **Soubory:** `src/slides/S04Product.tsx`, `src/content/slides.ts`, `e2e/deck.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
+### 2026-10-21 — S4 zkrácen na šest kroků (limit 3:30)
+- **Co:** Platby a Finance jsou jeden krok „Platby a finance.“ (animovaný dashboard; skutečný screenshot Finance se nepoužívá). Zrušeny kroky Komunikace a Databáze. S4 má kroky Platby a finance → Přehled nemovitosti → Nájemník → Spotřeba → Funkce → Integrace + shrnutí (`steps` 6). Smazány `CommunicationScene.tsx`, `DatabaseTable.tsx`, `communicationDemo.ts`, `databaseDemo.ts`, `finance.png` a preset `communication`. Z poznámek S4 zmizely věty o komunikaci, databázi a financích. BRIEF §S4, `e2e/deck.ts` a `offline-presenter.spec.ts` upraveny.
+- **Proč:** na pokyn Kryštofa, pitch se nevešel do 3:30. S4 měl 138 slov (~60 s) při rozpočtu 30 s; teď asi 107 slov. Celek asi 396 slov, ~3:00 čisté řeči (138 slov/min), než se doplní zbylé `[doplnit]`.
+- **Dopad:** ověřený nájemník a zprávy u bytu jsou už jen na S6 („Zprávy a závady“, „Ověřený nájemník“) a v kroku Funkce (sdílení historie). Databáze řemeslníků zůstává v dlaždici tržiště ve Funkcích a na S8. Dashboard žlutou nemá, ale poznámky pořád říkají semafor. Typecheck, lint (src, e2e, scripts), 38 unit testů, `check:content` (9 varování) a build prošly. **E2E neběželo:** chybí Playwright Chromium (`npx playwright install`). PDF se nepřegenerovalo; tiskový test čeká po změně jiný počet stran. Stopkami neověřeno.
+- **Soubory:** `src/slides/S04Product.tsx`, `src/content/slides.ts`, `src/motion/presets.ts`, `src/content/featuresDemo.ts`, `e2e/deck.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
 
 ### 2026-10-20 — S8: odlišení podle konkurenčního srovnání
 - **Co:** Pravá strana srovnání na S8 (krok 4) je teď pět hesel: „Dodavatelé energií. / Řemeslníci a tržiště. / Historie nájemníka. / Kredity s provizemi. / Komunikace u bytu.“ (dřív „Přenositelná historie. / Závada až k opravě. / Spotřeba až k nabídce.“, mezitím krátce Gmail, MCP, banky a AI). Písmo této části je 68 px místo `text-word`, aby se vešlo pět řádků. Přepsány poznámky S8 a Z3, BRIEF §S8. Levá strana „Co už umí trh“ beze změny.
@@ -362,3 +374,7 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Co:** Sloupec „Příjmy EstatIQ“ má novou položku „Přednostní nemovitosti v EstatIQ ads.“ (za Personalizovanou reklamou). Šest položek se nevešlo při 60 px, písmo je 52 px a mezera `gap-7`. Poznámky S8 a BRIEF §S8 přepsány na „šesti způsoby“ včetně „přednostní doporučování nemovitostí přes EstatIQ ads“.
 - **Proč:** Kryštof chtěl do monetizace přednostní doporučování nemovitostí přes EstatIQ ads. Na slajdu je zkrácené (limit 5 slov), plné znění je v poznámkách.
 - **Dopad:** Reklama musí být na produktu označená jako reklama (stejně jako personalizovaná reklama a affiliate). Záložní Z1 „Obchodní model“ s výčtem příjmů dál nesedí (viz zápis z 2026-10-19).
+
+### 2026-10-21 — Push na GitHub a deploy na Vercel (S8 příjmy a odlišení)
+- **Co:** Commit `961cce0` na `main` v `sobotkakrystof5-png/estatiq-pitch` (S8, poznámky Z3, BRIEF, memory). Produkční `vercel deploy --prod` na https://estatiq-pitch.vercel.app, stav Ready, HTTP 200. Spustil se dvakrát za sebou, platí poslední. `.agents/` zůstává necommitnutý.
+- **Dopad:** veřejná URL má stále placeholdery (varování `check:content`); před ostrým použitím `build:release`. Zápis tohoto záznamu je až po commitu, takže je lokálně necommitnutý.
