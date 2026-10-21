@@ -90,6 +90,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-20 — S8: odlišení podle konkurenčního srovnání
+- **Co:** Pravá strana srovnání na S8 (krok 4) je teď pět hesel: „Dodavatelé energií. / Řemeslníci a tržiště. / Historie nájemníka. / Kredity s provizemi. / Komunikace u bytu.“ (dřív „Přenositelná historie. / Závada až k opravě. / Spotřeba až k nabídce.“, mezitím krátce Gmail, MCP, banky a AI). Písmo této části je 68 px místo `text-word`, aby se vešlo pět řádků. Přepsány poznámky S8 a Z3, BRIEF §S8. Levá strana „Co už umí trh“ beze změny.
+- **Proč:** na pokyn Kryštofa, podle seznamu, který jsem navrhl (srovnání veřejných stránek Repilotu a eviduje.cz, 2026-10-20).
+- **Dopad:** Gmail, MCP, napojení bank a AI návrh smlouvy už na S8 nejsou (zůstávají v S4 a S6). Komunikace u bytu je slabé odlišení: eviduje.cz má komunikační vlákno, v poznámkách je to řečeno. Repilot a eviduje.cz neuvádějí srovnání dodavatelů energií, databázi řemeslníků, tržiště ani provize, ale jde o veřejné stránky, ne o ověřený stav produktů. Napojení na ČEZ, E.ON a Innogy je plán, otevřená otázka Integrace trvá. Přenositelná historie nájemníka se tím na S8 vrací (přebíjí záznam z 2026-10-19 jen částečně: texty jsou nové).
+- **Soubory:** `src/content/slides.ts`, `src/slides/S08Credits.tsx`, `docs/BRIEF.md`, `memory/memory.md`
+
 ### 2026-10-20 — Push a deploy (klik/tap/swipe)
 - **Co:** Commit `fc58c73` na `main` v `sobotkakrystof5-png/estatiq-pitch` (zahrnuje i dřív neodevzdané změny: zrušený S7, přepočet S5). Produkční `vercel deploy --prod` na https://estatiq-pitch.vercel.app, HTTP 200, živá stránka už má `viewport` meta.
 - **Proč:** na pokyn uživatele.
@@ -351,3 +357,8 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 - **Proč:** na pokyn uživatele, jako základ před stavbou.
 - **Dopad:** izolované.
 - **Soubory:** všechny výše.
+
+### 2026-10-20 — S8: šestá položka příjmů
+- **Co:** Sloupec „Příjmy EstatIQ“ má novou položku „Přednostní nemovitosti v EstatIQ ads.“ (za Personalizovanou reklamou). Šest položek se nevešlo při 60 px, písmo je 52 px a mezera `gap-7`. Poznámky S8 a BRIEF §S8 přepsány na „šesti způsoby“ včetně „přednostní doporučování nemovitostí přes EstatIQ ads“.
+- **Proč:** Kryštof chtěl do monetizace přednostní doporučování nemovitostí přes EstatIQ ads. Na slajdu je zkrácené (limit 5 slov), plné znění je v poznámkách.
+- **Dopad:** Reklama musí být na produktu označená jako reklama (stejně jako personalizovaná reklama a affiliate). Záložní Z1 „Obchodní model“ s výčtem příjmů dál nesedí (viz zápis z 2026-10-19).

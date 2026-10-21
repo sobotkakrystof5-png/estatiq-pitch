@@ -431,18 +431,21 @@ export const s8 = {
     revenueLabel: 'Příjmy EstatIQ',
     affiliate: 'Affiliate marketing',
     ads: 'Personalizovaná reklama',
+    promoted: cs('Přednostní nemovitosti v EstatIQ ads'),
     brokerage: cs('Poplatky za zprostředkování'),
     aiCredits: 'AI kredity',
     commission: cs('Provize z každé transakce'),
     marketLabel: 'Co už umí trh',
     marketBaseline: 'Platby. Smlouvy. Portály. Kredity.',
     edgeLabel: 'Naše plánované odlišení',
-    edgeHistory: 'Přenositelná historie.',
-    edgeRepair: cs('Závada až k opravě.'),
-    edgeEnergy: cs('Spotřeba až k nabídce.'),
+    edgeEnergy: 'Dodavatelé energií.',
+    edgeMarketplace: cs('Řemeslníci a tržiště.'),
+    edgeHistory: 'Historie nájemníka.',
+    edgeCredits: cs('Kredity s provizemi.'),
+    edgeChat: cs('Komunikace u bytu.'),
   },
   notes: cs(
-    'Tohle je model, ne dnešní ceník. Tisíc korun dá tisíc kreditů. [klik] Oprava za šest set kreditů nechá čtyři sta. Celých šest set není náš výnos: řemeslník má cenu práce, EstatIQ by mělo smluvní provizi. [klik] Návrh smlouvy za pět kreditů nechá tři sta devadesát pět. [klik] Vydělávat chceme pěti způsoby: affiliate marketing, personalizovaná reklama, poplatky za zprostředkování služby, AI kredity a provize z každé transakce. Reklama i doporučení budou jasně označené. [klik] Repilot už používá kredity; eviduje.cz má platby, smlouvy i portál. Naší sázkou je přenosná historie nájemníka a cesta od závady k opravě nebo od spotřeby k nabídce. Ověříme ji v pilotech.',
+    'Tohle je model, ne dnešní ceník. Tisíc korun dá tisíc kreditů. [klik] Oprava za šest set kreditů nechá čtyři sta. Celých šest set není náš výnos: řemeslník má cenu práce, EstatIQ by mělo smluvní provizi. [klik] Návrh smlouvy za pět kreditů nechá tři sta devadesát pět. [klik] Vydělávat chceme šesti způsoby: affiliate marketing, personalizovaná reklama, přednostní doporučování nemovitostí přes EstatIQ ads, poplatky za zprostředkování služby, AI kredity a provize z každé transakce. Reklama i doporučení budou jasně označené. [klik] Repilot už používá kredity; eviduje.cz má platby, smlouvy i portál. My navíc plánujeme srovnání dodavatelů energií, databázi řemeslníků s tržištěm, přenosnou historii nájemníka, kredity s provizemi a komunikaci přímo u bytu. Plánované odlišení ověříme v pilotech.',
   ),
 } satisfies SlideContent;
 
@@ -499,7 +502,7 @@ export const z3 = {
     layer: 'Naše sázka',
   },
   notes: cs(
-    'Repilot už má párování banky, upomínky, energie i kreditovou peněženku. eviduje.cz uvádí smlouvy, nájemnický portál a daňový přehled. Samotné platby ani kredity tedy nejsou odlišení. Chceme ověřit, jestli pronajímatelé ocení přenosnou dobrou historii nájemníka a jestli z nahlášené závady nebo z dat o spotřebě skutečně vznikne objednávka služby. Silnější tvrzení o konkurenci patří až za piloty.',
+    'Repilot už má párování banky, upomínky, energie i kreditovou peněženku. eviduje.cz uvádí smlouvy, nájemnický portál a daňový přehled. Samotné platby, kredity ani bankovní párování tedy nejsou odlišení. Na jejich veřejných stránkách chybí srovnání dodavatelů energií, databáze řemeslníků, tržiště, přenosná historie nájemníka i provize. Komunikační vlákno má eviduje.cz, to samo odlišení není. Silnější tvrzení o konkurenci držet až za piloty.',
   ),
 } satisfies SlideContent;
 

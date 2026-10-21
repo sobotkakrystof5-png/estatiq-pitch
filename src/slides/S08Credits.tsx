@@ -6,8 +6,8 @@ import { s8, text } from '../content/slides';
 import type { SlideProps } from '../deck/types';
 
 const { screen } = s8;
-const revenue = [screen.affiliate, screen.ads, screen.brokerage, screen.aiCredits, screen.commission];
-const edge = [screen.edgeHistory, screen.edgeRepair, screen.edgeEnergy];
+const revenue = [screen.affiliate, screen.ads, screen.promoted, screen.brokerage, screen.aiCredits, screen.commission];
+const edge = [screen.edgeEnergy, screen.edgeMarketplace, screen.edgeHistory, screen.edgeCredits, screen.edgeChat];
 
 export function S08Credits({ step }: SlideProps) {
   const compare = step >= 4;
@@ -71,9 +71,9 @@ export function S08Credits({ step }: SlideProps) {
           transition={stepReveal}
         >
           <p className="text-label text-muted">{text(screen.revenueLabel)}</p>
-          <div className="mt-12 flex flex-col gap-9">
+          <div className="mt-12 flex flex-col gap-7">
             {revenue.map((item, index) => (
-              <Word key={index} state={step >= 3 ? 'lit' : 'hidden'} className="text-[60px] font-medium leading-[1.05] tracking-[-0.03em] text-balance">
+              <Word key={index} state={step >= 3 ? 'lit' : 'hidden'} className="text-[52px] font-medium leading-[1.05] tracking-[-0.03em] text-balance">
                 {text(item)}
               </Word>
             ))}
@@ -96,9 +96,9 @@ export function S08Credits({ step }: SlideProps) {
         </div>
         <div className="absolute left-[1070px] top-[240px] w-[735px]">
           <p className="text-label text-mint">{text(screen.edgeLabel)}</p>
-          <div className="mt-14 flex flex-col gap-10">
+          <div className="mt-14 flex flex-col gap-8">
             {edge.map((item, index) => (
-              <Word key={index} state={compare ? 'lit' : 'hidden'} className="text-word">
+              <Word key={index} state={compare ? 'lit' : 'hidden'} className="text-[68px] font-medium leading-[1.2] tracking-[-0.03em]">
                 {text(item)}
               </Word>
             ))}
