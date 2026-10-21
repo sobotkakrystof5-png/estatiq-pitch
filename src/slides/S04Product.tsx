@@ -1,4 +1,4 @@
-// S4 · Produkt · tma. Pět obrazovek MVP; dodané snímky jsou skutečné, ostatní zůstávají popsanými placeholdery.
+// S4 · Produkt · tma. Šest obrazovek MVP; dodané snímky jsou skutečné, ostatní zůstávají popsanými placeholdery.
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import { LaptopFrame, Word } from '../design/primitives';
@@ -13,16 +13,19 @@ import consumptionShot from '../assets/screens/spotreba.png';
 import { PaymentsDashboard } from './payments/PaymentsDashboard';
 import { IntegrationsScene } from './integrations/IntegrationsScene';
 import { FeaturesScene } from './features/FeaturesScene';
+import { CommunicationScene } from './communication/CommunicationScene';
 
 const { screen } = s4;
 const shots = [
   { key: 'paymentShot', label: screen.paymentWord, alt: screen.paymentShot },
   { key: 'ownerShot', label: screen.ownerWord, alt: screen.ownerShot },
+  { key: 'communicationShot', label: screen.communicationWord, alt: screen.communicationShot },
   { key: 'consumptionShot', label: screen.consumptionWord, alt: screen.consumptionShot },
   { key: 'featuresShot', label: screen.featuresWord, alt: screen.featuresShot },
   { key: 'integrationsShot', label: screen.integrationsWord, alt: screen.integrationsShot },
 ] as const;
 const stepOf = (key: (typeof shots)[number]['key']) => shots.findIndex((shot) => shot.key === key);
+const communicationStep = stepOf('communicationShot');
 const featuresStep = stepOf('featuresShot');
 const integrationsStep = stepOf('integrationsShot');
 const summaryStep = shots.length;
@@ -106,6 +109,11 @@ export function S04Product({ step, mode, direction }: SlideProps) {
                     <PaymentsDashboard active={step === 0} play={playPayments} mode={mode} />
                   ) : shot.key === 'ownerShot' ? (
                     <OverviewShots />
+                  ) : shot.key === 'communicationShot' ? (
+                    <CommunicationScene
+                      on={step >= communicationStep}
+                      animated={step === communicationStep && mode === 'normal'}
+                    />
                   ) : shot.key === 'consumptionShot' ? (
                     <img
                       src={consumptionShot}

@@ -90,6 +90,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-21 — S4: vrácen krok Komunikace
+- **Co:** Za „Přehled nemovitosti.“ je zpět krok „Komunikace.“ (`CommunicationScene.tsx`, `communicationDemo.ts`, preset `communication` obnoveny z commitu `961cce0`, věta v poznámkách S4, BRIEF §S4). S4 má 6 kroků + shrnutí (`steps` 6): Platby a finance → Přehled nemovitosti → Komunikace → Spotřeba → Funkce → Integrace. `e2e/deck.ts` a `offline-presenter.spec.ts` upraveny.
+- **Proč:** na pokyn Kryštofa; ruší část záznamu „S4 zkrácen na šest kroků“ (Komunikace) ze stejného dne.
+- **Dopad:** vrací se ~31 slov mluveného textu (~13 s), takže pitch má zhruba 427 slov, ~3:07 čisté řeči, a rezerva do 3:30 je opět těsná (bez doplnění `[doplnit]` u Spotřeby a Integrace). Překryv Komunikace × Funkce (sdílení historie) × S6 (Zprávy a závady) trvá. Kroky Databáze, Finance a Nájemník zůstávají zrušené. Typecheck, lint, 38 unit testů, `check:content` a build prošly; E2E neběželo (chybí Chromium).
+- **Soubory:** `src/slides/communication/CommunicationScene.tsx`, `src/content/communicationDemo.ts`, `src/motion/presets.ts`, `src/slides/S04Product.tsx`, `src/content/slides.ts`, `e2e/deck.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
 ### 2026-10-21 — S3: bez slova „Smlouvy.“
 - **Co:** Z S3 zmizelo čtvrté slovo „Smlouvy.“ (`contracts` v obsahu, `WORDS`, kotva `anchors.contracts`). Zůstávají Banka. Excel. WhatsApp., rozsvěcují se kroky 1–3, slití do loga je krok 4, tag krok 5 (`steps` 5). Poznámky: „Smlouvy. [klik]“ pryč a z věty „EstatIQ propojí platby, dokumenty a komunikaci…“ jsem vypustil „dokumenty“, aby nevisely bez opory. BRIEF §S3, `e2e/deck.ts`, `offline-presenter.spec.ts`, `act1.spec.ts` upraveny.
 - **Proč:** na pokyn Kryštofa.

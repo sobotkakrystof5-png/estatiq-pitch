@@ -151,7 +151,7 @@ export const s4 = {
   id: 's4',
   title: 'Produkt',
   budgetSec: 30,
-  steps: 5,
+  steps: 6,
   screen: {
     paymentShot: {
       value: `Platby a${NB}finance v${NB}EstatIQ`,
@@ -176,6 +176,11 @@ export const s4 = {
     calendarShot: {
       value: `Kalendář úkolů v${NB}EstatIQ`,
       source: 'skutečný screenshot MVP dodaný Kryštofem, 2026-10-20',
+      status: 'verified',
+    },
+    communicationShot: {
+      value: `Komunikace a${NB}ověřený nájemník`,
+      source: 'vlastní kresba plánované komunikace, fiktivní data (zadání Kryštofa 2026-10-20)',
       status: 'verified',
     },
     consumptionShot: {
@@ -235,13 +240,14 @@ export const s4 = {
     },
     paymentWord: cs('Platby a finance.'),
     ownerWord: 'Přehled nemovitosti.',
+    communicationWord: 'Komunikace.',
     consumptionWord: 'Spotřeba.',
     featuresWord: 'Funkce.',
     integrationsWord: 'Integrace.',
     summary: 'Každý svůj přehled.',
   },
   notes: cs(
-    'Banka se promění v přehled plateb a financí: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel i WhatsApp nahradí portál: vlastník vidí své nemovitosti a úkony, nájemníky pozve přímo z aplikace a nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik] Spotřeba: [doplnit: co ukazuje přehled spotřeby]. [klik] Funkce, které chci přidat: AI návrh smlouvy ke kontrole, vysvětlení spotřeby a srovnání dodavatelů energií. Nájemník si sám zvolí, jestli sdílí historii plateb. Ověření insolvence, exekucí nebo příjmu jde jen se souhlasem a na právním základě. [klik] Integrace: banky Raiffeisenbank, ČSOB a Komerční banka, Gmail, MCP a dodavatelé energií ČEZ, E.ON a Innogy. [doplnit: které už fungují a jak se údaje berou]. [klik]',
+    'Banka se promění v přehled plateb a financí: zelená zaplaceno, žlutá čeká, červená po splatnosti. [klik] Excel i WhatsApp nahradí portál: vlastník vidí své nemovitosti a úkony, nájemníky pozve přímo z aplikace a nájemník vidí jen svůj byt, ne interní údaje majitele ani jiné nájemníky. [klik] Komunikace, kterou chci přidat: zprávy a závady přímo u bytu místo WhatsAppu. Nájemník se ověří jednou, se souhlasem, a každý zaplacený nájem mu staví historii. Komu ji ukáže, rozhodne sám. [klik] Spotřeba: [doplnit: co ukazuje přehled spotřeby]. [klik] Funkce, které chci přidat: AI návrh smlouvy ke kontrole, vysvětlení spotřeby a srovnání dodavatelů energií. Nájemník si sám zvolí, jestli sdílí historii plateb. Ověření insolvence, exekucí nebo příjmu jde jen se souhlasem a na právním základě. [klik] Integrace: banky Raiffeisenbank, ČSOB a Komerční banka, Gmail, MCP a dodavatelé energií ČEZ, E.ON a Innogy. [doplnit: které už fungují a jak se údaje berou]. [klik]',
   ),
 } satisfies SlideContent;
 
