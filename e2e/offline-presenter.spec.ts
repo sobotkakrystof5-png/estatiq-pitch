@@ -11,7 +11,7 @@ test('single-file deck projde offline všemi hlavními i záložními kroky', as
   await open(page);
 
   const mainIds = ['s1', 's2', 's3', 's4', 's5', 's6', 's8', 's9'];
-  const steps = [2, 1, 6, 5, 4, 3, 4, 2, 0, 0, 0, 0, 0, 0, 0];
+  const steps = [2, 1, 5, 5, 4, 3, 4, 2, 0, 0, 0, 0, 0, 0, 0];
   for (let slide = 0; slide < steps.length; slide++) {
     const id = slide < mainIds.length ? `${slide + 1}` : `z${slide - mainIds.length + 1}`;
     for (let step = 0; step <= steps[slide]!; step++) {

@@ -90,6 +90,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-21 — S3: bez slova „Smlouvy.“
+- **Co:** Z S3 zmizelo čtvrté slovo „Smlouvy.“ (`contracts` v obsahu, `WORDS`, kotva `anchors.contracts`). Zůstávají Banka. Excel. WhatsApp., rozsvěcují se kroky 1–3, slití do loga je krok 4, tag krok 5 (`steps` 5). Poznámky: „Smlouvy. [klik]“ pryč a z věty „EstatIQ propojí platby, dokumenty a komunikaci…“ jsem vypustil „dokumenty“, aby nevisely bez opory. BRIEF §S3, `e2e/deck.ts`, `offline-presenter.spec.ts`, `act1.spec.ts` upraveny.
+- **Proč:** na pokyn Kryštofa.
+- **Dopad:** šanon se smlouvami zůstává jako kulisa S2 a při rozpadu zmizí beze slova. Tři slova jsou svisle vystředěná (`TOP` se počítá z počtu slov). S2 a S6 smlouvy pořád zmiňují. Vizuálně jsem rozpad nezkontroloval (není Chromium), typecheck, lint, 38 unit testů, `check:content` a build prošly; E2E neběželo.
+- **Soubory:** `src/content/slides.ts`, `src/slides/S03Reveal.tsx`, `src/slides/chaos/layout.ts`, `e2e/deck.ts`, `e2e/offline-presenter.spec.ts`, `e2e/act1.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
 ### 2026-10-21 — Push a deploy (S9)
 - **Co:** Commit `1f7c3f5` na `main`, produkční `vercel deploy --prod` na https://estatiq-pitch.vercel.app, HTTP 200, živá stránka obsahuje „První 3 piloty“.
 - **Proč:** na pokyn Kryštofa.

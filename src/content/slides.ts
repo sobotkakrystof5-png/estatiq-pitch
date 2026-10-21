@@ -131,12 +131,11 @@ export const s3 = {
   id: 's3',
   title: 'Odhalení',
   budgetSec: 15,
-  steps: 6,
+  steps: 5,
   screen: {
     bank: 'Banka.',
     sheet: 'Excel.',
     chat: 'WhatsApp.',
-    contracts: 'Smlouvy.',
     tag: {
       value: 'Pronájem, který se řídí sám.',
       source: 'volba Kryštofa, slajd 3',
@@ -144,7 +143,7 @@ export const s3 = {
     },
   },
   notes: cs(
-    'Banka. [klik] Excel. [klik] WhatsApp. [klik] Smlouvy. [klik] [pauza 2 s] Dnes jsou oddělené. EstatIQ propojí platby, dokumenty a komunikaci pro pronajímatele i nájemníka. [klik] EstatIQ. [klik]',
+    'Banka. [klik] Excel. [klik] WhatsApp. [klik] [pauza 2 s] Dnes jsou oddělené. EstatIQ propojí platby a komunikaci pro pronajímatele i nájemníka. [klik] EstatIQ. [klik]',
   ),
 } satisfies SlideContent;
 

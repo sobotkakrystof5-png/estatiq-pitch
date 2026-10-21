@@ -42,7 +42,7 @@ test('10 kliků za sekundu skončí ve správném stavu bez artefaktů', async (
   await expectAt(page, last.id, last.step);
   expect(await opacity(page, '[data-testid=reveal-logo]')).toEqual([1]);
   // Slova jsou slitá v logu, papír z rozpadu po sobě nic nenechal.
-  expect(await opacity(page, '[data-testid=reveal-word] > div')).toEqual([0, 0, 0, 0]);
+  expect(await opacity(page, '[data-testid=reveal-word] > div')).toEqual([0, 0, 0]);
   await expect(page.getByTestId('reveal-ghost')).toHaveCount(0);
 
   await press(page, 'ArrowLeft', ACT1.length - 1, 100);
@@ -61,9 +61,8 @@ test('S2 → S3: rozpad doběhne do 600 ms a slova stojí v cíli', async ({ pag
   await page.waitForTimeout(650);
   const ghost = page.getByTestId('reveal-ghost');
   expect(await ghost.evaluate((el) => getComputedStyle(el).clipPath)).toBe('inset(50% 0%)');
-  expect(await opacity(page, '[data-testid=reveal-word]')).toEqual([1, 1, 1, 1]);
+  expect(await opacity(page, '[data-testid=reveal-word]')).toEqual([1, 1, 1]);
   expect(await transforms(page, '[data-testid=reveal-word]')).toEqual([
-    [0, 0, 1],
     [0, 0, 1],
     [0, 0, 1],
     [0, 0, 1],
@@ -97,7 +96,7 @@ test('instant: skok číslem na S3 ukáže hotová slova bez rozpadu', async ({ 
   await expectAt(page, 's3', 0);
   await page.waitForTimeout(80);
   await expect(page.getByTestId('reveal-ghost')).toHaveCount(0);
-  expect(await opacity(page, '[data-testid=reveal-word]')).toEqual([1, 1, 1, 1]);
+  expect(await opacity(page, '[data-testid=reveal-word]')).toEqual([1, 1, 1]);
 });
 
 test('S2 při CPU throttlingu 4×: snímky timeline', async ({ page }, info) => {

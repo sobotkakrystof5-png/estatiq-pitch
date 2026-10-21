@@ -198,11 +198,11 @@ Formát: **Na plátně** (každý krok), **Pohyb**, **Poznámky** (mluvený text
 - **Poznámky:** Když firmám automatizuji faktury, člověk často ručně přepisuje data mezi nástroji. V pronájmech je stejný problém. Správce porovnává výpis z banky s Excelem. Nájemníci píšou na WhatsApp, smlouvy a faktury leží v šanonu. [pauza 2 s] U správce s 300 byty jde modelově o 300 platebních řádků každý měsíc. A nakonec musí zjistit: kdo mu dluží?
 
 ### S3 · Odhalení · papír → TMA · 0:45–1:00
-- **Krok 0:** rozpad. Z chaosu vyjedou čtyři slovní značky: **Banka. Excel. WhatsApp. Smlouvy.** Čtvrté slovo vyjede ze šanonu. Pozadí se stáhne z papíru do tmy.
-- **Kroky 1–4:** na každé vyslovené slovo se rozsvítí ono a ostatní klesnou na 25 %.
-- **Krok 5 („Je to jeden.“):** slova sjedou do středu, zmenší se a prolnou se v logo EstatIQ.
-- **Krok 6:** pod logem se objeví tag v `--muted`.
-- **Poznámky:** Banka. [klik] Excel. [klik] WhatsApp. [klik] Smlouvy. [klik] [pauza 2 s] Dnes jsou oddělené. EstatIQ propojí platby, dokumenty a komunikaci pro pronajímatele i nájemníka. [klik] EstatIQ. [klik]
+- **Krok 0:** rozpad. Z chaosu vyjedou tři slovní značky: **Banka. Excel. WhatsApp.** Pozadí se stáhne z papíru do tmy.
+- **Kroky 1–3:** na každé vyslovené slovo se rozsvítí ono a ostatní klesnou na 25 %.
+- **Krok 4 („Je to jeden.“):** slova sjedou do středu, zmenší se a prolnou se v logo EstatIQ.
+- **Krok 5:** pod logem se objeví tag v `--muted`.
+- **Poznámky:** Banka. [klik] Excel. [klik] WhatsApp. [klik] [pauza 2 s] Dnes jsou oddělené. EstatIQ propojí platby a komunikaci pro pronajímatele i nájemníka. [klik] EstatIQ. [klik]
 - **Tag:** „Pronájem, který se řídí sám.“ Platí jen po ověření skutečného bankovního párování.
 
 ### S4 · Produkt · tma · 1:00–1:30

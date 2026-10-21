@@ -9,7 +9,7 @@ export const url = pathToFileURL(resolve('dist/index.html')).href;
 export const MAIN = [
   ['s1', 2],
   ['s2', 1],
-  ['s3', 6],
+  ['s3', 5],
   ['s4', 5],
   ['s5', 4],
   ['s6', 3],
