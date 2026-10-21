@@ -432,16 +432,14 @@ export const s8 = {
 
 export const s9 = {
   id: 's9',
-  title: 'Co chci',
+  title: 'Závěr',
   budgetSec: 20,
-  steps: 2,
+  steps: 0,
   screen: {
-    pilots: `První 3${NB}piloty.`,
-    ask: 'Mentoři. Tým.',
     tagline: 'Přidej. Pronajmi. Vydělávej.',
   },
   notes: cs(
-    'MVP je hotové. Po workshopu chceme první tři piloty. [klik] Od Green Light chci mentory a tým: pomoc najít obchodního parťáka. [pauza 2 s] [klik] Přidej. Pronajmi. Vydělávej. Děkuji.',
+    'MVP je hotové. Po workshopu chceme první tři piloty. Od Green Light chci mentory a tým: pomoc najít obchodního parťáka. [pauza 2 s] Přidej. Pronajmi. Vydělávej. Děkuji.',
   ),
 } satisfies SlideContent;
 

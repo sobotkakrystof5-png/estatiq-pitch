@@ -90,6 +90,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-21 — S9: žádost (piloty, mentoři, tým) ze slajdu pryč
+- **Co:** Z S9 zmizela obrazovka „První 3 piloty. / Mentoři. Tým.“. Zbývá jen závěrečná karta „Přidej. Pronajmi. Vydělávej.“ s logem, `steps` 0, `title` „Závěr“. `S09Ask.tsx` je jen karta. Poznámky zůstaly (žádost o piloty, mentory a tým) bez `[klik]`, protože je Kryštof řekne ústně. Upraveny BRIEF §S9, `e2e/deck.ts`, `offline-presenter.spec.ts`, test „S9 závěr neblokuje zpětný krok“ (teď S8 krok 4 → S9 → zpět).
+- **Proč:** na pokyn Kryštofa, obsah zazní ústně.
+- **Dopad:** žádost Green Light (piloty, mentoři, tým) už není nikde na slajdu, jen v mluveném textu. Tím se ruší záznam „S9: bez 12 hovorů, první 3 piloty“ co do obrazovky; text zůstal. Porota je v hodnocení (BRIEF §1) hodnotí tým a ověření, ale slajd o nich nic neříká. Tabulka rozpočtů v BRIEF má pořád název „Co chci“. Typecheck, lint, 38 unit testů, `check:content` a build prošly; E2E neběželo. Nepushnuto ani nenasazeno.
+- **Soubory:** `src/slides/S09Ask.tsx`, `src/content/slides.ts`, `e2e/deck.ts`, `e2e/offline-presenter.spec.ts`, `e2e/engine.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
 ### 2026-10-21 — S4: vrácen krok Komunikace
 - **Co:** Za „Přehled nemovitosti.“ je zpět krok „Komunikace.“ (`CommunicationScene.tsx`, `communicationDemo.ts`, preset `communication` obnoveny z commitu `961cce0`, věta v poznámkách S4, BRIEF §S4). S4 má 6 kroků + shrnutí (`steps` 6): Platby a finance → Přehled nemovitosti → Komunikace → Spotřeba → Funkce → Integrace. `e2e/deck.ts` a `offline-presenter.spec.ts` upraveny.
 - **Proč:** na pokyn Kryštofa; ruší část záznamu „S4 zkrácen na šest kroků“ (Komunikace) ze stejného dne.

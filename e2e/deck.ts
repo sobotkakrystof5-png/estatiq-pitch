@@ -14,7 +14,7 @@ export const MAIN = [
   ['s5', 4],
   ['s6', 3],
   ['s8', 4],
-  ['s9', 2],
+  ['s9', 0],
 ] as const;
 
 export const positions = MAIN.flatMap(([id, steps], s) =>

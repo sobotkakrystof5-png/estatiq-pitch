@@ -192,14 +192,14 @@ test('přehled záložních slajdů a návrat Esc', async ({ page }) => {
 });
 
 test('S9 závěr neblokuje zpětný krok', async ({ page }) => {
-  await open(page, '#/8/1');
+  await open(page, '#/7/4');
   await page.keyboard.press('ArrowRight');
-  await expectAt(page, 's9', 2);
+  await expectAt(page, 's9', 0);
   const endcard = top(page).getByTestId('s9-endcard');
   await expect(endcard).toBeVisible();
   await expect(endcard.getByText('Přidej. Pronajmi. Vydělávej.')).toBeVisible();
   await page.keyboard.press('ArrowLeft');
-  await expectAt(page, 's9', 1);
+  await expectAt(page, 's8', 4);
 });
 
 test('plátno se škáluje a letterbox má barvu slajdu', async ({ page }) => {

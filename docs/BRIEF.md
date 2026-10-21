@@ -242,10 +242,9 @@ Formát: **Na plátně** (každý krok), **Pohyb**, **Poznámky** (mluvený text
 - **Poznámky:** Tohle je model, ne dnešní ceník. Tisíc korun dá tisíc kreditů. [klik] Oprava za šest set kreditů nechá čtyři sta. Celých šest set není náš výnos: řemeslník má cenu práce, EstatIQ by mělo smluvní provizi. [klik] Návrh smlouvy za pět kreditů nechá tři sta devadesát pět. [klik] Vydělávat chceme šesti způsoby: affiliate marketing, personalizovaná reklama, přednostní doporučování nemovitostí přes EstatIQ ads, poplatky za zprostředkování služby, AI kredity a provize z každé transakce. Reklama i doporučení budou jasně označené. [klik] Repilot už používá kredity; eviduje.cz má platby, smlouvy i portál. Naší sázkou je přenosná historie nájemníka a cesta od závady k opravě nebo od spotřeby k nabídce. Ověříme ji v pilotech.
 - **Podklady ke konkurenci:** [Repilot](https://www.repilot.cz/) popisuje bankovní párování, upomínky a spotřebu; [jeho ceník](https://www.repilot.cz/cenik) uvádí peněženku a kurz 1 kredit = 1 Kč. [eviduje.cz](https://www.eviduje.cz/features) uvádí smlouvy, portál nájemníka a přehled pro daně. Proto nejsou samotné kredity ani základní evidence věrohodnou výhodou.
 
-### S9 · Co chci · tma · 3:35–3:55
-- **Kroky 0–1:** jedno heslo po druhém, zarovnané vlevo a pod sebou, předchozí klesne na 40 %: **První 3 piloty.** → **Mentoři. Tým.**
-- **Krok 2:** hesla zmizí. Uprostřed se objeví **Přidej. Pronajmi. Vydělávej.** a pod ním logo EstatIQ. Konec.
-- **Poznámky:** MVP je hotové. Po workshopu chceme první tři piloty. [klik] Od Green Light chci mentory a tým: pomoc najít obchodního parťáka. [pauza 2 s] [klik] Přidej. Pronajmi. Vydělávej. Děkuji.
+### S9 · Závěr · tma · 3:35–3:55
+- **Krok 0 (jediný):** uprostřed **Přidej. Pronajmi. Vydělávej.** a pod ním logo EstatIQ. Konec. Žádost (první 3 piloty po workshopu, mentoři, tým) na slajdu není a zazní ústně (rozhodnutí Kryštofa 2026-10-21).
+- **Poznámky:** MVP je hotové. Po workshopu chceme první tři piloty. Od Green Light chci mentory a tým: pomoc najít obchodního parťáka. [pauza 2 s] Přidej. Pronajmi. Vydělávej. Děkuji.
 
 ### Záložní slajdy (Z), jen na otázky
 Stejný design, ale smí mít víc obsahu (nejvýš jedna jednoduchá tabulka nebo diagram). Odrážky ani tady ne.
