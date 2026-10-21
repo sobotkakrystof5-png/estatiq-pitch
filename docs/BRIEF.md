@@ -242,9 +242,9 @@ Formát: **Na plátně** (každý krok), **Pohyb**, **Poznámky** (mluvený text
 - **Podklady ke konkurenci:** [Repilot](https://www.repilot.cz/) popisuje bankovní párování, upomínky a spotřebu; [jeho ceník](https://www.repilot.cz/cenik) uvádí peněženku a kurz 1 kredit = 1 Kč. [eviduje.cz](https://www.eviduje.cz/features) uvádí smlouvy, portál nájemníka a přehled pro daně. Proto nejsou samotné kredity ani základní evidence věrohodnou výhodou.
 
 ### S9 · Co chci · tma · 3:35–3:55
-- **Kroky 0–2:** jedno heslo po druhém, zarovnané vlevo a pod sebou, předchozí klesne na 40 %: **12 hovorů.** → **2 piloty.** → **Mentoři. Tým.**
-- **Krok 3:** hesla zmizí. Uprostřed se objeví **Přidej. Pronajmi. Vydělávej.** a pod ním logo EstatIQ. Konec.
-- **Poznámky:** MVP je hotové a mluvil jsem s dvanácti realitkami a správci. [klik] Do Startup Show chci dva pilotní správce. [klik] Od Green Light chci mentory a pomoc najít obchodního parťáka. [pauza 2 s] [klik] Přidej. Pronajmi. Vydělávej. Děkuji.
+- **Kroky 0–1:** jedno heslo po druhém, zarovnané vlevo a pod sebou, předchozí klesne na 40 %: **První 3 piloty.** → **Mentoři. Tým.**
+- **Krok 2:** hesla zmizí. Uprostřed se objeví **Přidej. Pronajmi. Vydělávej.** a pod ním logo EstatIQ. Konec.
+- **Poznámky:** MVP je hotové. Po workshopu chceme první tři piloty. [klik] Od Green Light chci mentory a tým: pomoc najít obchodního parťáka. [pauza 2 s] [klik] Přidej. Pronajmi. Vydělávej. Děkuji.
 
 ### Záložní slajdy (Z), jen na otázky
 Stejný design, ale smí mít víc obsahu (nejvýš jedna jednoduchá tabulka nebo diagram). Odrážky ani tady ne.

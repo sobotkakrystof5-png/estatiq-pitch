@@ -429,15 +429,14 @@ export const s9 = {
   id: 's9',
   title: 'Co chci',
   budgetSec: 20,
-  steps: 3,
+  steps: 2,
   screen: {
-    calls: `12${NB}hovorů.`,
-    pilots: `2${NB}piloty.`,
+    pilots: `První 3${NB}piloty.`,
     ask: 'Mentoři. Tým.',
     tagline: 'Přidej. Pronajmi. Vydělávej.',
   },
   notes: cs(
-    'MVP je hotové a mluvil jsem s dvanácti realitkami a správci. [klik] Do Startup Show chci dva pilotní správce. [klik] Od Green Light chci mentory a pomoc najít obchodního parťáka. [pauza 2 s] [klik] Přidej. Pronajmi. Vydělávej. Děkuji.',
+    'MVP je hotové. Po workshopu chceme první tři piloty. [klik] Od Green Light chci mentory a tým: pomoc najít obchodního parťáka. [pauza 2 s] [klik] Přidej. Pronajmi. Vydělávej. Děkuji.',
   ),
 } satisfies SlideContent;
 

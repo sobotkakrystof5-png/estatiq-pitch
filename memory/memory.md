@@ -90,6 +90,12 @@ Co se skutečně stalo, jaký je aktuální stav a proč. Formát: `pravidla.md`
 
 ## Changelog
 
+### 2026-10-21 — S9: bez „12 hovorů“, první 3 piloty po workshopu
+- **Co:** Z S9 zmizelo heslo „12 hovorů.“ a věta o rozhovoru s dvanácti realitkami a správci. „2 piloty.“ je „První 3 piloty.“; mluvený text: „MVP je hotové. Po workshopu chceme první tři piloty. [klik] Od Green Light chci mentory a tým: pomoc najít obchodního parťáka.“ „Do Startup Show chci dva pilotní správce“ je pryč. S9 má 2 kroky + závěrečnou kartu (`steps` 2). Upraveny BRIEF §S9, `e2e/deck.ts`, `offline-presenter.spec.ts`.
+- **Proč:** na pokyn Kryštofa (cíl: po workshopu první 3 piloty a tým).
+- **Dopad:** pitch už nezmiňuje počet rozhovorů s trhem (z jiných slajdů ani z S1 ho nic nenahrazuje). Zmínka „Startup Show“ zmizela z mluveného textu. Heslo „Mentoři. Tým.“ zůstává. Otevřená otázka „Druhé kolo hovorů“ trvá. E2E neběželo (chybí Playwright Chromium).
+- **Soubory:** `src/content/slides.ts`, `src/slides/S09Ask.tsx`, `e2e/deck.ts`, `e2e/offline-presenter.spec.ts`, `docs/BRIEF.md`, `memory/memory.md`
+
 ### 2026-10-21 — Push a deploy (S4 na pět kroků)
 - **Co:** Commit `a769ab2` na `main` v `sobotkakrystof5-png/estatiq-pitch`. Produkční `vercel deploy --prod` na https://estatiq-pitch.vercel.app, stav Ready, HTTP 200.
 - **Proč:** na pokyn Kryštofa.
